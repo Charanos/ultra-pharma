@@ -8,8 +8,8 @@ import { ModeToggle } from "@/components/theme-toggle";
 
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "About us", href: "/about" },
-  { name: "Contact us", href: "/contact" },
+  { name: "Services", href: "/#services" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 export function Navigation() {
@@ -43,7 +43,9 @@ export function Navigation() {
               <div className="w-9 h-9 bg-cyan-600 rounded-xl flex items-center justify-center">
                 <Pill className="w-5 h-5 text-white" />
               </div>
-              <span className="ml-2 font-semibold uppercase">Ultra Pharma</span>
+              <span className="ml-2 font-semibold uppercase">
+                Ultra <span className="text-[#30d5c8]">Pharma</span>
+              </span>
             </Link>
           </div>
 

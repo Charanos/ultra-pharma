@@ -164,14 +164,18 @@
 }
 
 * {
-  border-color: hsl(var(--border));
+  border-color: #333;
+  box-sizing: border-box;
 }
 
 body {
   line-height: 1.6;
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
   font-family: var(--font-primary);
+  background-color: hsl(var(--background));
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 /* Headings and links use Montserrat as secondary font */
@@ -186,11 +190,18 @@ h6 {
 }
 
 a,
+ul,
+li,
 button,
 span {
   font-family: var(--font-montserrat), "Helvetica Neue", Helvetica, Arial,
     sans-serif;
   text-decoration: none;
+}
+
+.monty {
+  font-family: var(--font-montserrat), "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
 }
 
 /* Paragraphs explicitly use Helvetica */
