@@ -20,6 +20,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import Link from "next/link";
+import { FaLinkedin } from "react-icons/fa";
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -37,7 +38,6 @@ export default function Home() {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
-
 
     window.addEventListener("mousemove", handleMouseMove);
 
@@ -59,14 +59,14 @@ export default function Home() {
       alert("Please provide your name, email, and message.");
       return;
     }
-    
+
     setSubmitting(true);
-    
+
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
+      const response = await fetch("/api/contact", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(form),
       });
@@ -76,11 +76,11 @@ export default function Home() {
         setForm({ name: "", email: "", subject: "", message: "" });
       } else {
         const error = await response.json();
-        alert(`Error: ${error.error || 'Failed to send message'}`);
+        alert(`Error: ${error.error || "Failed to send message"}`);
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
-      alert('Failed to send message. Please try again.');
+      console.error("Error submitting form:", error);
+      alert("Failed to send message. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -239,8 +239,9 @@ export default function Home() {
             {/* Supporting Headline */}
             <h2 className="text-md md:text-lg text-muted-foreground max-w-4xl mx-auto mb-12 leading-relaxed font-medium">
               We deliver regulatory and compliance expertise across Kenya and
-              Africa&apos;s healthcare sector—ensuring safety, quality standards, and
-              faster market access for innovators and care providers.
+              Africa&apos;s healthcare sector—ensuring safety, quality
+              standards, and faster market access for innovators and care
+              providers.
             </h2>
 
             {/* CTA Buttons with premium interactions */}
@@ -439,7 +440,7 @@ export default function Home() {
             </div>
 
             <div
-              className="grid md:grid-cols-2 gap-8 max-w-7xl mx-auto"
+              className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto"
               id="contact-form"
             >
               {/* Left: Contact information */}
@@ -490,6 +491,24 @@ export default function Home() {
                         className="text-small text-muted-foreground hover:text-brand-primary"
                       >
                         +254 020 5618353
+                      </a>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center">
+                      <FaLinkedin className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-small font-semibold text-foreground">
+                        LinkedIn
+                      </p>
+                      <a
+                        href="https://www.linkedin.com/in/ultra-pharma-kenya/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-small text-muted-foreground hover:text-brand-primary"
+                      >
+                        Connect with us
                       </a>
                     </div>
                   </li>
@@ -652,7 +671,7 @@ export default function Home() {
                     </a>
                   </li>
                   <li className="flex items-start gap-2">
-                    <ExternalLink className="w-4 h-4 mt-0.5 text-brand-primary" />{" "}
+                    <FaLinkedin className="w-4 h-4 mt-0.5 text-brand-primary" />{" "}
                     <a
                       href="https://www.linkedin.com/in/ultra-pharma-kenya/"
                       target="_blank"
