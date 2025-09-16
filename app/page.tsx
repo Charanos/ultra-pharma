@@ -3,31 +3,26 @@
 import { useState, useEffect, type FormEvent, type ChangeEvent } from "react";
 import {
   ArrowRight,
-  Phone,
   Mail,
+  Phone,
   MapPin,
   ChevronRight,
-  Activity,
-  Target,
-  Zap,
+  TrendingUp,
   Shield,
   Globe,
-  Award,
-  Users,
-  TrendingUp,
-  Sparkles,
-  CheckCircle2,
+  CheckCircle,
   FileCheck,
   Brain,
   Microscope,
   Pill,
+  Zap,
+  Target,
+  ExternalLink,
 } from "lucide-react";
 import Link from "next/link";
-import { div } from "framer-motion/client";
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [scrollY, setScrollY] = useState(0);
   const [activeService, setActiveService] = useState(0);
   const [form, setForm] = useState({
     name: "",
@@ -43,16 +38,11 @@ export default function Home() {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
 
     window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -159,29 +149,6 @@ export default function Home() {
     },
   ];
 
-  const stats = [
-    {
-      value: "500+",
-      label: "Successful Approvals",
-      icon: <Award className="w-5 h-5" />,
-    },
-    {
-      value: "98%",
-      label: "First-Time Success",
-      icon: <TrendingUp className="w-5 h-5" />,
-    },
-    {
-      value: "25+",
-      label: "Global Markets",
-      icon: <Globe className="w-5 h-5" />,
-    },
-    {
-      value: "15yr",
-      label: "Industry Leadership",
-      icon: <Shield className="w-5 h-5" />,
-    },
-  ];
-
   const differentiators = [
     {
       title: "Outcome-Driven Submissions",
@@ -272,7 +239,7 @@ export default function Home() {
             {/* Supporting Headline */}
             <h2 className="text-md md:text-lg text-muted-foreground max-w-4xl mx-auto mb-12 leading-relaxed font-medium">
               We deliver regulatory and compliance expertise across Kenya and
-              Africa's healthcare sector—ensuring safety, quality standards, and
+              Africa&apos;s healthcare sector—ensuring safety, quality standards, and
               faster market access for innovators and care providers.
             </h2>
 
@@ -365,7 +332,7 @@ export default function Home() {
                             key={idx}
                             className="flex items-center text-xs text-muted-foreground group-hover:text-foreground transition-colors font-semibold uppercase"
                           >
-                            <CheckCircle2 className="w-3 h-3 text-brand-primary mr-2 flex-shrink-0" />
+                            <CheckCircle className="w-3 h-3 text-brand-primary mr-2 flex-shrink-0" />
                             {feature}
                           </li>
                         ))}
@@ -619,9 +586,9 @@ export default function Home() {
                 </h4>
                 <ul className="space-y-2 text-md">
                   <li>
-                    <a href="/" className="hover:text-brand-primary">
+                    <Link href="/" className="hover:text-brand-primary">
                       Home
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a href="/about" className="hover:text-brand-primary">
@@ -682,6 +649,17 @@ export default function Home() {
                       className="hover:text-brand-primary"
                     >
                       +254 020 5618353
+                    </a>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <ExternalLink className="w-4 h-4 mt-0.5 text-brand-primary" />{" "}
+                    <a
+                      href="https://www.linkedin.com/in/ultra-pharma-kenya/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-brand-primary"
+                    >
+                      LinkedIn
                     </a>
                   </li>
                 </ul>
