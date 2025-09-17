@@ -587,13 +587,13 @@ export default function Home() {
                   <Link href="/" className="flex items-center space-x-2">
                     <div className="w-12 h-12 rounded-xl flex items-center gap-0">
                       <Image
-                        src="/logo.svg"
+                        src="/Africa.svg"
                         alt="Ultra Pharma Logo"
-                        width={46}
-                        height={46}
+                        width={36}
+                        height={36}
                       />
                     </div>
-                    <span className="-ml-0.5 font-semibold uppercase">
+                    <span className="-ml-2.5 font-semibold uppercase">
                       Ultra <span className="text-[#30d5c8]">Pharma</span>
                     </span>
                   </Link>
