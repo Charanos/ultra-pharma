@@ -589,8 +589,8 @@ export default function Home() {
                       <Image
                         src="/logo.svg"
                         alt="Ultra Pharma Logo"
-                        width={48}
-                        height={48}
+                        width={46}
+                        height={46}
                       />
                     </div>
                     <span className="-ml-0.5 font-semibold uppercase">
