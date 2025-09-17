@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, Pill } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { ModeToggle } from "@/components/theme-toggle";
 
 const navigation = [
@@ -37,14 +38,19 @@ export function Navigation() {
           }`}
         >
           {/* Desktop */}
-          <div className="hidden md:grid grid-cols-3 items-center h-18 px-4 py-3">
+          <div className="hidden md:grid grid-cols-3 items-center h-16 px-4 py-1">
             {/* Left: Logo */}
             <div className="flex items-center justify-start">
               <Link href="/" className="flex items-center space-x-2">
-                <div className="w-9 h-9 bg-cyan-600 rounded-xl flex items-center justify-center">
-                  <Pill className="w-5 h-5 text-white" />
+                <div className="w-12 h-12 rounded-xl flex items-center gap-0">
+                  <Image
+                    src="/logo.png"
+                    alt="Ultra Pharma Logo"
+                    width={48}
+                    height={48}
+                  />
                 </div>
-                <span className="ml-2 font-semibold uppercase">
+                <span className="ml-1 font-semibold uppercase">
                   Ultra <span className="text-[#30d5c8]">Pharma</span>
                 </span>
               </Link>
@@ -72,11 +78,17 @@ export function Navigation() {
           </div>
 
           {/* Mobile header */}
-          <div className="md:hidden flex items-center justify-between h-20 px-4 py-2">
+          <div className="md:hidden flex items-center justify-between h-16 px-4 py-2">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-9 h-9 bg-cyan-600 rounded-xl flex items-center justify-center">
-                <Pill className="w-6 h-6 text-white" />
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center">
+                <Image
+                  src="/logo.png"
+                  alt="Ultra Pharma Logo"
+                  width={36}
+                  height={36}
+                  className="rounded-xl"
+                />
               </div>
               <span className="text-sm font-semibold uppercase">
                 Ultra Pharma

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, type FormEvent, type ChangeEvent } from "react";
+import Image from "next/image";
 import {
   ArrowRight,
   Mail,
@@ -14,7 +15,6 @@ import {
   FileCheck,
   Brain,
   Microscope,
-  Pill,
   Zap,
   Target,
   ExternalLink,
@@ -585,10 +585,15 @@ export default function Home() {
               <div>
                 <div className="flex items-center justify-start">
                   <Link href="/" className="flex items-center space-x-2">
-                    <div className="w-9 h-9 bg-cyan-600 rounded-xl flex items-center justify-center">
-                      <Pill className="w-5 h-5 text-white" />
+                    <div className="w-12 h-12 rounded-xl flex items-center gap-0">
+                      <Image
+                        src="/logo.png"
+                        alt="Ultra Pharma Logo"
+                        width={48}
+                        height={48}
+                      />
                     </div>
-                    <span className="ml-2 font-semibold uppercase">
+                    <span className="ml-1 font-semibold uppercase">
                       Ultra <span className="text-[#30d5c8]">Pharma</span>
                     </span>
                   </Link>

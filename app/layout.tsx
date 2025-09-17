@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
-import { Varela_Round, Montserrat } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
+import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Navigation } from "@/components/navigation";
+import { Varela_Round, Montserrat } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
 
 // Varela Round as fallback font (Google Fonts)
 const varelaRound = Varela_Round({
@@ -48,6 +49,8 @@ export default function RootLayout({
         >
           <Navigation />
           {children}
+
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
