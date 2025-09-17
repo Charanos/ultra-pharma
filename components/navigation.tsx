@@ -38,7 +38,7 @@ export function Navigation() {
           }`}
         >
           {/* Desktop */}
-          <div className="hidden md:grid grid-cols-3 items-center h-16 px-4 py-1">
+          <div className="hidden md:grid grid-cols-3 items-center h-16 px-8 py-1">
             {/* Left: Logo */}
             <div className="flex items-center justify-start">
               <Link href="/" className="flex items-center space-x-2">
@@ -50,7 +50,7 @@ export function Navigation() {
                     height={48}
                   />
                 </div>
-                <span className="ml-1 font-semibold uppercase">
+                <span className="-ml-1.5 font-semibold uppercase">
                   Ultra <span className="text-[#30d5c8]">Pharma</span>
                 </span>
               </Link>
@@ -81,16 +81,15 @@ export function Navigation() {
           <div className="md:hidden flex items-center justify-between h-16 px-4 py-2">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-9 h-9 rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl flex items-center">
                 <Image
                   src="/logo.png"
                   alt="Ultra Pharma Logo"
-                  width={36}
-                  height={36}
-                  className="rounded-xl"
+                  width={48}
+                  height={48}
                 />
               </div>
-              <span className="ml-1 font-semibold uppercase">
+              <span className="-ml-1.5 font-semibold uppercase">
                 Ultra <span className="text-[#30d5c8]">Pharma</span>
               </span>
             </Link>

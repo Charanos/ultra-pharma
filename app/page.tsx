@@ -593,7 +593,7 @@ export default function Home() {
                         height={48}
                       />
                     </div>
-                    <span className="ml-1 font-semibold uppercase">
+                    <span className="-ml-1.5 font-semibold uppercase">
                       Ultra <span className="text-[#30d5c8]">Pharma</span>
                     </span>
                   </Link>
