@@ -21,6 +21,9 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { FaLinkedin } from "react-icons/fa";
+import { motion } from "framer-motion";
+import { PageTransition } from "@/components/page-transition";
+import { ScrollAnimation } from "@/components/scroll-animation";
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -191,6 +194,7 @@ export default function Home() {
   const year = new Date().getFullYear();
 
   return (
+    <PageTransition>
     <div className="min-h-screen bg-background overflow-hidden">
       {/* Dynamic gradient orb that follows mouse */}
       <div
@@ -220,32 +224,52 @@ export default function Home() {
           </div>
           <div className="container mx-auto px-6 text-center relative">
             {/* Eyebrow/Tagline */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-primary/10 mb-6">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-primary/10 mb-6"
+            >
               <span className="text-small text-brand-primary font-semibold uppercase">
                 Healthcare Regulatory Experts
               </span>
-            </div>
+            </motion.div>
 
             {/* Main Headline */}
-            <h1 className="text-5xl md:text-6xl font-black mb-8 leading-[0.9] tracking-loose">
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-5xl md:text-6xl font-black mb-8 leading-[0.9] tracking-loose"
+            >
               <span className="block text-foreground mb-3 drop-shadow-sm">
                 Precision in Healthcare.
               </span>
               <span className="block bg-gradient-to-r from-brand-primary via-cyan-500 to-teal-400 bg-clip-text text-transparent drop-shadow-lg">
                 Confidence in Regulation.
               </span>
-            </h1>
+            </motion.h1>
 
             {/* Supporting Headline */}
-            <h2 className="text-md md:text-lg text-muted-foreground max-w-4xl mx-auto mb-12 leading-relaxed font-medium">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="text-md md:text-lg text-muted-foreground max-w-4xl mx-auto mb-12 leading-relaxed font-medium"
+            >
               We deliver regulatory and compliance expertise across Kenya and
               Africa&apos;s healthcare sector—ensuring safety, quality
               standards, and faster market access for innovators and care
               providers.
-            </h2>
+            </motion.h2>
 
             {/* CTA Buttons with premium interactions */}
-            <div className="flex flex-col sm:flex-row gap-6 justify-center mb-20">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="flex flex-col sm:flex-row gap-6 justify-center mb-20"
+            >
               <a
                 href="#services"
                 className="group cursor-pointer text-small relative bg-gradient-to-r from-cyan-600 to-teal-400 group-hover:opacity-100 px-8 py-2.5 text-white dark:text-gray-900 rounded-2xl text-medium font-semibold overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:shadow-lg hover:shadow-brand-primary/30"
@@ -266,7 +290,7 @@ export default function Home() {
                   <Mail className="w-5 h-5 ml-2 group-hover:animate-pulse" />
                 </span>
               </a>
-            </div>
+            </motion.div>
           </div>
           {/* Scroll Indicator - Animated Arrow */}
           <a
@@ -287,6 +311,7 @@ export default function Home() {
           {/* Subtle accent background fade from top */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#30d5c8]/5 dark:from-[#30d5c8]/8 via-transparent to-transparent"></div>
           <div className="container mx-auto px-6">
+            <ScrollAnimation>
             <div className="text-center mb-20">
               <h2 className="text-4xl font-semibold mb-6 text-foreground">
                 Services That Define Excellence
@@ -297,13 +322,16 @@ export default function Home() {
                 every stage of the product journey with confidence.
               </p>
             </div>
+            </ScrollAnimation>
 
             {/* Mobile-responsive stacked service cards */}
             <div className="max-w-7xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {services.map((service, index) => (
-                  <div
-                    key={index}
+                  <ScrollAnimation key={index} delay={index * 0.1}>
+                  <motion.div
+                    whileHover={{ scale: 1.02, y: -5 }}
+                    transition={{ duration: 0.3 }}
                     className="group relative p-8 rounded-2xl bg-black/10 dark:bg-white/10 backdrop-blur-md shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden"
                     onMouseEnter={() => setActiveService(index)}
                   >
@@ -339,7 +367,8 @@ export default function Home() {
                         ))}
                       </ul>
                     </div>
-                  </div>
+                  </motion.div>
+                  </ScrollAnimation>
                 ))}
               </div>
             </div>
@@ -349,22 +378,26 @@ export default function Home() {
         {/* Why Choose Ultra Pharma - Differentiators */}
         <section className="py-22 relative bg-background">
           <div className="container mx-auto px-6">
+            <ScrollAnimation>
             <div className="text-center mb-12">
               <h2 className="text-4xl font-semibold text-foreground">
                 Why Partners Choose Ultra Pharma
               </h2>
               <div className="h-1 w-16 bg-brand-primary mx-auto rounded-full mt-4"></div>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto my-6">
-                Clear advantages you’ll feel from day one. Practical systems,
+                Clear advantages you'll feel from day one. Practical systems,
                 local know-how, and delivery models built to move healthcare
                 products forward in Kenya and across Africa.
               </p>
             </div>
+            </ScrollAnimation>
 
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 my-20">
               {differentiators.map((item, idx) => (
-                <div
-                  key={idx}
+                <ScrollAnimation key={idx} delay={idx * 0.1}>
+                <motion.div
+                  whileHover={{ scale: 1.02, y: -8 }}
+                  transition={{ duration: 0.3 }}
                   className="group relative rounded-2xl p-[1px] bg-cyan-500/10 my-5 hover:from-brand-primary/40 hover:to-cyan-500/40 transition-all overflow-visible"
                 >
                   <div className="relative rounded-2xl bg-black/5 dark:bg-white/5 p-6 md:p-7 hover:shadow-xl hover:shadow-brand-primary/10 transition-transform duration-300 group-hover:-translate-y-1">
@@ -394,7 +427,8 @@ export default function Home() {
                       </p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
+                </ScrollAnimation>
               ))}
             </div>
           </div>
@@ -407,6 +441,7 @@ export default function Home() {
         >
           <div className="absolute inset-0 bg-gradient-to-t from-[#30d5c8]/5 dark:from-[#30d5c8]/8 via-transparent to-transparent pointer-events-none"></div>
           <div className="container mx-auto px-6 relative z-10">
+            <ScrollAnimation>
             <div className="text-center mb-10">
               <h2 className="text-4xl font-semibold text-foreground">
                 Get In Touch
@@ -417,7 +452,9 @@ export default function Home() {
                 rapid-response support.
               </p>
             </div>
+            </ScrollAnimation>
 
+            <ScrollAnimation delay={0.2}>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <a
                 href="#contact-form"
@@ -438,12 +475,14 @@ export default function Home() {
                 </span>
               </a>
             </div>
+            </ScrollAnimation>
 
             <div
               className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto"
               id="contact-form"
             >
               {/* Left: Contact information */}
+              <ScrollAnimation delay={0.3}>
               <div className="p-6 md:p-8 rounded-2xl bg-black/5 dark:bg-white/5 shadow-md">
                 <h3 className="text-lg font-bold text-foreground mb-6">
                   Contact Information
@@ -514,8 +553,10 @@ export default function Home() {
                   </li>
                 </ul>
               </div>
+              </ScrollAnimation>
 
               {/* Right: Contact form */}
+              <ScrollAnimation delay={0.4}>
               <form
                 onSubmit={handleSubmit}
                 className="p-6 md:p-8 rounded-2xl bg-black/5 dark:bg-white/5 shadow-md"
@@ -571,6 +612,7 @@ export default function Home() {
                   )}
                 </div>
               </form>
+              </ScrollAnimation>
             </div>
           </div>
         </section>
@@ -752,5 +794,6 @@ export default function Home() {
         }
       `}</style>
     </div>
+    </PageTransition>
   );
 }

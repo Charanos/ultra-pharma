@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { Navigation } from "@/components/navigation";
 import { Varela_Round, Montserrat } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { SmoothScroll } from "@/components/smooth-scroll";
 
 // Varela Round as fallback font (Google Fonts)
 const varelaRound = Varela_Round({
@@ -47,6 +48,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <SmoothScroll />
           <Navigation />
           {children}
 

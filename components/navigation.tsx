@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { ModeToggle } from "@/components/theme-toggle";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -28,12 +29,22 @@ export function Navigation() {
   }, []);
 
   return (
-    <nav className="fixed top-4 left-0 right-0 z-50 transition-all duration-300">
+    <motion.nav 
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="fixed top-4 left-0 right-0 z-50 transition-all duration-300"
+    >
       <div className="container mx-auto px-6">
-        <div
+        <motion.div
+          animate={{
+            backgroundColor: isScrolled ? "rgba(var(--background-rgb), 0.8)" : "transparent",
+            backdropFilter: isScrolled ? "blur(20px)" : "blur(0px)",
+          }}
+          transition={{ duration: 0.3 }}
           className={`mx-auto max-w-9xl overflow-hidden transition-all ${
             isScrolled
-              ? "rounded-3xl bg-background/80 dark:bg-background/40 backdrop-blur-xl border border-white/10 shadow-lg"
+              ? "rounded-3xl border border-white/10 shadow-lg"
               : ""
           }`}
         >
@@ -110,12 +121,24 @@ export function Navigation() {
           </div>
 
           {/* Mobile Navigation */}
+          <AnimatePresence>
           {isMenuOpen && (
-            <div className="md:hidden py-6 px-4 border-t border-white/10 bg-background/90 backdrop-blur-xl">
+            <motion.div 
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden py-6 px-4 border-t border-white/10 bg-background/90 backdrop-blur-xl overflow-hidden"
+            >
               <div className="flex flex-col space-y-8 items-center">
-                {navigation.map((item) => (
-                  <Link
+                {navigation.map((item, index) => (
+                  <motion.div
                     key={item.name}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                  <Link
                     href={item.href}
                     className={`text-small text-muted-foreground hover:text-foreground transition-colors font-semibold uppercase ${
                       pathname === item.href ? "text-brand-primary" : ""
@@ -124,12 +147,14 @@ export function Navigation() {
                   >
                     {item.name}
                   </Link>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           )}
-        </div>
+          </AnimatePresence>
+        </motion.div>
       </div>
-    </nav>
+    </motion.nav>
   );
 }
