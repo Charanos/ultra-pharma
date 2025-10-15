@@ -1,5 +1,4 @@
 import { PageTransition } from "@/components/page-transition"
-import { ScrollAnimation } from "@/components/scroll-animation"
 
 export default function About() {
   return (

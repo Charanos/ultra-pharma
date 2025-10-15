@@ -8,7 +8,6 @@ import {
   Phone,
   MapPin,
   ChevronRight,
-  TrendingUp,
   Shield,
   Globe,
   CheckCircle,
@@ -17,7 +16,6 @@ import {
   Microscope,
   Zap,
   Target,
-  ExternalLink,
 } from "lucide-react";
 import Link from "next/link";
 import { FaLinkedin } from "react-icons/fa";
@@ -27,7 +25,6 @@ import { ScrollAnimation } from "@/components/scroll-animation";
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [activeService, setActiveService] = useState(0);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -333,7 +330,6 @@ export default function Home() {
                     whileHover={{ scale: 1.02, y: -5 }}
                     transition={{ duration: 0.3 }}
                     className="group relative p-8 rounded-2xl bg-black/10 dark:bg-white/10 backdrop-blur-md shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden"
-                    onMouseEnter={() => setActiveService(index)}
                   >
                     {/* Animated background pattern */}
                     <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-primary/10 to-transparent rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
@@ -385,7 +381,7 @@ export default function Home() {
               </h2>
               <div className="h-1 w-16 bg-brand-primary mx-auto rounded-full mt-4"></div>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto my-6">
-                Clear advantages you'll feel from day one. Practical systems,
+                Clear advantages you&apos;ll feel from day one. Practical systems,
                 local know-how, and delivery models built to move healthcare
                 products forward in Kenya and across Africa.
               </p>
