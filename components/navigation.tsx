@@ -39,12 +39,12 @@ export function Navigation() {
         <motion.div
           animate={{
             backgroundColor: isScrolled ? "rgba(var(--background-rgb), 0.8)" : "transparent",
-            backdropFilter: isScrolled ? "blur(20px)" : "blur(0px)",
+            backdropFilter: isScrolled ? "blur(50px)" : "blur(0px)",
           }}
           transition={{ duration: 0.3 }}
           className={`mx-auto max-w-9xl overflow-hidden transition-all ${
             isScrolled
-              ? "rounded-3xl border border-white/10 shadow-lg"
+              ? "rounded-3xl border !border-black/10 shadow-lg"
               : ""
           }`}
         >

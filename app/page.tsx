@@ -222,7 +222,7 @@ export default function Home() {
             <div className="absolute -bottom-8 left-20 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000 dark:opacity-10"></div>
             <div className="absolute bottom-0 right-20 w-96 h-96 bg-brand-primary rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob dark:opacity-20"></div>
           </div>
-          <div className="container mx-auto px-6 text-center relative">
+          <div className="container mx-auto px-6 py-16 text-center relative">
             {/* Eyebrow/Tagline */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -240,9 +240,9 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-5xl md:text-6xl font-black mb-8 leading-[0.9] tracking-loose"
+              className="text-5xl md:text-6xl font-black my-10 leading-[1] tracking-loose"
             >
-              <span className="block text-foreground mb-3 drop-shadow-sm">
+              <span className="block text-foreground mb-4 drop-shadow-sm">
                 Precision in Healthcare.
               </span>
               <span className="block bg-gradient-to-r from-brand-primary via-cyan-500 to-teal-400 bg-clip-text text-transparent drop-shadow-lg">
