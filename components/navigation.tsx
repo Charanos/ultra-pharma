@@ -44,7 +44,7 @@ export function Navigation() {
               <Link href="/" className="flex items-center space-x-2">
                 <div className="w-12 h-12 rounded-xl flex items-center gap-0">
                   <Image
-                    src="/Africa.svg"
+                    src="/logo.svg"
                     alt="Ultra Pharma Logo"
                     width={32}
                     height={32}
@@ -83,7 +83,7 @@ export function Navigation() {
             <Link href="/" className="flex items-center space-x-2">
               <div className="w-12 h-12 rounded-xl flex items-center gap-0">
                 <Image
-                  src="/Africa.svg"
+                  src="/logo.svg"
                   alt="Ultra Pharma Logo"
                   width={30}
                   height={30}
