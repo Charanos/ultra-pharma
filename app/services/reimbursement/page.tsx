@@ -186,25 +186,33 @@ export default function ReimbursementPage() {
             Navigating the intersection of health economics, clinical evidence, and regulatory requirements to achieve national benefit listing.
           </p>
         </Reveal>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
           {reimbursementServices.map((service) => {
             const ServiceIcon = serviceIconMap[service.icon] || Files;
             return (
               <Reveal
                 key={service.name}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-[24px] border border-rule/70 bg-gradient-to-b from-paper-raised to-paper/95 p-7 shadow-[inset_0_1px_1px_rgba(255,255,255,0.7),0_8px_20px_-4px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.02)] dark:border-white/[0.04] dark:from-paper-raised dark:to-paper-sunk dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.03),0_12px_28px_-6px_rgba(0,0,0,0.4)] transition-all duration-300 hover:border-stamp-600/30 hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.9),0_16px_36px_-6px_rgba(0,0,0,0.06)] dark:hover:border-stamp-500/30 dark:hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.06),0_20px_44px_-8px_rgba(0,0,0,0.5)] hover:-translate-y-1"
+                className="group relative flex flex-col justify-between overflow-hidden rounded-[26px] border border-rule/80 bg-paper-raised p-8 sm:p-9 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-rule-strong hover:shadow-card min-h-[280px]"
               >
                 {/* Soft background artwork icon */}
                 <div
-                  className="pointer-events-none absolute -bottom-5 -right-5 text-ink-900/[0.04] dark:text-stamp-400/[0.07] transition-all duration-500 ease-out group-hover:text-stamp-700/[0.12] dark:group-hover:text-stamp-400/[0.16] group-hover:scale-105 group-hover:-rotate-3"
+                  className="pointer-events-none absolute -bottom-6 -right-6 text-ink-900/[0.035] dark:text-stamp-400/[0.06] transition-all duration-500 ease-out group-hover:text-stamp-700/[0.08] dark:group-hover:text-stamp-400/[0.12] group-hover:scale-105 group-hover:-rotate-3"
                   aria-hidden
                 >
-                  <ServiceIcon size={145} weight="duotone" />
+                  <ServiceIcon size={150} weight="duotone" />
                 </div>
 
-                <div className="relative z-10">
-                  <h3 className="font-display text-lg font-medium text-ink-900 m-0">{service.name}</h3>
-                  <p className="t-body-sm mt-3 text-ink-600 font-light leading-relaxed m-0 text-[0.9375rem]">{service.description}</p>
+                <div className="relative z-10 flex flex-col">
+                  {/* Fixed min-height title container to align description baselines across all 3 cards */}
+                  <div className="min-h-[3.25rem] flex items-start">
+                    <h3 className="font-display text-[1.1875rem] sm:text-[1.25rem] font-medium text-ink-900 leading-snug m-0 transition-colors group-hover:text-stamp-700">
+                      {service.name}
+                    </h3>
+                  </div>
+
+                  <p className="t-body-sm mt-4 text-ink-600 font-light leading-relaxed m-0 text-[0.9375rem]">
+                    {service.description}
+                  </p>
                 </div>
               </Reveal>
             );
@@ -268,11 +276,11 @@ export default function ReimbursementPage() {
             return (
               <Reveal 
                 key={phase.n} 
-                className="group relative flex flex-col justify-between overflow-hidden rounded-[24px] border border-rule/70 bg-gradient-to-b from-paper-raised to-paper/95 p-7 shadow-[inset_0_1px_1px_rgba(255,255,255,0.7),0_8px_20px_-4px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.02)] dark:border-white/[0.04] dark:from-paper-raised dark:to-paper-sunk dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.03),0_12px_28px_-6px_rgba(0,0,0,0.4)] transition-all duration-300 hover:border-stamp-600/30 hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.9),0_16px_36px_-6px_rgba(0,0,0,0.06)] dark:hover:border-stamp-500/30 dark:hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.06),0_20px_44px_-8px_rgba(0,0,0,0.5)] hover:-translate-y-1"
+                className="group relative flex flex-col justify-between overflow-hidden rounded-[24px] border border-rule/80 bg-paper-raised p-6 sm:p-7 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-rule-strong hover:shadow-card min-h-[300px]"
               >
-                {/* Soft background artwork icon */}
+                {/* Background Artwork Icon */}
                 <div
-                  className="pointer-events-none absolute -bottom-5 -right-5 text-ink-900/[0.04] dark:text-stamp-400/[0.07] transition-all duration-500 ease-out group-hover:text-stamp-700/[0.12] dark:group-hover:text-stamp-400/[0.16] group-hover:scale-105 group-hover:-rotate-3"
+                  className="pointer-events-none absolute -bottom-6 -right-6 text-ink-900/[0.035] dark:text-stamp-400/[0.06] transition-all duration-500 ease-out group-hover:text-stamp-700/[0.08] dark:group-hover:text-stamp-400/[0.12] group-hover:scale-105 group-hover:-rotate-3"
                   aria-hidden
                 >
                   <PhaseIcon size={145} weight="duotone" />
@@ -281,19 +289,23 @@ export default function ReimbursementPage() {
                 <div className="relative z-10 flex flex-1 flex-col justify-between">
                   <div>
                     <span className="font-mono text-xs uppercase tracking-wider text-stamp-700 font-semibold">{phase.n}</span>
-                    <h3 className="font-display text-lg font-medium text-ink-900 mt-3 m-0">{phase.name}</h3>
-                    <p className="t-body-sm mt-3 text-ink-600 font-light leading-relaxed m-0 text-[0.9375rem]">{phase.description}</p>
+                    <h3 className="font-display text-[1.125rem] font-medium text-ink-900 mt-3 m-0 leading-snug transition-colors group-hover:text-stamp-700">
+                      {phase.name}
+                    </h3>
+                    <p className="t-body-sm mt-2.5 text-ink-600 font-light leading-relaxed m-0 text-[0.875rem]">
+                      {phase.description}
+                    </p>
                   </div>
                   
-                  <div className="mt-8 pt-4 border-t border-rule/70 flex items-center min-h-[44px]">
+                  <div className="mt-6 pt-4 border-t border-rule/60 flex items-center min-h-[44px]">
                     {phase.deliverable ? (
-                      <p className="inline-flex items-start gap-2 text-[0.8125rem] font-medium text-ink-600 leading-snug m-0">
+                      <p className="inline-flex items-start gap-2 text-[0.8125rem] font-medium text-ink-700 leading-snug m-0">
                         <CheckCircle size={15} weight="duotone" className="text-stamp-600 shrink-0 mt-0.5" aria-hidden />
                         <span>{phase.deliverable}</span>
                       </p>
                     ) : (
                       <p className="inline-flex items-center gap-2 text-[0.8125rem] font-light text-ink-400 leading-snug m-0 italic">
-                        <span className="h-1.5 w-1.5 rounded-full bg-stamp-500/40" aria-hidden />
+                        <span className="h-1.5 w-1.5 rounded-full bg-stamp-500/50" aria-hidden />
                         <span>End-to-end review determination</span>
                       </p>
                     )}

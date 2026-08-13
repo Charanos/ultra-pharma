@@ -178,7 +178,7 @@ export default function ContactPage() {
             {advisorySteps.map((step) => (
               <div
                 key={step.title}
-                className="group relative overflow-hidden rounded-[24px] border border-rule/70 bg-gradient-to-b from-paper-raised to-paper/95 p-8 sm:p-9 shadow-[inset_0_1px_1px_rgba(255,255,255,0.7),0_8px_20px_-4px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.02)] dark:border-white/[0.04] dark:from-paper-raised dark:to-paper-sunk dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.03),0_12px_28px_-6px_rgba(0,0,0,0.4)] transition-all duration-300 hover:border-stamp-600/30 hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.9),0_16px_36px_-6px_rgba(0,0,0,0.06)] dark:hover:border-stamp-500/30 dark:hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.06),0_20px_44px_-8px_rgba(0,0,0,0.5)] hover:-translate-y-1"
+                className="group relative overflow-hidden rounded-[24px] border border-rule/80 bg-paper-raised p-8 sm:p-9 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-rule-strong hover:shadow-card"
               >
                 {/* Soft background artwork icon */}
                 <div

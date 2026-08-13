@@ -9,7 +9,7 @@ export function TeamCard({ member }: { readonly member: TeamMember }) {
   return (
     <div
       data-slot="team-card"
-      className="group relative flex min-h-[280px] flex-col justify-between rounded-[22px] border border-rule bg-paper-raised px-4 py-6 py-6no shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-rule-strong hover:shadow-card"
+      className="group relative flex min-h-[280px] flex-col justify-between rounded-[22px] border border-rule/80 bg-paper-raised p-6 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-rule-strong hover:shadow-card"
     >
       {/* Avatar portrait or initials fallback */}
       {member.avatar ? (
