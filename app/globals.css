@@ -75,6 +75,7 @@
   --shadow-card: 0 1px 2px rgb(12 20 24 / 0.04), 0 16px 36px rgb(12 20 24 / 0.08);
   --shadow-image: 0 2px 6px rgb(12 20 24 / 0.07), 0 26px 60px rgb(12 20 24 / 0.15);
   --photo-grade: grayscale(12%) saturate(55%) contrast(1.04);
+  --media-bg: var(--paper-sunk);
 }
 
 [data-theme="dark"] {
@@ -119,6 +120,15 @@
   --deep-stamp: #0f6e5c;
 
   --shadow-card: 0 1px 2px rgb(0 0 0 / 0.2), 0 16px 36px rgb(0 0 0 / 0.3);
+
+  /*
+   * A daylight photograph graded for a light ground glares on a dark one.
+   * `04 §4` calls for a second build-time grade here; without a processing
+   * pipeline the same effect is approximated with a filter: highlights pulled
+   * back, contrast held rather than pushed.
+   */
+  --photo-grade: grayscale(18%) saturate(62%) brightness(0.84) contrast(1.06);
+  --media-bg: var(--paper-sunk);
 }
 
 @theme inline {
@@ -512,11 +522,17 @@ select {
     filter: var(--photo-grade);
   }
 
+  /* A neutral ground so a slow-loading or failed image is a quiet field, not a hole. */
   .media {
     position: relative;
     overflow: hidden;
     border-radius: 20px;
+    background: var(--media-bg);
     box-shadow: var(--shadow-image);
+  }
+
+  .photo {
+    transition: transform 500ms var(--ease-out);
   }
 
   .skip-link {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Section, SectionIndex } from "@/components/structure/section";
+import { IndexRail } from "@/components/structure/index-rail";
 import { Reveal } from "@/components/primitives/reveal";
 import { FigureImage } from "@/components/content/figure-image";
 import { TeamCard } from "@/components/content/team-card";
@@ -7,6 +8,8 @@ import { JsonLd } from "@/components/primitives/json-ld";
 import { team, caseNotes } from "@/content/team";
 import { media } from "@/content/media";
 import { breadcrumbSchema } from "@/lib/schema";
+
+const railSections = ["01", "02", ...(caseNotes.length > 0 ? ["03"] : [])];
 
 export const metadata: Metadata = {
   title: "Practice",
@@ -19,6 +22,7 @@ export default function PracticePage() {
   return (
     <>
       <JsonLd data={breadcrumbSchema([{ name: "Practice", path: "/practice" }])} />
+      <IndexRail sections={railSections} />
 
       <section className="border-b border-rule">
         <div className="mx-auto max-w-[1200px] px-6 pb-20 pt-28">
@@ -30,10 +34,10 @@ export default function PracticePage() {
         </div>
       </section>
 
-      <Section index="02">
+      <Section index="01">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-16">
           <Reveal>
-            <SectionIndex index="02" label="How we work" className="mb-6" />
+            <SectionIndex index="01" label="How we work" className="mb-6" />
             <p className="t-lede m-0 max-w-[60ch] text-ink-900">
               We work in dossiers and deadlines. Every engagement starts with a gap analysis
               against the requirements that actually apply, and a filing plan with dates we
@@ -51,8 +55,8 @@ export default function PracticePage() {
         </div>
       </Section>
 
-      <Section index="03" tone="sunk" bordered className="border-b border-rule">
-        <SectionIndex index="03" label="The team" className="mb-12" />
+      <Section index="02" tone="sunk" bordered className="border-b border-rule">
+        <SectionIndex index="02" label="The team" className="mb-12" />
         <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-5">
           {team.map((member) => (
             <TeamCard key={member.initials} member={member} />
@@ -65,8 +69,8 @@ export default function PracticePage() {
 
       {/* Renders only when there are publishable outcomes. `02 §8`. */}
       {caseNotes.length > 0 && (
-        <Section index="04">
-          <SectionIndex index="04" label="What we have done" className="mb-12" />
+        <Section index="03">
+          <SectionIndex index="03" label="What we have done" className="mb-12" />
           <div className="flex flex-col gap-10">
             {caseNotes.map((note) => (
               <Reveal key={note.context} className="border-t border-rule pt-7">

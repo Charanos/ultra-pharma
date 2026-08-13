@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
-import { SealCheck, Warning } from "@phosphor-icons/react";
+import { CircleNotch, SealCheck, Warning } from "@phosphor-icons/react";
 import { site } from "@/content/site";
 import { Button } from "@/components/primitives/button";
 
@@ -86,7 +86,12 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-5" noValidate={false}>
+    <form
+      onSubmit={onSubmit}
+      aria-busy={status === "submitting"}
+      className="flex flex-col gap-5"
+      noValidate={false}
+    >
       {status === "error" && (
         <div
           role="alert"
@@ -169,6 +174,9 @@ export function ContactForm() {
       </label>
 
       <Button type="submit" disabled={status === "submitting"}>
+        {status === "submitting" && (
+          <CircleNotch size={18} className="animate-spin" aria-hidden />
+        )}
         {status === "submitting" ? "Sending" : "Send message"}
       </Button>
 

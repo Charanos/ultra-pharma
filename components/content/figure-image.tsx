@@ -9,11 +9,18 @@ export type FigureImageProps = {
   readonly priority?: boolean;
   readonly className?: string;
   readonly aspect?: string;
+  /**
+   * Extra classes on the `<img>` itself, for a caller-driven hover such as
+   * `group-hover:scale-[1.03]` on a card that stretches its link over the
+   * whole card rather than just the image.
+   */
+  readonly imgClassName?: string;
 };
 
 /**
  * A photograph through the canvas grade. Dimensions are always explicit, so
- * nothing shifts on load.
+ * nothing shifts on load. The wrapper carries a neutral ground so a slow
+ * network doesn't leave a hole where the image will be.
  */
 export function FigureImage({
   media,
@@ -21,6 +28,7 @@ export function FigureImage({
   priority = false,
   className,
   aspect,
+  imgClassName,
 }: FigureImageProps) {
   return (
     <div
@@ -39,7 +47,7 @@ export function FigureImage({
         priority={priority}
         loading={priority ? undefined : "lazy"}
         fetchPriority={priority ? "high" : undefined}
-        className="photo h-full w-full object-cover"
+        className={cn("photo h-full w-full object-cover", imgClassName)}
       />
     </div>
   );

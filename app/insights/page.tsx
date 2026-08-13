@@ -34,20 +34,19 @@ export default function InsightsPage() {
           className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-10"
         >
           {insights.map((post) => (
-            <article key={post.slug} className="flex flex-col gap-4">
-              <Link href={`/insights/${post.slug}`} className="no-underline">
-                <FigureImage
-                  media={post.image}
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  aspect="16/9"
-                  className="rounded-[18px]"
-                />
-              </Link>
+            <article key={post.slug} className="group relative flex flex-col gap-4">
+              <FigureImage
+                media={post.image}
+                sizes="(max-width: 768px) 100vw, 33vw"
+                aspect="16/9"
+                className="rounded-[18px]"
+                imgClassName="group-hover:scale-[1.03]"
+              />
               <p className="t-label m-0 text-ink-500">{post.category}</p>
-              <h2 className="m-0 font-display text-[1.375rem] font-medium leading-[1.3]">
+              <h2 className="m-0 font-display text-[1.375rem] font-medium leading-[1.3] text-ink-900">
                 <Link
                   href={`/insights/${post.slug}`}
-                  className="text-ink-900 no-underline hover:underline"
+                  className="static no-underline before:absolute before:inset-0 before:content-[''] group-hover:underline"
                 >
                   {post.title}
                 </Link>

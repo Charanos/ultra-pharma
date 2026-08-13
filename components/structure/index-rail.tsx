@@ -5,6 +5,12 @@ import { useEffect, useState } from "react";
 export type IndexRailProps = {
   /** Section index numbers, in document order. */
   readonly sections: readonly string[];
+  /**
+   * The id prefix each section's anchor uses. Defaults to "sec", matching
+   * `Section`'s own `id={sec-${index}}`. `/services` reuses `stage-XX` ids
+   * instead, since other pages already link to `/services#stage-01`.
+   */
+  readonly idPrefix?: string;
 };
 
 /**
@@ -14,7 +20,7 @@ export type IndexRailProps = {
  *
  * Below `lg` it collapses to the progress bar under the header.
  */
-export function IndexRail({ sections }: IndexRailProps) {
+export function IndexRail({ sections, idPrefix = "sec" }: IndexRailProps) {
   const [active, setActive] = useState(sections[0] ?? "");
 
   useEffect(() => {
@@ -42,7 +48,7 @@ export function IndexRail({ sections }: IndexRailProps) {
     <>
       <div
         aria-hidden
-        className="sticky top-[72px] z-[55] h-0.5 bg-rule lg:hidden"
+        className="sticky top-16 z-[55] h-0.5 bg-rule lg:hidden"
         data-slot="index-progress"
       >
         <div
@@ -61,7 +67,7 @@ export function IndexRail({ sections }: IndexRailProps) {
           return (
             <a
               key={n}
-              href={`#sec-${n}`}
+              href={`#${idPrefix}-${n}`}
               tabIndex={-1}
               className="t-index flex items-center gap-2.5 text-ink-400 no-underline transition-colors hover:text-ink-900"
             >

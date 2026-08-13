@@ -4,6 +4,7 @@ import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Reveal } from "@/components/primitives/reveal";
 import { StageIcon } from "@/components/content/stage-icon";
 import { JsonLd } from "@/components/primitives/json-ld";
+import { IndexRail } from "@/components/structure/index-rail";
 import { serviceStages } from "@/content/services";
 import { breadcrumbSchema } from "@/lib/schema";
 
@@ -18,6 +19,7 @@ export default function ServicesPage() {
   return (
     <>
       <JsonLd data={breadcrumbSchema([{ name: "Services", path: "/services" }])} />
+      <IndexRail sections={serviceStages.map((stage) => stage.n)} idPrefix="stage" />
 
       <section className="border-b border-rule">
         <div className="mx-auto max-w-[1200px] px-6 pb-20 pt-28">

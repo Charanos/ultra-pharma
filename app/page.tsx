@@ -190,6 +190,18 @@ export default function HomePage() {
                   </li>
                 ))}
               </ul>
+              <Link
+                href={stage.href}
+                className="group/link t-body-sm mt-1 inline-flex w-fit items-center gap-1.5 text-ink-700 no-underline transition-colors hover:text-ink-900"
+              >
+                {stage.name} in detail
+                <span
+                  aria-hidden
+                  className="transition-transform duration-200 group-hover/link:translate-x-0.5"
+                >
+                  &rarr;
+                </span>
+              </Link>
             </article>
           ))}
         </div>
@@ -252,18 +264,20 @@ export default function HomePage() {
             className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8"
           >
             {recentInsights.map((post) => (
-              <article key={post.slug} className="flex flex-col gap-4">
-                <Link href={`/insights/${post.slug}`} className="no-underline">
-                  <FigureImage
-                    media={post.image}
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    aspect="16/9"
-                    className="rounded-[18px]"
-                  />
-                </Link>
+              <article key={post.slug} className="group relative flex flex-col gap-4">
+                <FigureImage
+                  media={post.image}
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  aspect="16/9"
+                  className="rounded-[18px]"
+                  imgClassName="group-hover:scale-[1.03]"
+                />
                 <p className="t-label m-0 text-ink-500">{post.category}</p>
-                <h3 className="m-0 font-display text-[1.375rem] font-medium leading-[1.3]">
-                  <Link href={`/insights/${post.slug}`} className="text-ink-900 no-underline hover:underline">
+                <h3 className="m-0 font-display text-[1.375rem] font-medium leading-[1.3] text-ink-900">
+                  <Link
+                    href={`/insights/${post.slug}`}
+                    className="static no-underline before:absolute before:inset-0 before:content-[''] group-hover:underline"
+                  >
                     {post.title}
                   </Link>
                 </h3>
@@ -288,23 +302,21 @@ export default function HomePage() {
             </p>
             <div className="mt-12 border-t border-rule">
               {channels.map((channel) => (
-                <div
+                <Link
                   key={channel.label}
-                  className="flex items-baseline gap-4 border-b border-rule py-5"
+                  href={channel.href}
+                  className="group flex items-baseline gap-4 border-b border-rule py-5 no-underline transition-colors duration-200 hover:border-stamp-600"
+                  {...(channel.external
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
                 >
                   <span className="t-label w-[100px] flex-none text-ink-500">
                     {channel.label}
                   </span>
-                  <Link
-                    href={channel.href}
-                    className="t-data text-ink-900 no-underline hover:underline"
-                    {...(channel.external
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {})}
-                  >
+                  <span className="t-data text-ink-900 group-hover:underline">
                     {channel.value}
-                  </Link>
-                </div>
+                  </span>
+                </Link>
               ))}
             </div>
             <p className="t-body-sm mt-6 text-ink-500">{site.responseNote}</p>

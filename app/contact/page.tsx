@@ -30,23 +30,21 @@ export default function ContactPage() {
 
           <div className="mt-12 border-t border-rule">
             {channels.map((channel) => (
-              <div
+              <Link
                 key={channel.label}
-                className="flex items-baseline gap-4 border-b border-rule py-5"
+                href={channel.href}
+                className="group flex items-baseline gap-4 border-b border-rule py-5 no-underline transition-colors duration-200 hover:border-stamp-600"
+                {...(channel.external
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
               >
                 <span className="t-label w-[100px] flex-none text-ink-500">
                   {channel.label}
                 </span>
-                <Link
-                  href={channel.href}
-                  className="t-data text-ink-900 no-underline hover:underline"
-                  {...(channel.external
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
-                >
+                <span className="t-data text-ink-900 group-hover:underline">
                   {channel.value}
-                </Link>
-              </div>
+                </span>
+              </Link>
             ))}
           </div>
 
