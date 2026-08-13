@@ -114,7 +114,7 @@ export function ContactForm() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <Field
           id="name"
           label="Your Name"
@@ -180,11 +180,11 @@ export function ContactForm() {
         />
       </label>
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-2">
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="btn btn-primary group cursor-pointer w-full sm:w-auto"
+          className="btn btn-primary group cursor-pointer w-full md:w-auto"
         >
           {status === "submitting" ? (
             <>

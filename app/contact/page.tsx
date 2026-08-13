@@ -140,8 +140,8 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Right Column: Contact Form Card (7 cols) - uncarded on mobile */}
-          <div className="lg:col-span-7 rounded-none border-0 bg-transparent p-0 shadow-none sm:rounded-[28px] sm:border sm:border-rule/90 sm:bg-paper-raised sm:p-8 md:p-12 sm:shadow-xs">
+          {/* Right Column: Contact Form Card (7 cols) - uncarded below md */}
+          <div className="lg:col-span-7 rounded-none border-0 bg-transparent p-0 shadow-none md:rounded-[28px] md:border md:border-rule/90 md:bg-paper-raised md:p-8 lg:p-12 md:shadow-xs">
             <div className="mb-8 flex items-center justify-between border-b border-rule/80 pb-6">
               <div>
                 <span className="t-label text-xs uppercase tracking-widest text-stamp-700 font-semibold">

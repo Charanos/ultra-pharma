@@ -17,7 +17,7 @@ export function ThemeToggle({
 
   useEffect(() => setMounted(true), []);
 
-  const isDark = resolvedTheme === "dark";
+  const isDark = mounted && resolvedTheme === "dark";
   const label = isDark ? "Switch to light theme" : "Switch to dark theme";
 
   return (
@@ -31,8 +31,8 @@ export function ThemeToggle({
         className,
       )}
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      aria-label={label}
-      title={label}
+      aria-label={mounted ? label : "Toggle color theme"}
+      title={mounted ? label : "Toggle color theme"}
     >
       {/* Renders the light icon until mounted so server and client agree. */}
       {mounted && isDark ? (

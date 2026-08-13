@@ -441,8 +441,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Right form card (7 cols) - uncarded on mobile */}
-          <div className="lg:col-span-7 rounded-none border-0 bg-transparent p-0 shadow-none sm:rounded-[26px] sm:border sm:border-rule/80 sm:bg-paper-raised sm:p-8 md:p-10 sm:shadow-xs">
+          {/* Right form card (7 cols) - uncarded below md */}
+          <div className="lg:col-span-7 rounded-none border-0 bg-transparent p-0 shadow-none md:rounded-[26px] md:border md:border-rule/80 md:bg-paper-raised md:p-8 lg:p-10 md:shadow-xs">
             <ContactForm />
           </div>
         </div>
