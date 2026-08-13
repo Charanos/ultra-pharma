@@ -291,15 +291,15 @@ export default function HomePage() {
 
       {/* 05 · Why partners choose us. Ruled list, large numerals. Typographic. */}
       <Section index="05" width="wide">
-        <Reveal className="mb-20 max-w-[720px]">
-          <SectionIndex index="05" label="Practice" className="mb-6" />
+        <Reveal className="mb-24 md:mb-32 mx-auto max-w-[720px] text-center">
+          <SectionIndex index="05" label="Practice" className="mb-6 justify-center" />
           <h2 className="t-h2 m-0">Why partners choose Ultra Pharma</h2>
           <p className="t-lede mt-6 text-ink-700">
             Practical systems, in-country knowledge, and delivery models built to move
             healthcare products forward in Kenya and across Africa.
           </p>
         </Reveal>
-        <div className="flex flex-col gap-20">
+        <div className="flex flex-col gap-28 md:gap-36">
           {entries.map((entry, index) => (
             <NumberedEntry key={entry.n} entry={entry} offset={index % 2 === 1} />
           ))}
