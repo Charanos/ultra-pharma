@@ -1,284 +1,552 @@
 @import "tailwindcss";
 
+/* Tokens transcribed from the Claude Design canvas: Ultra Pharma.dc.html */
+
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.81 0.1 252);
-  --chart-2: oklch(0.62 0.19 260);
-  --chart-3: oklch(0.55 0.22 263);
-  --chart-4: oklch(0.49 0.22 264);
-  --chart-5: oklch(0.42 0.18 266);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-  --brand-primary: #30d5c8;
-  --brand-primary-hover: #28c4b8;
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-  --radius: 0.625rem;
-  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.1),
-    0 1px 2px -1px hsl(0 0% 0% / 0.1);
-  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.1),
-    0 2px 4px -1px hsl(0 0% 0% / 0.1);
-  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.1),
-    0 4px 6px -1px hsl(0 0% 0% / 0.1);
-  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.1),
-    0 8px 10px -1px hsl(0 0% 0% / 0.1);
-  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
-  --tracking-normal: 0em;
-  --spacing: 0.25rem;
+  --paper: #fbfbfa;
+  --paper-raised: #ffffff;
+  --paper-sunk: #f2f2f0;
+  --paper-deep: #0c1418;
+
+  --ink-900: #0c1418;
+  --ink-700: #27343a;
+  --ink-500: #5a686f;
+  --ink-400: #8a969c;
+  --ink-300: #b9c2c6;
+
+  --rule: #e2e5e4;
+  --rule-strong: #c6cbca;
+  --rule-ink: #0c1418;
+
+  --stamp-600: #0f6e5c;
+  --stamp-500: #148872;
+  --stamp-700: #0b5546;
+  --stamp-wash: #e6f2ef;
+  --stamp-on: #ffffff;
+
+  /**
+   * The primary fill is held apart from --stamp-600 so the button can stay a
+   * calm, deep teal in dark theme while rules and focus rings keep the lifted
+   * value they need to register against a dark ground.
+   */
+  --btn-bg: #0f6e5c;
+  --btn-bg-hover: #148872;
+  --btn-fg: #ffffff;
+
+  /**
+   * The large mono numerals. Held apart from --stamp-700 because a numeral at
+   * 4rem carries far more colour than a 13px index number, and the lifted dark
+   * accent glares at that size.
+   */
+  --numeral: var(--stamp-700);
+
+  /**
+   * Controls sitting on a permanently dark scrim, such as the hero. These never
+   * follow the theme, because their ground never does.
+   */
+  --on-image-bg: #0f6e5c;
+  --on-image-bg-hover: #148872;
+  --on-image-fg: #ffffff;
+
+  --signal-pending: #8a5a0b;
+  --signal-blocked: #a32a22;
+  --signal-cleared: #0f6e5c;
+
+  --scrim: rgb(12 20 24 / 0.62);
+
+  /* Inverted band. Does not flip with the theme the way --ink does. */
+  --deep-ink: #f4f5f4;
+  --deep-ink-soft: #a9b5b9;
+  --deep-rule: #243036;
+  --deep-stamp: #3fbfa3;
+
+  --f-display: var(--font-source-serif), Georgia, "Times New Roman", serif;
+  --f-ui: var(--font-inter-tight), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, monospace;
+
+  --t-hero: clamp(2.75rem, 6.5vw, 5rem);
+  --t-h1: clamp(2.25rem, 4.5vw, 3.5rem);
+  --t-h2: clamp(1.75rem, 3vw, 2.5rem);
+  --t-lede: clamp(1.125rem, 1.6vw, 1.375rem);
+  --t-numeral: clamp(2.5rem, 5vw, 4rem);
+  --t-figure: clamp(2rem, 3.5vw, 3rem);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-card: 0 1px 2px rgb(12 20 24 / 0.04), 0 16px 36px rgb(12 20 24 / 0.08);
+  --shadow-image: 0 2px 6px rgb(12 20 24 / 0.07), 0 26px 60px rgb(12 20 24 / 0.15);
+  --photo-grade: grayscale(12%) saturate(55%) contrast(1.04);
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.269 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.7902 0.1294 186.7087);
-  --primary-foreground: oklch(0 0 0);
-  --secondary: oklch(0 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.371 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.275 0 0);
-  --input: oklch(0.325 0 0);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.81 0.1 252);
-  --chart-2: oklch(0.62 0.19 260);
-  --chart-3: oklch(0.55 0.22 263);
-  --chart-4: oklch(0.49 0.22 264);
-  --chart-5: oklch(0.42 0.18 266);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.275 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
-  --brand-primary: #30d5c8;
-  --brand-primary-hover: #28c4b8;
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-  --radius: 0.625rem;
-  --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-  --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-  --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.1),
-    0 1px 2px -1px hsl(0 0% 0% / 0.1);
-  --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-  --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.1),
-    0 2px 4px -1px hsl(0 0% 0% / 0.1);
-  --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.1),
-    0 4px 6px -1px hsl(0 0% 0% / 0.1);
-  --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.1),
-    0 8px 10px -1px hsl(0 0% 0% / 0.1);
-  --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+[data-theme="dark"] {
+  --paper: #0b1216;
+  --paper-raised: #121c21;
+  --paper-sunk: #080e11;
+  --paper-deep: #f4f5f4;
+
+  --ink-900: #f4f5f4;
+  --ink-700: #d2d8d9;
+  --ink-500: #92a0a5;
+  --ink-400: #67757b;
+  --ink-300: #414e54;
+
+  --rule: #1e2a30;
+  --rule-strong: #303f46;
+  --rule-ink: #f4f5f4;
+
+  --stamp-600: #3fbfa3;
+  --stamp-500: #55d4b8;
+  --stamp-700: #6fdcc3;
+  --stamp-wash: #0d2621;
+  --stamp-on: #0b1216;
+
+  /* Deep enough to sit quietly, light text rather than inverted dark text. */
+  --btn-bg: #157e6a;
+  --btn-bg-hover: #1a9a81;
+  --btn-fg: #f4f5f4;
+
+  /* Reads as teal without glaring at display size. */
+  --numeral: #3e8c7c;
+
+  --signal-pending: #e0a93f;
+  --signal-blocked: #f0766b;
+  --signal-cleared: #3fbfa3;
+
+  --scrim: rgb(0 0 0 / 0.72);
+
+  --deep-ink: #0c1418;
+  --deep-ink-soft: #4a585e;
+  --deep-rule: #d5dad8;
+  --deep-stamp: #0f6e5c;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.2), 0 16px 36px rgb(0 0 0 / 0.3);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-paper-sunk: var(--paper-sunk);
+  --color-paper-deep: var(--paper-deep);
 
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
-  --font-serif: var(--font-serif);
+  --color-ink-900: var(--ink-900);
+  --color-ink-700: var(--ink-700);
+  --color-ink-500: var(--ink-500);
+  --color-ink-400: var(--ink-400);
+  --color-ink-300: var(--ink-300);
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
 
-  --shadow-2xs: var(--shadow-2xs);
-  --shadow-xs: var(--shadow-xs);
-  --shadow-sm: var(--shadow-sm);
-  --shadow: var(--shadow);
-  --shadow-md: var(--shadow-md);
-  --shadow-lg: var(--shadow-lg);
-  --shadow-xl: var(--shadow-xl);
-  --shadow-2xl: var(--shadow-2xl);
+  --color-stamp-600: var(--stamp-600);
+  --color-stamp-500: var(--stamp-500);
+  --color-stamp-700: var(--stamp-700);
+  --color-stamp-wash: var(--stamp-wash);
+  --color-stamp-on: var(--stamp-on);
+
+  --color-signal-pending: var(--signal-pending);
+  --color-signal-blocked: var(--signal-blocked);
+  --color-signal-cleared: var(--signal-cleared);
+
+  --color-numeral: var(--numeral);
+  --color-deep-ink: var(--deep-ink);
+  --color-deep-ink-soft: var(--deep-ink-soft);
+  --color-deep-rule: var(--deep-rule);
+  --color-deep-stamp: var(--deep-stamp);
+
+  --font-display: var(--f-display);
+  --font-ui: var(--f-ui);
+  --font-mono: var(--f-mono);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-image: var(--shadow-image);
+
+  --ease-out: var(--ease-out);
+
+  --breakpoint-sm: 30rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
 }
 
-* {
-  border-color: #333;
+/* Base */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-}
-
-body {
-  line-height: 1.6;
-  font-family: var(--font-primary);
-  background-color: hsl(var(--background));
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 96px;
 }
 
-/* Headings and links use Montserrat as secondary font */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-montserrat), "Helvetica Neue", Helvetica, Arial,
-    sans-serif;
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink-900);
+  font-family: var(--f-ui);
+  font-size: 1rem;
+  line-height: 1.65;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-a,
-ul,
-li,
-button,
-span {
-  font-family: var(--font-montserrat), "Helvetica Neue", Helvetica, Arial,
-    sans-serif;
-  text-decoration: none;
+/**
+ * The accent is a stamp, not a theme colour. A link carries its accent in the
+ * underline and keeps ink for the text, which is what stops a page of prose
+ * from reading as a page of teal.
+ */
+a {
+  color: inherit;
+  text-decoration-color: var(--stamp-600);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 160ms var(--ease-out), color 160ms var(--ease-out);
 }
 
-.monty {
-  font-family: var(--font-montserrat), "Helvetica Neue", Helvetica, Arial,
-    sans-serif;
+a:hover {
+  text-decoration-color: var(--stamp-500);
 }
 
-/* Paragraphs explicitly use Helvetica */
-p {
-  font-family: var(--font-primary);
+/* Prose links, where the link has to be findable in a block of text. */
+[data-slot="prose"] a,
+.link-accent {
+  color: var(--stamp-700);
 }
 
-/* Typography System - Only 3 font sizes */
-.text-large {
-  font-size: 48px;
+button {
+  font: inherit;
 }
 
-.text-medium {
-  font-size: 24px;
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
 }
 
-.text-small {
-  font-size: 16px;
+:focus-visible {
+  outline: 2px solid var(--stamp-600);
+  outline-offset: 2px;
 }
 
-/* Remove hardcoded font sizes to allow Tailwind classes to work */
-
-nav a {
-  font-family: var(--font-montserrat), "Helvetica Neue", Helvetica, Arial,
-    sans-serif;
+::selection {
+  background: var(--stamp-wash);
+  color: var(--ink-900);
 }
 
-/* Custom Scrollbar Styles */
-:root {
-  --scrollbar-track-light: #f1f1f1;
-  --scrollbar-track-dark: #2a2a2a;
-  --scrollbar-thumb: #30d5c8;
-  --scrollbar-thumb-hover: #28c4b8;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
-/* Light theme scrollbar */
-::-webkit-scrollbar {
-  width: 8px !important;
-  height: 8px !important;
+/* Type roles */
+
+@layer components {
+  .t-hero {
+    font-family: var(--f-display);
+    font-weight: 500;
+    font-size: var(--t-hero);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .t-h1 {
+    font-family: var(--f-display);
+    font-weight: 500;
+    font-size: var(--t-h1);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+  }
+
+  .t-h2 {
+    font-family: var(--f-display);
+    font-weight: 500;
+    font-size: var(--t-h2);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  .t-h3 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -0.005em;
+  }
+
+  .t-lede {
+    font-family: var(--f-display);
+    font-weight: 500;
+    font-size: var(--t-lede);
+    line-height: 1.55;
+  }
+
+  .t-body-lg {
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+
+  .t-body {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .t-body-sm {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  /* One of two named exceptions to the 16px body floor. */
+  .t-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  /* The second named exception. */
+  .t-index {
+    font-family: var(--f-mono);
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+  }
+
+  .t-numeral {
+    font-family: var(--f-mono);
+    font-weight: 300;
+    font-size: var(--t-numeral);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--numeral);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .t-figure {
+    font-family: var(--f-mono);
+    font-weight: 400;
+    font-size: var(--t-figure);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  /* Every checkable fact, date and reference number. */
+  .t-data {
+    font-family: var(--f-mono);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  /* Controls */
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 46px;
+    padding: 0 22px;
+    border-radius: 999px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.005em;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 160ms var(--ease-out), border-color 160ms var(--ease-out),
+      color 160ms var(--ease-out), transform 160ms var(--ease-out);
+  }
+
+  .btn:active:not(:disabled) {
+    transform: scale(0.985);
+  }
+
+  .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .btn-sm {
+    height: 40px;
+    padding: 0 18px;
+    font-size: 0.9375rem;
+  }
+
+  .btn-primary {
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    border: 1px solid transparent;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: var(--btn-bg-hover);
+    color: var(--btn-fg);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink-900);
+    border: 1px solid var(--rule-strong);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    border-color: var(--ink-900);
+    color: var(--ink-900);
+  }
+
+  /* On the inverted band, where --deep-* does not follow --ink. */
+  .btn-deep {
+    background: transparent;
+    color: var(--deep-ink);
+    border: 1px solid var(--deep-rule);
+  }
+
+  .btn-deep:hover:not(:disabled) {
+    border-color: var(--deep-ink);
+    color: var(--deep-ink);
+  }
+
+  /* Over a photograph, where the scrim fixes the ground to dark in both themes. */
+  .btn-on-image-primary {
+    background: var(--on-image-bg);
+    color: var(--on-image-fg);
+    border: 1px solid transparent;
+  }
+
+  .btn-on-image-primary:hover:not(:disabled) {
+    background: var(--on-image-bg-hover);
+    color: var(--on-image-fg);
+  }
+
+  .btn-on-image {
+    background: rgb(255 255 255 / 0.06);
+    color: #ffffff;
+    border: 1px solid rgb(255 255 255 / 0.42);
+    backdrop-filter: blur(2px);
+  }
+
+  .btn-on-image:hover:not(:disabled) {
+    background: rgb(255 255 255 / 0.12);
+    border-color: rgb(255 255 255 / 0.85);
+    color: #ffffff;
+  }
+
+  /* 44px tap target, 40px of visible box. */
+  .icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    color: var(--ink-500);
+    cursor: pointer;
+    position: relative;
+    transition: border-color 160ms var(--ease-out), color 160ms var(--ease-out),
+      background-color 160ms var(--ease-out);
+  }
+
+  .icon-btn::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+  }
+
+  .icon-btn:hover {
+    border-color: var(--rule-strong);
+    color: var(--ink-900);
+    background: var(--paper-sunk);
+  }
+
+  /* Surfaces */
+
+  .panel {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 18px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .field {
+    height: 48px;
+    padding: 0 14px;
+    background: var(--paper);
+    border: 1px solid var(--rule-strong);
+    border-radius: 10px;
+    width: 100%;
+    transition: border-color 160ms var(--ease-out);
+  }
+
+  .field:hover {
+    border-color: var(--ink-400);
+  }
+
+  textarea.field {
+    height: auto;
+    padding: 14px;
+    resize: vertical;
+  }
+
+  .field[aria-invalid="true"] {
+    border-color: var(--signal-blocked);
+  }
+
+  /* The pill marking the new capability. */
+  .stamp-pill {
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid var(--stamp-600);
+    border-radius: 999px;
+    color: var(--stamp-700);
+  }
+
+  .photo {
+    filter: var(--photo-grade);
+  }
+
+  .media {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: var(--shadow-image);
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 100;
+    padding: 12px 20px;
+    background: var(--stamp-600);
+    color: var(--stamp-on);
+    border-radius: 0 0 10px 0;
+  }
+
+  .skip-link:focus {
+    left: 0;
+    color: var(--stamp-on);
+  }
 }
 
-::-webkit-scrollbar-track {
-  background: var(--scrollbar-track-light) !important;
-  border-radius: 4px !important;
+/**
+ * Pre-animation state, applied only when the inline guard in `layout.tsx` has
+ * confirmed that scripting is on and reduced motion is off. Without the guard
+ * class nothing is hidden, so a no-JS visitor sees the full page.
+ */
+.motion-ready [data-reveal],
+.motion-ready [data-reveal-group] > *,
+.motion-ready [data-hero] > * {
+  opacity: 0;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb) !important;
-  border-radius: 4px !important;
-  transition: background-color 0.2s ease !important;
+.motion-ready [data-media-in] img {
+  opacity: 0;
 }
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--scrollbar-thumb-hover) !important;
-}
-
-/* Firefox light theme */
-html {
-  scrollbar-width: thin !important;
-  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track-light) !important;
-}
-
-/* Dark theme scrollbar */
-html.dark {
-  --scrollbar-track-light: #2a2a2a;
-}
-
-html.dark ::-webkit-scrollbar-track {
-  background: var(--scrollbar-track-dark) !important;
-}
-
-html.dark {
-  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track-dark) !important;
-}
-
-
