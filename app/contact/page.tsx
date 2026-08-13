@@ -140,8 +140,8 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Right Column: Contact Form Card (7 cols) */}
-          <div className="lg:col-span-7 rounded-[28px] border border-rule/90 bg-paper-raised p-8 sm:p-12 shadow-xs">
+          {/* Right Column: Contact Form Card (7 cols) - uncarded on mobile */}
+          <div className="lg:col-span-7 rounded-none border-0 bg-transparent p-0 shadow-none sm:rounded-[28px] sm:border sm:border-rule/90 sm:bg-paper-raised sm:p-8 md:p-12 sm:shadow-xs">
             <div className="mb-8 flex items-center justify-between border-b border-rule/80 pb-6">
               <div>
                 <span className="t-label text-xs uppercase tracking-widest text-stamp-700 font-semibold">
@@ -151,7 +151,7 @@ export default function ContactPage() {
                   Send a Case Briefing
                 </h2>
               </div>
-              <span className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-ink-500 bg-paper-sunk border border-rule px-3 py-1.5 rounded-full">
+              <span className="flex items-center gap-1.5 text-xs font-mono text-ink-500 bg-paper-sunk border border-rule px-3 py-1.5 rounded-full">
                 <ShieldCheck size={16} className="text-stamp-600" aria-hidden />
                 <span>NDA Protected</span>
               </span>
