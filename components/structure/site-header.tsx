@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { List, X, Check, ArrowRight } from "@phosphor-icons/react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -21,13 +21,77 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const backdropRef = useRef<HTMLDivElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
   const headerRef = useRef<HTMLElement>(null);
+  const isAnimatingRef = useRef(false);
 
-  // Close menu on route change
+  // Smooth close animation helper
+  const handleClose = useCallback(() => {
+    if (!open || isAnimatingRef.current) {
+      if (!open) return;
+    }
+
+    if (menuRef.current && backdropRef.current) {
+      isAnimatingRef.current = true;
+      const items = menuRef.current.querySelectorAll("[data-mobile-item]");
+      const cta = menuRef.current.querySelector("[data-mobile-cta]");
+
+      const closeTl = gsap.timeline({
+        defaults: { ease: "power2.inOut" },
+        onComplete: () => {
+          setOpen(false);
+          isAnimatingRef.current = false;
+          if (menuRef.current) gsap.set(menuRef.current, { display: "none" });
+          if (backdropRef.current) gsap.set(backdropRef.current, { display: "none" });
+        },
+      });
+
+      if (items.length > 0) {
+        closeTl.to(items, {
+          opacity: 0,
+          y: -6,
+          duration: 0.16,
+          stagger: 0.02,
+        });
+      }
+
+      if (cta) {
+        closeTl.to(cta, { opacity: 0, y: -4, duration: 0.14 }, "<");
+      }
+
+      closeTl.to(
+        menuRef.current,
+        {
+          opacity: 0,
+          y: -10,
+          scale: 0.96,
+          duration: 0.24,
+          ease: "power3.inOut",
+        },
+        "<0.04"
+      );
+
+      closeTl.to(
+        backdropRef.current,
+        {
+          opacity: 0,
+          duration: 0.22,
+          ease: "power2.inOut",
+        },
+        "<"
+      );
+    } else {
+      setOpen(false);
+    }
+  }, [open]);
+
+  // Close menu gracefully on route change
   useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+    if (open) {
+      handleClose();
+    }
+  }, [pathname, open, handleClose]);
 
   // Click-outside and Escape key listener to close mobile menu
   useEffect(() => {
@@ -41,44 +105,160 @@ export function SiteHeader() {
         burgerRef.current &&
         !burgerRef.current.contains(target)
       ) {
-        setOpen(false);
+        handleClose();
       }
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setOpen(false);
+        handleClose();
         burgerRef.current?.focus();
       }
     };
 
     const handleScroll = () => {
-      setOpen(false);
+      if (open) {
+        handleClose();
+      }
+    };
+
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && open) {
+        handleClose();
+      }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("touchstart", handleClickOutside);
     document.addEventListener("keydown", handleKeyDown);
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize, { passive: true });
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("touchstart", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [open, handleClose]);
+
+  // Dedicated GSAP timeline for silky-smooth mobile dropdown animations
+  useGSAP(() => {
+    if (!menuRef.current || !backdropRef.current) return;
+
+    if (!open) {
+      gsap.set(backdropRef.current, { display: "none", opacity: 0 });
+      gsap.set(menuRef.current, {
+        display: "none",
+        opacity: 0,
+        y: -14,
+        scale: 0.96,
+      });
+      return;
+    }
+
+    isAnimatingRef.current = true;
+    const items = menuRef.current.querySelectorAll("[data-mobile-item]");
+    const cta = menuRef.current.querySelector("[data-mobile-cta]");
+
+    gsap.set(backdropRef.current, { display: "block" });
+    gsap.set(menuRef.current, { display: "block" });
+
+    const openTl = gsap.timeline({
+      onComplete: () => {
+        isAnimatingRef.current = false;
+      },
+    });
+
+    // 1. Soft atmospheric backdrop fade-in
+    openTl.fromTo(
+      backdropRef.current,
+      { opacity: 0 },
+      {
+        opacity: 1,
+        duration: 0.32,
+        ease: "power2.out",
+      }
+    );
+
+    // 2. Glassmorphic card expand and drop
+    openTl.fromTo(
+      menuRef.current,
+      {
+        opacity: 0,
+        y: -14,
+        scale: 0.95,
+        rotateX: 4,
+        transformOrigin: "top right",
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        rotateX: 0,
+        duration: 0.44,
+        ease: "cubic-bezier(0.16, 1, 0.3, 1)",
+      },
+      "<0.04"
+    );
+
+    // 3. Staggered navigation links slide & fade
+    if (items.length > 0) {
+      openTl.fromTo(
+        items,
+        {
+          opacity: 0,
+          y: 12,
+          x: -6,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          x: 0,
+          duration: 0.34,
+          stagger: 0.045,
+          ease: "power3.out",
+        },
+        "<0.08"
+      );
+    }
+
+    // 4. Action button slide up
+    if (cta) {
+      openTl.fromTo(
+        cta,
+        {
+          opacity: 0,
+          y: 10,
+          scale: 0.97,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.32,
+          ease: "power3.out",
+        },
+        "<0.12"
+      );
+    }
+
+    return () => {
+      openTl.kill();
     };
   }, [open]);
 
   // Robust GSAP-based scroll tracking for header visibility and styling
   useGSAP(() => {
     let lastDirection = 0;
-    
+
     ScrollTrigger.create({
       start: "top top",
       end: 99999, // practically infinite
       onUpdate: (self) => {
         const currentScrollY = self.scroll();
-        
+
         // Handle visual scrolled state (glassmorphism vs transparent)
         if (currentScrollY > 24 !== scrolled) {
           setScrolled(currentScrollY > 24);
@@ -90,7 +270,7 @@ export function SiteHeader() {
           lastDirection = 0;
         } else if (self.direction !== lastDirection) {
           lastDirection = self.direction;
-          
+
           if (self.direction === 1) {
             // Scrolling down -> Hide
             gsap.to(headerRef.current, { yPercent: -100, duration: 0.4, ease: "power3.inOut", overwrite: "auto" });
@@ -193,71 +373,118 @@ export function SiteHeader() {
               type="button"
               style={onHero ? { color: "#ffffff" } : undefined}
               className={cn(
-                "icon-btn md:hidden transition-colors cursor-pointer",
+                "icon-btn relative md:hidden transition-all duration-300 cursor-pointer overflow-hidden",
                 onHero
                   ? "border-white/20 !text-white bg-white/10 hover:bg-white/20 backdrop-blur-md"
                   : "text-ink-900 border-rule hover:border-rule-strong hover:bg-paper-sunk",
+                open && "rotate-90 border-stamp-600/50 bg-paper-sunk text-stamp-700"
               )}
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               aria-controls="mobile-nav"
-              onClick={() => setOpen((value) => !value)}
+              onClick={() => {
+                if (open) {
+                  handleClose();
+                } else {
+                  setOpen(true);
+                }
+              }}
             >
-              {open ? <X size={20} aria-hidden /> : <List size={20} aria-hidden />}
+              <span className={cn("transition-transform duration-300 inline-flex items-center justify-center", open ? "rotate-90 scale-95" : "rotate-0 scale-100")}>
+                {open ? <X size={20} weight="bold" aria-hidden /> : <List size={20} weight="bold" aria-hidden />}
+              </span>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Floating Dropdown Navigation Drawer */}
-      {open && (
-        <div
-          ref={menuRef}
-          id="mobile-nav"
-          className="fixed top-20 right-4 left-4 z-50 rounded-2xl border border-rule bg-paper-raised/95 dark:bg-paper-raised/95 backdrop-blur-2xl p-4 shadow-2xl transition-all duration-200 animate-in fade-in slide-in-from-top-2 sm:left-auto sm:w-84 md:hidden"
-        >
-          <nav aria-label="Mobile Primary" className="flex flex-col gap-1">
-            {navItems.map((item) => {
-              const active = isActive(item.href);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  aria-current={active ? "page" : undefined}
-                  onClick={() => setOpen(false)}
-                  className={cn(
-                    "flex items-center justify-between rounded-xl px-4 py-3 text-[0.9375rem] font-medium no-underline transition-colors",
-                    active
-                      ? "bg-paper-sunk text-ink-900"
-                      : "text-ink-700 hover:bg-paper-sunk/60 hover:text-ink-900",
-                  )}
-                >
-                  <span>{item.label}</span>
-                  {active && (
-                    <Check
-                      size={16}
-                      weight="bold"
-                      className="text-stamp-600 shrink-0 ml-2"
-                      aria-hidden
-                    />
-                  )}
-                </Link>
-              );
-            })}
+      {/* Atmospheric Soft Backdrop Overlay */}
+      <div
+        ref={backdropRef}
+        className="fixed inset-0 z-40 bg-ink-950/20 dark:bg-black/45 backdrop-blur-[3px] md:hidden cursor-pointer"
+        onClick={handleClose}
+        aria-hidden="true"
+      />
 
-            <div className="mt-3 border-t border-rule pt-3">
-              <Link
-                href="/contact"
-                onClick={() => setOpen(false)}
-                className="btn btn-primary w-full justify-center gap-2"
-              >
-                <span>Talk to us</span>
-                <ArrowRight size={16} weight="bold" aria-hidden />
-              </Link>
-            </div>
-          </nav>
+      {/* Mobile Floating Dropdown Navigation Drawer */}
+      <div
+        ref={menuRef}
+        id="mobile-nav"
+        className="fixed top-[74px] right-4 left-4 z-50 rounded-[24px] border border-rule/90 bg-paper-raised/95 dark:bg-paper-raised/95 backdrop-blur-2xl p-4 sm:p-5 shadow-[0_24px_54px_-12px_rgba(0,0,0,0.18),0_4px_16px_rgba(0,0,0,0.06)] dark:shadow-[0_24px_54px_-12px_rgba(0,0,0,0.6),0_4px_16px_rgba(0,0,0,0.3)] sm:left-auto sm:w-[360px] md:hidden origin-top-right"
+        aria-hidden={!open}
+      >
+        <div className="flex items-center justify-between pb-3 mb-2 border-b border-rule/60 px-1">
+          <span className="text-[0.6875rem] font-mono tracking-widest text-ink-400 uppercase font-medium">
+            Navigation
+          </span>
+          <span className="text-[0.6875rem] font-mono text-stamp-700 tracking-wider font-medium">
+            Ultra Pharma
+          </span>
         </div>
-      )}
+
+        <nav aria-label="Mobile Primary" className="flex flex-col gap-1.5">
+          {navItems.map((item, index) => {
+            const active = isActive(item.href);
+            return (
+              <Link
+                key={item.href}
+                data-mobile-item
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                onClick={handleClose}
+                className={cn(
+                  "group relative flex items-center justify-between rounded-xl px-4 py-3 text-[0.9375rem] font-medium no-underline transition-all duration-200",
+                  active
+                    ? "bg-stamp-600/10 text-stamp-800 dark:bg-stamp-500/15 dark:text-stamp-300 font-semibold shadow-xs"
+                    : "text-ink-700 hover:bg-paper-sunk/80 hover:text-ink-900 hover:translate-x-1",
+                )}
+              >
+                <div className="flex items-center gap-3">
+                  <span className={cn(
+                    "text-[0.6875rem] font-mono",
+                    active ? "text-stamp-600 dark:text-stamp-400 font-semibold" : "text-ink-400 group-hover:text-stamp-600"
+                  )}>
+                    0{index + 1}
+                  </span>
+                  <span>{item.label}</span>
+                </div>
+                {active ? (
+                  <Check
+                    size={16}
+                    weight="bold"
+                    className="text-stamp-600 dark:text-stamp-400 shrink-0 ml-2"
+                    aria-hidden
+                  />
+                ) : (
+                  <span
+                    className="text-ink-400/60 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-stamp-600 text-xs font-mono"
+                    aria-hidden
+                  >
+                    &rarr;
+                  </span>
+                )}
+              </Link>
+            );
+          })}
+
+          <div data-mobile-cta className="mt-3 border-t border-rule/80 pt-3">
+            <Link
+              href="/contact"
+              onClick={handleClose}
+              className="btn btn-primary w-full justify-center gap-2 group shadow-sm"
+            >
+              <span>Talk to us</span>
+              <ArrowRight
+                size={16}
+                weight="bold"
+                className="transition-transform duration-200 group-hover:translate-x-1"
+                aria-hidden
+              />
+            </Link>
+          </div>
+        </nav>
+      </div>
     </>
   );
 }
+
