@@ -1,59 +1,94 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/next";
-import { Navigation } from "@/components/navigation";
-import { Varela_Round, Montserrat } from "next/font/google";
+import { Source_Serif_4, Inter_Tight, IBM_Plex_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import { SmoothScroll } from "@/components/smooth-scroll";
+import { SiteHeader } from "@/components/structure/site-header";
+import { SiteFooter } from "@/components/structure/site-footer";
+import { MotionProvider } from "@/components/motion/motion-provider";
+import { organizationSchema } from "@/lib/schema";
+import { site } from "@/content/site";
 
-// Varela Round as fallback font (Google Fonts)
-const varelaRound = Varela_Round({
+/** Weight ceiling 500, no italics, per `03 §3`. */
+const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
-  variable: "--font-varela-round",
+  weight: ["400", "500"],
+  style: ["normal"],
+  variable: "--font-source-serif",
   display: "swap",
-  weight: "400",
 });
 
-// Montserrat as secondary for titles/links/headers
-const montserrat = Montserrat({
+const interTight = Inter_Tight({
   subsets: ["latin"],
-  variable: "--font-montserrat",
+  weight: ["400", "500"],
+  style: ["normal"],
+  variable: "--font-inter-tight",
   display: "swap",
-  weight: ["400", "600", "700"],
+});
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  style: ["normal"],
+  variable: "--font-plex-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Ultra Pharma - Leading Pharmaceutical Innovation",
+  metadataBase: new URL(site.url),
+  title: {
+    default: "Ultra Pharma · Regulatory affairs and market access, Kenya",
+    template: "%s · Ultra Pharma",
+  },
   description:
-    "Driving healthcare innovation across Kenya and Africa with trusted regulatory expertise, streamlined compliance, and tailored market access solutions.",
+    "Registration, compliance and health technology assessment for healthcare products in Kenya and East Africa. From Pharmacy and Poisons Board approval to SHA reimbursement.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: site.name,
+    locale: "en_KE",
+    url: site.url,
+  },
+  robots: { index: true, follow: true },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${varelaRound.variable} ${montserrat.variable} antialiased scroll-smooth`}
-        style={{
-          fontFamily:
-            "Helvetica Neue, Helvetica, var(--font-varela-round), Arial, sans-serif",
-        }}
-      >
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${sourceSerif.variable} ${interTight.variable} ${plexMono.variable}`}
+    >
+      <head>
+        {/*
+          Runs before paint. Only then does CSS hide the pre-animation state, so
+          a visitor without scripting, or with reduced motion set, sees the page
+          at its end state rather than a blank one.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('motion-ready')}}catch(e){}})()`,
+          }}
+        />
+      </head>
+      <body>
+        <MotionProvider />
         <ThemeProvider
-          attribute="class"
+          attribute="data-theme"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <SmoothScroll />
-          <Navigation />
-          {children}
-
-          <Analytics />
+          <a href="#main" className="skip-link">
+            Skip to main content
+          </a>
+          <SiteHeader />
+          <main id="main">{children}</main>
+          <SiteFooter />
         </ThemeProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
       </body>
     </html>
   );
