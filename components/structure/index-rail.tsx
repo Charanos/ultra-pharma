@@ -40,49 +40,32 @@ export function IndexRail({ sections, idPrefix = "sec" }: IndexRailProps) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const activeIndex = sections.indexOf(active);
-  const progress =
-    sections.length > 1 ? (Math.max(activeIndex, 0) / (sections.length - 1)) * 100 : 0;
-
   return (
-    <>
-      <div
-        aria-hidden
-        className="sticky top-16 z-[55] h-0.5 bg-rule lg:hidden"
-        data-slot="index-progress"
-      >
-        <div
-          className="h-full bg-stamp-600 transition-[width] duration-300"
-          style={{ width: `${progress}%`, transitionTimingFunction: "var(--ease-out)" }}
-        />
-      </div>
-
-      <nav
-        aria-hidden
-        data-slot="index-rail"
-        className="fixed right-6 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-2.5 lg:flex"
-      >
-        {sections.map((n) => {
-          const on = n === active;
-          return (
-            <a
-              key={n}
-              href={`#${idPrefix}-${n}`}
-              tabIndex={-1}
-              className="t-index flex items-center gap-2.5 text-ink-400 no-underline transition-colors hover:text-ink-900"
-            >
-              <span
-                className="block w-[3px] rounded-sm transition-colors"
-                style={{
-                  height: 18,
-                  background: on ? "var(--stamp-600)" : "var(--rule-strong)",
-                }}
-              />
-              <span>{n}</span>
-            </a>
-          );
-        })}
-      </nav>
-    </>
+    <nav
+      aria-hidden
+      data-slot="index-rail"
+      className="fixed right-6 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-2.5 lg:flex"
+    >
+      {sections.map((n) => {
+        const on = n === active;
+        return (
+          <a
+            key={n}
+            href={`#${idPrefix}-${n}`}
+            tabIndex={-1}
+            className="t-index flex items-center gap-2.5 text-ink-400 no-underline transition-colors hover:text-ink-900"
+          >
+            <span
+              className="block w-[3px] rounded-sm transition-colors"
+              style={{
+                height: 18,
+                background: on ? "var(--stamp-600)" : "var(--rule-strong)",
+              }}
+            />
+            <span>{n}</span>
+          </a>
+        );
+      })}
+    </nav>
   );
 }

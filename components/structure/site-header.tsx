@@ -3,130 +3,261 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { List, X } from "@phosphor-icons/react";
+import { List, X, Check, ArrowRight } from "@phosphor-icons/react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { navItems } from "@/content/site";
 import { ThemeToggle } from "@/components/primitives/theme-toggle";
 import { Wordmark } from "./wordmark";
 import { cn } from "@/lib/utils";
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
+
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
 
-  useEffect(() => setOpen(false), [pathname]);
-
-  /* The rule and ground fade in after 8px, so the header is weightless at rest. */
+  // Close menu on route change
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    setOpen(false);
+  }, [pathname]);
 
+  // Click-outside and Escape key listener to close mobile menu
   useEffect(() => {
     if (!open) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as Node;
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(target) &&
+        burgerRef.current &&
+        !burgerRef.current.contains(target)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
         setOpen(false);
         burgerRef.current?.focus();
       }
     };
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
+
+    const handleScroll = () => {
+      setOpen(false);
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [open]);
+
+  // Robust GSAP-based scroll tracking for header visibility and styling
+  useGSAP(() => {
+    let lastDirection = 0;
+    
+    ScrollTrigger.create({
+      start: "top top",
+      end: 99999, // practically infinite
+      onUpdate: (self) => {
+        const currentScrollY = self.scroll();
+        
+        // Handle visual scrolled state (glassmorphism vs transparent)
+        if (currentScrollY > 24 !== scrolled) {
+          setScrolled(currentScrollY > 24);
+        }
+
+        // Only act if direction changed or at the very top
+        if (currentScrollY < 50) {
+          gsap.to(headerRef.current, { yPercent: 0, duration: 0.4, ease: "power3.out", overwrite: "auto" });
+          lastDirection = 0;
+        } else if (self.direction !== lastDirection) {
+          lastDirection = self.direction;
+          
+          if (self.direction === 1) {
+            // Scrolling down -> Hide
+            gsap.to(headerRef.current, { yPercent: -100, duration: 0.4, ease: "power3.inOut", overwrite: "auto" });
+          } else if (self.direction === -1) {
+            // Scrolling up -> Show
+            gsap.to(headerRef.current, { yPercent: 0, duration: 0.4, ease: "power3.out", overwrite: "auto" });
+          }
+        }
+      },
+    });
+  }, [scrolled]);
+
+  const isHomePage = pathname === "/";
+  const onHero = isHomePage && !scrolled;
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header
-      data-slot="site-header"
-      data-scrolled={scrolled || undefined}
-      className={cn(
-        "sticky top-0 z-60 transition-[background-color,border-color,backdrop-filter] duration-300",
-        scrolled || open
-          ? "border-b border-rule bg-paper/85 backdrop-blur-xl"
-          : "border-b border-transparent bg-paper",
-      )}
-      style={{ transitionTimingFunction: "var(--ease-out)" }}
-    >
-      <div className="mx-auto flex h-16 max-w-[1440px] items-center gap-8 px-6">
-        <Wordmark />
+    <>
+      <header
+        ref={headerRef}
+        data-slot="site-header"
+        data-scrolled={scrolled || undefined}
+        data-on-hero={onHero || undefined}
+        className={cn(
+          "fixed top-0 right-0 left-0 z-50 w-full transition-colors duration-300 ease-out",
+          onHero
+            ? "border-b border-transparent bg-transparent py-4 md:py-5"
+            : cn(
+                "border-b border-rule/80 py-3 md:py-3.5",
+                "bg-paper/85 backdrop-blur-xl shadow-xs",
+              ),
+        )}
+      >
+        <div className="mx-auto flex h-14 w-full max-w-[1440px] items-center justify-between gap-4 px-6 md:px-8">
+          {/* Brand Wordmark */}
+          <Wordmark inverted={onHero} />
 
-        <nav aria-label="Primary" className="ml-auto hidden items-center gap-1 md:flex">
-          {navItems.map((item) => {
-            const active = isActive(item.href);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={active ? "page" : undefined}
-                className={cn(
-                  "relative rounded-lg px-3 py-2 text-[0.9375rem] no-underline transition-colors duration-200",
-                  active ? "text-ink-900" : "text-ink-500 hover:text-ink-900",
-                )}
-              >
-                {item.label}
-                {active && (
-                  <span
-                    aria-hidden
-                    className="absolute inset-x-3 -bottom-0.5 h-[1.5px] rounded-full bg-stamp-600"
-                  />
-                )}
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div className="ml-auto flex items-center gap-2 md:ml-4">
-          <ThemeToggle />
-          <Link href="/contact" className="btn btn-primary btn-sm hidden md:inline-flex">
-            Talk to us
-          </Link>
-          <button
-            ref={burgerRef}
-            type="button"
-            className="icon-btn text-ink-900 md:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            onClick={() => setOpen((value) => !value)}
+          {/* Centered Pill Navigation (Desktop) */}
+          <nav
+            aria-label="Primary"
+            className={cn(
+              "hidden items-center gap-1 rounded-full p-1.5 transition-all duration-300 md:flex",
+              onHero
+                ? "bg-white/12 border border-white/20 backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]"
+                : "bg-paper-sunk/80 border border-rule/70 shadow-xs backdrop-blur-md",
+            )}
           >
-            {open ? <X size={19} aria-hidden /> : <List size={19} aria-hidden />}
-          </button>
-        </div>
-      </div>
+            {navItems.map((item) => {
+              const active = isActive(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  style={
+                    onHero
+                      ? {
+                          color: active ? "#ffffff" : "rgba(255, 255, 255, 0.85)",
+                          backgroundColor: active ? "rgba(255, 255, 255, 0.22)" : undefined,
+                        }
+                      : undefined
+                  }
+                  className={cn(
+                    "rounded-full px-4 py-1.5 text-[0.875rem] font-medium no-underline transition-all duration-200",
+                    onHero
+                      ? active
+                        ? "!text-white bg-white/20 shadow-sm"
+                        : "!text-white/85 hover:bg-white/12 hover:!text-white"
+                      : active
+                        ? "bg-paper-raised text-ink-900 shadow-sm"
+                        : "text-ink-500 hover:text-ink-900",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
 
+          {/* Right Action Controls */}
+          <div className="flex items-center gap-2.5">
+            <ThemeToggle inverted={onHero} />
+
+            <Link
+              href="/contact"
+              style={onHero ? { color: "#ffffff" } : undefined}
+              className={cn(
+                "btn btn-sm hidden md:inline-flex",
+                onHero ? "btn-on-image-primary shadow-sm !text-white" : "btn-primary",
+              )}
+            >
+              Talk to us
+            </Link>
+
+            {/* Mobile Menu Toggle Button */}
+            <button
+              ref={burgerRef}
+              type="button"
+              style={onHero ? { color: "#ffffff" } : undefined}
+              className={cn(
+                "icon-btn md:hidden transition-colors cursor-pointer",
+                onHero
+                  ? "border-white/20 !text-white bg-white/10 hover:bg-white/20 backdrop-blur-md"
+                  : "text-ink-900 border-rule hover:border-rule-strong hover:bg-paper-sunk",
+              )}
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              aria-controls="mobile-nav"
+              onClick={() => setOpen((value) => !value)}
+            >
+              {open ? <X size={20} aria-hidden /> : <List size={20} aria-hidden />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Floating Dropdown Navigation Drawer */}
       {open && (
         <div
+          ref={menuRef}
           id="mobile-nav"
-          className="border-t border-rule bg-paper-raised px-6 pb-6 pt-2 md:hidden"
+          className="fixed top-20 right-4 left-4 z-50 rounded-2xl border border-rule bg-paper-raised/95 dark:bg-paper-raised/95 backdrop-blur-2xl p-4 shadow-2xl transition-all duration-200 animate-in fade-in slide-in-from-top-2 sm:left-auto sm:w-84 md:hidden"
         >
-          <nav aria-label="Primary">
-            {navItems.map((item) => (
+          <nav aria-label="Mobile Primary" className="flex flex-col gap-1">
+            {navItems.map((item) => {
+              const active = isActive(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "flex items-center justify-between rounded-xl px-4 py-3 text-[0.9375rem] font-medium no-underline transition-colors",
+                    active
+                      ? "bg-paper-sunk text-ink-900"
+                      : "text-ink-700 hover:bg-paper-sunk/60 hover:text-ink-900",
+                  )}
+                >
+                  <span>{item.label}</span>
+                  {active && (
+                    <Check
+                      size={16}
+                      weight="bold"
+                      className="text-stamp-600 shrink-0 ml-2"
+                      aria-hidden
+                    />
+                  )}
+                </Link>
+              );
+            })}
+
+            <div className="mt-3 border-t border-rule pt-3">
               <Link
-                key={item.href}
-                href={item.href}
-                aria-current={isActive(item.href) ? "page" : undefined}
-                className={cn(
-                  "flex items-center justify-between border-b border-rule py-3.5 text-[1.0625rem] no-underline",
-                  isActive(item.href) ? "text-ink-900" : "text-ink-700",
-                )}
+                href="/contact"
+                onClick={() => setOpen(false)}
+                className="btn btn-primary w-full justify-center gap-2"
               >
-                {item.label}
-                {isActive(item.href) && (
-                  <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-stamp-600" />
-                )}
+                <span>Talk to us</span>
+                <ArrowRight size={16} weight="bold" aria-hidden />
               </Link>
-            ))}
+            </div>
           </nav>
-          <Link href="/contact" className="btn btn-primary mt-5 w-full">
-            Talk to us
-          </Link>
         </div>
       )}
-    </header>
+    </>
   );
 }

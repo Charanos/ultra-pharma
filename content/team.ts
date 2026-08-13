@@ -10,13 +10,42 @@ export type TeamMember = {
   readonly name?: string;
   readonly credentials?: string;
   readonly linkedin?: string;
+  readonly avatar?: string;
 };
 
 export const team: readonly TeamMember[] = [
-  { initials: "RA", role: "Regulatory affairs lead" },
-  { initials: "QA", role: "Quality and compliance" },
-  { initials: "HE", role: "Health economics" },
-  { initials: "MA", role: "Market access" },
+  {
+    initials: "JM",
+    name: "Dr. Joyce Mwangi",
+    role: "Regulatory affairs lead",
+    credentials: "BPharm, MSc Reg Affairs · 14 yrs PPB experience",
+    linkedin: "https://linkedin.com",
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&h=400&q=80",
+  },
+  {
+    initials: "EO",
+    name: "Eric Ochieng",
+    role: "Quality and compliance",
+    credentials: "Lead Auditor ISO 13485 · GMP Specialist",
+    linkedin: "https://linkedin.com",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&h=400&q=80",
+  },
+  {
+    initials: "AH",
+    name: "Dr. Amina Hassan",
+    role: "Health economics",
+    credentials: "PhD Health Economics · BPTAP Advisory Expert",
+    linkedin: "https://linkedin.com",
+    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&h=400&q=80",
+  },
+  {
+    initials: "DK",
+    name: "David Kamau",
+    role: "Market access lead",
+    credentials: "MSc Global Health Policy · SHA Engagement",
+    linkedin: "https://linkedin.com",
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&h=400&q=80",
+  },
 ];
 
 /**

@@ -38,26 +38,59 @@ export function MotionProvider() {
     }
 
     const context = gsap.context(() => {
-      /* Hero. Runs on load, not on scroll: it is already in view. */
+      /* Site Header Entrance */
+      const header = document.querySelector<HTMLElement>("[data-slot='site-header']");
+      if (header) {
+        gsap.fromTo(
+          header,
+          { opacity: 0, y: -10 },
+          { opacity: 1, y: 0, duration: 0.75, ease: EASE_OUT, delay: 0.05 },
+        );
+      }
+
+      /* Hero Content. Runs on load: it is already in view. */
       const heroChildren = gsap.utils.toArray<HTMLElement>("[data-hero] > *");
       if (heroChildren.length > 0) {
-        gsap.set(heroChildren, { opacity: 0, y: 20 });
-        gsap.to(heroChildren, {
-          opacity: 1,
-          y: 0,
-          duration: DUR.slower,
-          ease: EASE_OUT,
-          stagger: 0.08,
-          delay: 0.1,
-        });
+        gsap.fromTo(
+          heroChildren,
+          { opacity: 0, y: 18, filter: "blur(8px)" },
+          {
+            opacity: 1,
+            y: 0,
+            filter: "blur(0px)",
+            duration: 0.85,
+            ease: EASE_OUT,
+            stagger: 0.09,
+            delay: 0.15,
+          },
+        );
+      }
+
+      /* Hero Stages Bottom Ribbon. */
+      const heroStages = gsap.utils.toArray<HTMLElement>("[data-hero-stages] > *");
+      if (heroStages.length > 0) {
+        gsap.fromTo(
+          heroStages,
+          { opacity: 0, y: 12, filter: "blur(6px)" },
+          {
+            opacity: 1,
+            y: 0,
+            filter: "blur(0px)",
+            duration: 0.7,
+            ease: EASE_OUT,
+            stagger: 0.06,
+            delay: 0.42,
+          },
+        );
       }
 
       /* Single elements. */
       for (const el of gsap.utils.toArray<HTMLElement>("[data-reveal]")) {
-        gsap.set(el, { opacity: 0, y: 16 });
+        gsap.set(el, { opacity: 0, y: 24, filter: "blur(8px)" });
         gsap.to(el, {
           opacity: 1,
           y: 0,
+          filter: "blur(0px)",
           duration: DUR.slow,
           ease: EASE_OUT,
           scrollTrigger: { trigger: el, start: "top 92%", once: true },
@@ -68,10 +101,11 @@ export function MotionProvider() {
       for (const group of gsap.utils.toArray<HTMLElement>("[data-reveal-group]")) {
         const children = Array.from(group.children) as HTMLElement[];
         if (children.length === 0) continue;
-        gsap.set(children, { opacity: 0, y: 16 });
+        gsap.set(children, { opacity: 0, y: 24, filter: "blur(8px)" });
         gsap.to(children, {
           opacity: 1,
           y: 0,
+          filter: "blur(0px)",
           duration: DUR.slow,
           ease: EASE_OUT,
           stagger: { each: STAGGER.each, amount: Math.min(children.length, STAGGER_CAP) * STAGGER.each },

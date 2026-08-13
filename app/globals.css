@@ -61,7 +61,7 @@
   --deep-stamp: #3fbfa3;
 
   --f-display: var(--font-source-serif), Georgia, "Times New Roman", serif;
-  --f-ui: var(--font-inter-tight), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-ui: var(--font-nunito), system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, monospace;
 
   --t-hero: clamp(2.75rem, 6.5vw, 5rem);
@@ -180,77 +180,108 @@
 
 /* Base */
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 96px;
-}
-
-body {
-  margin: 0;
-  background: var(--paper);
-  color: var(--ink-900);
-  font-family: var(--f-ui);
-  font-size: 1rem;
-  line-height: 1.65;
-  font-synthesis: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/**
- * The accent is a stamp, not a theme colour. A link carries its accent in the
- * underline and keeps ink for the text, which is what stops a page of prose
- * from reading as a page of teal.
- */
-a {
-  color: inherit;
-  text-decoration-color: var(--stamp-600);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-  transition: text-decoration-color 160ms var(--ease-out), color 160ms var(--ease-out);
-}
-
-a:hover {
-  text-decoration-color: var(--stamp-500);
-}
-
-/* Prose links, where the link has to be findable in a block of text. */
-[data-slot="prose"] a,
-.link-accent {
-  color: var(--stamp-700);
-}
-
-button {
-  font: inherit;
-}
-
-input,
-textarea,
-select {
-  font: inherit;
-  color: inherit;
-}
-
-:focus-visible {
-  outline: 2px solid var(--stamp-600);
-  outline-offset: 2px;
-}
-
-::selection {
-  background: var(--stamp-wash);
-  color: var(--ink-900);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
   }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+  }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink-900);
+    font-family: var(--f-ui);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    font-synthesis: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /**
+   * The accent is a stamp, not a theme colour. A link carries its accent in the
+   * underline and keeps ink for the text, which is what stops a page of prose
+   * from reading as a page of teal.
+   */
+  a {
+    color: inherit;
+    text-decoration-color: var(--stamp-600);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: text-decoration-color 160ms var(--ease-out), color 160ms var(--ease-out);
+  }
+
+  a:hover {
+    text-decoration-color: var(--stamp-500);
+  }
+
+  /* Prose links, where the link has to be findable in a block of text. */
+  [data-slot="prose"] a,
+  .link-accent {
+    color: var(--stamp-700);
+  }
+
+  button {
+    font: inherit;
+  }
+
+  input,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--stamp-600);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--stamp-wash);
+    color: var(--ink-900);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* Theme-invariant hero and header rules */
+header[data-on-hero] {
+  color: #ffffff !important;
+}
+
+header[data-on-hero] a {
+  color: #ffffff;
+}
+
+header[data-on-hero] [data-slot="wordmark"] {
+  color: #ffffff !important;
+}
+
+header[data-on-hero] [data-slot="wordmark"]:hover {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+header[data-on-hero] nav a {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+header[data-on-hero] nav a:hover {
+  color: #ffffff !important;
+}
+
+header[data-on-hero] nav a[aria-current="page"] {
+  color: #ffffff !important;
 }
 
 /* Type roles */
@@ -296,18 +327,18 @@ select {
   }
 
   .t-body-lg {
-    font-size: 1.0625rem;
-    line-height: 1.65;
+    font-size: 1rem;
+    line-height: 1.6;
   }
 
   .t-body {
-    font-size: 1rem;
-    line-height: 1.65;
+    font-size: 0.9375rem;
+    line-height: 1.6;
   }
 
   .t-body-sm {
-    font-size: 0.9375rem;
-    line-height: 1.55;
+    font-size: 0.875rem;
+    line-height: 1.5;
   }
 
   /* One of two named exceptions to the 16px body floor. */
@@ -348,8 +379,8 @@ select {
   /* Every checkable fact, date and reference number. */
   .t-data {
     font-family: var(--f-mono);
-    font-size: 0.9375rem;
-    line-height: 1.5;
+    font-size: 0.875rem;
+    line-height: 1.45;
   }
 
   /* Controls */
@@ -359,10 +390,10 @@ select {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    height: 46px;
-    padding: 0 22px;
+    height: 42px;
+    padding: 0 18px;
     border-radius: 999px;
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     font-weight: 500;
     line-height: 1;
     letter-spacing: -0.005em;
@@ -383,9 +414,9 @@ select {
   }
 
   .btn-sm {
-    height: 40px;
-    padding: 0 18px;
-    font-size: 0.9375rem;
+    height: 36px;
+    padding: 0 14px;
+    font-size: 0.8125rem;
   }
 
   .btn-primary {
@@ -426,34 +457,41 @@ select {
   .btn-on-image-primary {
     background: var(--on-image-bg);
     color: var(--on-image-fg);
-    border: 1px solid transparent;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), 0 4px 16px rgba(15, 110, 92, 0.35);
   }
 
   .btn-on-image-primary:hover:not(:disabled) {
     background: var(--on-image-bg-hover);
     color: var(--on-image-fg);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(15, 110, 92, 0.5);
+    transform: translateY(-1px);
   }
 
   .btn-on-image {
-    background: rgb(255 255 255 / 0.06);
+    background: rgba(255, 255, 255, 0.08);
     color: #ffffff;
-    border: 1px solid rgb(255 255 255 / 0.42);
-    backdrop-filter: blur(2px);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   }
 
   .btn-on-image:hover:not(:disabled) {
-    background: rgb(255 255 255 / 0.12);
-    border-color: rgb(255 255 255 / 0.85);
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.65);
     color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-1px);
   }
 
-  /* 44px tap target, 40px of visible box. */
+  /* 36px tap target */
   .icon-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     background: transparent;
     border: 1px solid var(--rule);
     border-radius: 10px;
@@ -559,10 +597,47 @@ select {
  */
 .motion-ready [data-reveal],
 .motion-ready [data-reveal-group] > *,
-.motion-ready [data-hero] > * {
+.motion-ready [data-hero] > *,
+.motion-ready [data-hero-stages] > * {
   opacity: 0;
 }
 
 .motion-ready [data-media-in] img {
   opacity: 0;
 }
+
+/* Custom Refined Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(138, 150, 156, 0.4);
+  border-radius: 10px;
+  border: 4px solid transparent;
+  background-clip: content-box;
+  transition: background-color 200ms ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(138, 150, 156, 0.7);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background-color: rgba(103, 117, 123, 0.5);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(103, 117, 123, 0.8);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(138, 150, 156, 0.5) transparent;
+}
+

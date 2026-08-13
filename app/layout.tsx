@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Source_Serif_4, Inter_Tight, IBM_Plex_Mono } from "next/font/google";
+import { Source_Serif_4, Nunito, IBM_Plex_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteHeader } from "@/components/structure/site-header";
 import { SiteFooter } from "@/components/structure/site-footer";
@@ -17,11 +17,11 @@ const sourceSerif = Source_Serif_4({
   display: "swap",
 });
 
-const interTight = Inter_Tight({
+const nunito = Nunito({
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["300", "400", "500", "600", "700"],
   style: ["normal"],
-  variable: "--font-inter-tight",
+  variable: "--font-nunito",
   display: "swap",
 });
 
@@ -56,7 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${sourceSerif.variable} ${interTight.variable} ${plexMono.variable}`}
+      className={`${sourceSerif.variable} ${nunito.variable} ${plexMono.variable}`}
     >
       <head>
         {/*
