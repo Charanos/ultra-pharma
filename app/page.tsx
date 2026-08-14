@@ -283,7 +283,7 @@ export default function HomePage() {
       {/* Full-bleed divider. A breath between chapters, no text over it. */}
       <div className="relative h-[200px] border-y border-rule">
         <FigureImage
-          media={media.divider}
+          media={media.hero}
           sizes="100vw"
           className="h-full w-full rounded-none shadow-none"
         />
