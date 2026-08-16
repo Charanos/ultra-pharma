@@ -65,37 +65,39 @@ export default async function InsightPage({ params }: { params: Promise<Params> 
 
       {/* Article Header */}
       <header className="border-b border-rule bg-paper-sunk/30 relative">
-        <div className="mx-auto max-w-[1440px] px-6 pb-14 pt-36 sm:pt-40">
-          <Link
-            href="/insights"
-            className="t-label inline-flex items-center gap-2 text-xs font-mono text-stamp-700 no-underline transition-colors hover:text-stamp-600 mb-8 uppercase tracking-wider group"
-          >
-            <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" aria-hidden />
-            <span>Back to all insights</span>
-          </Link>
+        <div className="mx-auto max-w-[1440px] px-6 pb-16 pt-36 sm:pt-40">
+          <div className="mx-auto max-w-[1080px] flex flex-col items-center text-center">
+            <Link
+              href="/insights"
+              className="t-label inline-flex items-center gap-2 text-xs font-mono text-stamp-700 no-underline transition-colors hover:text-stamp-600 mb-8 uppercase tracking-wider group"
+            >
+              <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" aria-hidden />
+              <span>Back to all insights</span>
+            </Link>
 
-          <div className="flex items-center gap-3">
-            <span className="stamp-pill text-xs py-0.5 px-3 font-medium flex items-center gap-1.5">
-              <Tag size={12} aria-hidden />
-              {post.category}
-            </span>
-            <span className="text-xs font-mono text-ink-400">· Regulatory Intelligence Briefing</span>
-          </div>
+            <div className="flex items-center justify-center gap-3">
+              <span className="stamp-pill text-xs py-0.5 px-3 font-medium flex items-center gap-1.5">
+                <Tag size={12} aria-hidden />
+                {post.category}
+              </span>
+              <span className="text-xs font-mono text-ink-400">· Regulatory Intelligence Briefing</span>
+            </div>
 
-          <h1 className="t-h1 mt-6 font-display font-medium text-ink-900 leading-[1.18] tracking-tight">
-            {post.title}
-          </h1>
+            <h1 className="mt-6 font-display text-[2.125rem] sm:text-[2.625rem] lg:text-[3rem] font-medium text-ink-900 leading-[1.16] tracking-tight text-balance">
+              {post.title}
+            </h1>
 
-          <div className="mt-8 flex flex-wrap items-center gap-6 border-t border-rule/80 pt-6 text-xs font-mono text-ink-500">
-            <span className="flex items-center gap-1.5">
-              <Calendar size={14} className="text-stamp-600" aria-hidden />
-              {post.displayDate}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Clock size={14} className="text-stamp-600" aria-hidden />
-              {post.readingTime}
-            </span>
-            <span className="text-ink-400">· Ultra Pharma Advisory Practice</span>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-6 border-t border-rule/80 pt-6 text-xs font-mono text-ink-500 w-full">
+              <span className="flex items-center gap-1.5">
+                <Calendar size={14} className="text-stamp-600" aria-hidden />
+                {post.displayDate}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Clock size={14} className="text-stamp-600" aria-hidden />
+                {post.readingTime}
+              </span>
+              <span className="text-ink-400">· Ultra Pharma Advisory Practice</span>
+            </div>
           </div>
         </div>
       </header>

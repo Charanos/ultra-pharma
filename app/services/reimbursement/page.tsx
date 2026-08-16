@@ -63,18 +63,18 @@ export default function ReimbursementPage() {
       <IndexRail sections={railSections} />
 
       <section className="border-b border-rule bg-paper-sunk/30">
-        <div className="mx-auto max-w-[1440px] px-6 pb-14 pt-36 sm:pt-40">
-          <div className="flex flex-col gap-4 w-full">
-            <div className="inline-flex items-center gap-2 text-xs font-mono tracking-wider text-stamp-700 uppercase">
+        <div className="mx-auto max-w-[1440px] px-6 pb-16 pt-36 sm:pt-40">
+          <div className="flex flex-col items-center text-center mx-auto max-w-[1100px] gap-5 w-full">
+            <div className="inline-flex items-center justify-center gap-2 text-xs font-mono tracking-wider text-stamp-700 uppercase">
               <span className="h-1.5 w-1.5 rounded-full bg-stamp-600" aria-hidden />
               <span>Ultra Pharma / Services / Stage 03</span>
             </div>
 
-            <h1 className="m-0 font-display text-[2.25rem] sm:text-[2.75rem] font-medium text-ink-900 leading-[1.2] tracking-tight">
+            <h1 className="m-0 font-display text-[2.25rem] sm:text-[2.625rem] lg:text-[3rem] font-medium text-ink-900 leading-[1.16] tracking-tight text-balance">
               Health product assessment and national benefit listing
             </h1>
 
-            <p className="m-0 text-ink-600 font-light text-[1.0625rem] sm:text-[1.125rem] leading-relaxed max-w-[54ch]">
+            <p className="m-0 text-ink-600 font-light text-[1.0625rem] sm:text-[1.1875rem] leading-relaxed max-w-[72ch] text-balance">
               Preparing the evidence that supports inclusion in Kenya&apos;s national health
               benefits package, so an approved product becomes a funded one.
             </p>

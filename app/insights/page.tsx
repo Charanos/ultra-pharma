@@ -23,24 +23,24 @@ export default function InsightsPage() {
 
       {/* Header Section */}
       <section className="border-b border-rule bg-paper-sunk/30">
-        <div className="mx-auto max-w-[1440px] px-6 pb-14 pt-36 sm:pt-40">
-          <div className="flex flex-col gap-4 w-full">
-            <div className="inline-flex items-center gap-2 text-xs font-mono tracking-wider text-stamp-700 uppercase">
+        <div className="mx-auto max-w-[1440px] px-6 pb-16 pt-36 sm:pt-40">
+          <div className="flex flex-col items-center text-center mx-auto max-w-[1040px] gap-5 w-full">
+            <div className="inline-flex items-center justify-center gap-2 text-xs font-mono tracking-wider text-stamp-700 uppercase">
               <span className="h-1.5 w-1.5 rounded-full bg-stamp-600" aria-hidden />
               <span>Ultra Pharma / Intelligence & Analysis</span>
             </div>
 
-            <h1 className="m-0 font-display text-[2.25rem] sm:text-[2.75rem] font-medium text-ink-900 leading-[1.2] tracking-tight">
+            <h1 className="m-0 font-display text-[2.25rem] sm:text-[2.625rem] lg:text-[3rem] font-medium text-ink-900 leading-[1.16] tracking-tight text-balance">
               Insights & Regulatory Intelligence
             </h1>
             
-            <p className="m-0 text-ink-600 font-light text-[1.0625rem] sm:text-[1.125rem] leading-relaxed max-w-[56ch]">
+            <p className="m-0 text-ink-600 font-light text-[1.0625rem] sm:text-[1.1875rem] leading-relaxed max-w-[72ch] text-balance">
               Critical analysis on Kenyan healthcare regulation, health technology assessment under SHA, and market access across East Africa.
             </p>
           </div>
 
           {/* Category Quick Filter Strip */}
-          <div className="mt-12 flex flex-wrap items-center gap-2.5 pt-6 border-t border-rule/70">
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-2.5 pt-6 border-t border-rule/70">
             <span className="text-xs font-mono text-ink-400 mr-2 uppercase tracking-wider flex items-center gap-1.5">
               <Tag size={14} className="text-stamp-600" aria-hidden />
               Topics:

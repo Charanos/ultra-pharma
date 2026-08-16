@@ -4,17 +4,30 @@ import { allMedia } from "@/content/media";
 
 export function LegalPageBody({ page }: { readonly page: LegalPage }) {
   return (
-    <section className="mx-auto max-w-[720px] px-6 pb-32 pt-28">
-      <p className="t-index m-0 mb-6 text-ink-400">{page.crumb}</p>
-      <h1 className="t-h1 m-0">{page.title}</h1>
+    <>
+      <section className="border-b border-rule bg-paper-sunk/30">
+        <div className="mx-auto max-w-[1440px] px-6 pb-16 pt-36 sm:pt-40">
+          <div className="flex flex-col items-center text-center mx-auto max-w-[1040px] gap-5 w-full">
+            <div className="inline-flex items-center justify-center gap-2 text-xs font-mono tracking-wider text-stamp-700 uppercase">
+              <span className="h-1.5 w-1.5 rounded-full bg-stamp-600" aria-hidden />
+              <span>{page.crumb}</span>
+            </div>
 
-      <div className="mt-12 flex flex-col gap-6">
-        {page.body.map((paragraph) => (
-          <p key={paragraph} className="t-body-lg m-0 text-ink-700">
-            {paragraph}
-          </p>
-        ))}
-      </div>
+            <h1 className="m-0 font-display text-[2.25rem] sm:text-[2.625rem] lg:text-[3rem] font-medium text-ink-900 leading-[1.16] tracking-tight text-balance">
+              {page.title}
+            </h1>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-[720px] px-6 pb-32 pt-16">
+        <div className="flex flex-col gap-6">
+          {page.body.map((paragraph) => (
+            <p key={paragraph} className="t-body-lg m-0 text-ink-700 font-light leading-relaxed">
+              {paragraph}
+            </p>
+          ))}
+        </div>
 
       {/* Attribution is not required under the Unsplash Licence and is given anyway. */}
       {page.slug === "terms" && (
@@ -42,5 +55,6 @@ export function LegalPageBody({ page }: { readonly page: LegalPage }) {
         </div>
       )}
     </section>
-  );
+  </>
+);
 }
