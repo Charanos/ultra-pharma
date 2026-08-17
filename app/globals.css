@@ -486,7 +486,7 @@ header[data-on-hero] nav a[aria-current="page"] {
     transform: translateY(-1px);
   }
 
-  /* 36px tap target */
+  /* 36px visual box, 44px hit area via ::after. WCAG touch target minimum. */
   .icon-btn {
     display: flex;
     align-items: center;
@@ -506,7 +506,7 @@ header[data-on-hero] nav a[aria-current="page"] {
   .icon-btn::after {
     content: "";
     position: absolute;
-    inset: -2px;
+    inset: -4px;
   }
 
   .icon-btn:hover {
@@ -599,7 +599,10 @@ header[data-on-hero] nav a[aria-current="page"] {
 .motion-ready [data-reveal],
 .motion-ready [data-reveal-group] > *,
 .motion-ready [data-hero] > *,
-.motion-ready [data-hero-stages] > * {
+.motion-ready [data-hero-stages] > *,
+.motion-ready [data-icon-pop],
+.motion-ready [data-dot-pop],
+.motion-ready [data-slide-in] {
   opacity: 0;
 }
 

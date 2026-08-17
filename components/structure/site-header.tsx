@@ -437,14 +437,14 @@ export function SiteHeader() {
                   className={cn(
                     "group relative flex items-center justify-between rounded-xl px-4 py-3 text-[0.9375rem] font-medium no-underline transition-all duration-200",
                     active
-                      ? "bg-stamp-600/10 text-stamp-800 dark:bg-stamp-500/15 dark:text-stamp-300 font-semibold shadow-xs"
+                      ? "bg-stamp-600/10 text-stamp-800 dark:bg-stamp-500/15 dark:text-stamp-300 font-medium shadow-xs"
                       : "text-ink-700 hover:bg-paper-sunk/80 hover:text-ink-900 hover:translate-x-1",
                   )}
                 >
                   <div className="flex items-center gap-3">
                     <span className={cn(
                       "text-[0.6875rem] font-mono",
-                      active ? "text-stamp-600 dark:text-stamp-400 font-semibold" : "text-ink-400 group-hover:text-stamp-600"
+                      active ? "text-stamp-600 dark:text-stamp-400 font-medium" : "text-ink-400 group-hover:text-stamp-600"
                     )}>
                       0{index + 1}
                     </span>

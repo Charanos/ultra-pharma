@@ -52,6 +52,8 @@ That spine is the whole information architecture, and the new service owns the t
 
 ## Stack
 
-Next.js 15 · TypeScript strict · Tailwind v4 · Newsreader, Inter Tight, IBM Plex Mono · Phosphor Icons · Unsplash under its licence, processed through the pipeline in `04 §4` · Vercel
+Next.js 15 · TypeScript strict · Tailwind v4 · Source Serif 4, Nunito, IBM Plex Mono *(specified as Newsreader, Inter Tight, IBM Plex Mono; superseded by the Claude Design canvas, see `DESIGN-SOURCE.md`)* · Phosphor Icons · GSAP for motion · Unsplash under its licence, graded via CSS filter rather than the build-time pipeline in `04 §4` · Vercel
 
 The existing site is already Next.js, so this is a rebuild of the presentation layer rather than a migration.
+
+As built, `DESIGN-SOURCE.md` at the repository root is the authoritative log of every point where the shipped site diverges from `03` and `04`, including a second refinement pass after initial launch. Read it alongside `03` for any visual work.

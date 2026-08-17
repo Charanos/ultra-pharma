@@ -73,7 +73,7 @@ export default function ServicesPage() {
             <div className="mx-auto grid max-w-[1440px] grid-cols-1 lg:grid-cols-12 items-start gap-16 lg:gap-24 px-6 py-24 lg:py-32 relative z-10">
               {/* Info Column */}
               <Reveal className={`lg:col-span-5 lg:sticky lg:top-32 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
-                <div className="flex items-center gap-4 mb-6 text-stamp-600 dark:text-stamp-500">
+                <div data-icon-pop className="flex items-center gap-4 mb-6 text-stamp-600 dark:text-stamp-500">
                   <StageIcon size={88} weight="duotone" />
                 </div>
                 <h2 className="t-h2 m-0 font-display font-medium text-ink-900 leading-tight">{stage.name}</h2>
@@ -96,7 +96,7 @@ export default function ServicesPage() {
                     </p>
                     {service.produces && (
                       <p className="t-body-sm mt-5 flex items-baseline gap-3 text-ink-500 font-light">
-                        <span className="t-label flex-none text-stamp-700 tracking-wider text-[0.6875rem] uppercase font-semibold">Produces</span>
+                        <span className="t-label flex-none text-stamp-700 tracking-wider text-[0.6875rem] uppercase font-medium">Produces</span>
                         <span className="font-mono text-[0.8125rem]">{service.produces}</span>
                       </p>
                     )}

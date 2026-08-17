@@ -87,7 +87,7 @@ export default function HomePage() {
               for them.
             </p>
             <div className="pointer-events-auto mt-8 flex flex-wrap justify-center gap-3.5">
-              <Link href="#sec-02" className="btn btn-on-image-primary group">
+              <Link href="#sec-02" data-magnetic className="btn btn-on-image-primary group">
                 <span>See the pathway</span>
                 <ArrowDown
                   size={18}
@@ -96,7 +96,7 @@ export default function HomePage() {
                   aria-hidden
                 />
               </Link>
-              <Link href="/contact" className="btn btn-on-image group">
+              <Link href="/contact" data-magnetic className="btn btn-on-image group">
                 <span>Talk to us</span>
                 <ArrowRight
                   size={18}
@@ -145,7 +145,7 @@ export default function HomePage() {
       {/* 03 · Reimbursement feature band. Split, image left. Editorial. */}
       <section id="sec-03" data-sec="03" className="bg-paper-deep text-deep-ink">
         <div className="mx-auto grid max-w-[1440px] grid-cols-[repeat(auto-fit,minmax(340px,1fr))] items-center gap-16 px-6 py-20 lg:py-32">
-          <div className="order-1">
+          <div data-slide-in="left" className="order-1">
             <FigureImage
               media={media.care}
               sizes="(max-width: 1024px) 100vw, 45vw"
@@ -154,7 +154,7 @@ export default function HomePage() {
               imgClassName="!filter-none object-cover"
             />
           </div>
-          <div className="order-2">
+          <div data-slide-in="right" className="order-2">
             <p className="t-label m-0 mb-6 text-deep-stamp">New capability · Stage 03</p>
 
             <h2 className="t-h2 m-0 max-w-[18ch] font-display font-medium text-deep-ink tracking-tight">
@@ -237,7 +237,7 @@ export default function HomePage() {
                     <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-rule/80 bg-paper-sunk text-stamp-600 shadow-xs">
                       <Icon size={16} weight="duotone" aria-hidden />
                     </div>
-                    <span className="t-label text-ink-900 font-semibold">{stage.name}</span>
+                    <span className="t-label text-ink-900 font-medium">{stage.name}</span>
                   </div>
                   {stage.isNew && (
                     <span className="stamp-pill text-[0.6875rem] py-0.5 px-2.5 font-medium leading-none">
@@ -367,7 +367,7 @@ export default function HomePage() {
                     />
                   </div>
                   <div className="mt-5 flex items-center justify-between gap-2">
-                    <span className="t-label text-stamp-700 font-semibold tracking-wider">
+                    <span className="t-label text-stamp-700 font-medium tracking-wider">
                       {post.category}
                     </span>
                     <span className="t-index text-ink-400 font-light text-xs">

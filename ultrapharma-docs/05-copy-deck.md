@@ -2,6 +2,8 @@
 
 Every string. The existing site's best writing is kept; the rest is rewritten outward, toward the client's problem rather than the firm's category names.
 
+**As built**, this deck is directional rather than exact for pages refined after the initial build: headings, standfirsts and step copy on `/contact`, `/insights` and `/services/reimbursement` were extended with more detail during the refinement pass (see `DESIGN-SOURCE.md`). The rules in `§1` still govern every word actually shipped, including the extended copy: no unverifiable claim, no superlative, name the thing precisely. Where an early draft of the extended copy broke that rule, it was corrected rather than kept, logged in `DESIGN-SOURCE.md` rather than here.
+
 ---
 
 ## 1. Voice
@@ -213,6 +215,8 @@ That sentence does more for credibility with a sophisticated buyer than any prom
 **Standfirst** `Regulatory guidance, a proposal, or rapid-response support on something already in motion.`
 
 **Form fields** `Name` · `Organisation` · `Email` · `Phone` · `What do you need?` (select: registration, market entry, reimbursement, compliance, something else) · `Tell us about it`
+
+**As built**, field labels and the select options carry more detail: `Your Name` · `Organisation` · `Work Email` · `Phone Number` · `Primary Need` (select: Registration & PPB Submissions, Market Entry & Regional Expansion, Reimbursement & HTA (SHA / BPTAP), Quality & Compliance Audits, General Advisory or Rapid Response) · `Project Context`. Same fields, same terms named correctly, more descriptive labels.
 
 **Submit** `Send message`
 **Success** `Thank you. We will reply within one working day.`

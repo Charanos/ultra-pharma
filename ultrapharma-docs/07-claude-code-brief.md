@@ -15,7 +15,9 @@ You are the senior design engineer rebuilding `ultrapharma.co.ke` for Ultra Phar
 - `ultrapharma-docs/01-audit-and-decisions.md §4` before you touch the reimbursement service. It contains verified facts about a live Kenyan regulatory body that the client's own brief got wrong.
 - `ultrapharma-docs/06-build-plan-and-agent-guide.md §4`.
 
-**Stack:** Next.js 15 App Router, TypeScript strict, Tailwind v4 CSS-first, Phosphor Icons, MDX for insights if that section is built. No component library, no CMS. Content lives in typed files.
+**Stack:** Next.js 15 App Router, TypeScript strict, Tailwind v4 CSS-first, Phosphor Icons, GSAP for motion, MDX for insights. No component library, no CMS. Content lives in typed files.
+
+**As built:** the Insights section is live (the client committed to it), fonts are Source Serif 4 / Nunito / IBM Plex Mono rather than Newsreader / Inter Tight / IBM Plex Mono, and Storybook was installed then removed after a security review found its dependency tree carrying unpatched CVEs with zero stories ever written against it — reinstall at current versions if component-isolation review becomes a real need. `DESIGN-SOURCE.md` at the repository root is the full log of where the shipped site diverges from this brief and from `03`/`04`.
 
 ## The idea
 
@@ -72,7 +74,7 @@ Imagery is the main risk. `sizes` set accurately per placement is the single hig
 
 ## Definition of done, per component
 
-TypeScript props with no `any`. `forwardRef`. `data-slot` on internal elements. Every interactive state. Full keyboard. Stated `aria` contract. Both themes. 360px layout. Empty and error states where data renders. Storybook covering default, hover, focus, disabled, loading, error and dark.
+TypeScript props with no `any`. `forwardRef`. `data-slot` on internal elements. Every interactive state. Full keyboard. Stated `aria` contract. Both themes. 360px layout. Empty and error states where data renders. ~~Storybook covering default, hover, focus, disabled, loading, error and dark~~ — not currently required; see the stack note above.
 
 ## When the spec is wrong
 

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ContactForm } from "@/components/forms/contact-form";
 import { FigureImage } from "@/components/content/figure-image";
 import { JsonLd } from "@/components/primitives/json-ld";
-import { channels } from "@/content/site";
+import { channels, site } from "@/content/site";
 import { media } from "@/content/media";
 import { contactPageSchema, breadcrumbSchema } from "@/lib/schema";
 import {
@@ -19,9 +19,9 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata: Metadata = {
-  title: "Contact & Consultation",
+  title: "Contact",
   description:
-    "Consult with our senior regulatory pharmacists in Nairobi regarding PPB drug registration, SHA reimbursement HTA submissions, and EAC market access.",
+    "Contact our regulatory team in Nairobi about PPB drug registration, SHA reimbursement and HTA submissions, or EAC market access.",
   alternates: { canonical: "/contact" },
 };
 
@@ -32,20 +32,26 @@ const channelIcons = {
   Location: MapPin,
 };
 
+/**
+ * Process commitments the firm makes to every new enquiry, phrased as what
+ * will happen rather than as an existing capability. `01 D-03`: no claim ships
+ * that cannot be checked, and a promise about how an enquiry will be handled
+ * is checkable in a way that an assertion of existing bench strength is not.
+ */
 const advisorySteps = [
   {
-    title: "Confidential Intake",
-    description: "Initial gap analysis and NDA execution to protect proprietary dossier data, clinical summaries, and product formulations.",
+    title: "Confidential intake",
+    description: "Initial gap analysis, with a confidentiality agreement available before any proprietary dossier data or product detail is shared.",
     Icon: ShieldCheck,
   },
   {
-    title: "Technical Assignment",
-    description: "Direct alignment with a designated in-country regulatory lead holding specialized therapeutic category expertise.",
+    title: "Named lead",
+    description: "Direct alignment with a named in-country regulatory lead for your enquiry, not a general inbox.",
     Icon: UserCheck,
   },
   {
-    title: "Filing Roadmap",
-    description: "Definitive document register, milestone checklist, and committed filing dates to guide the submission across agencies.",
+    title: "Filing roadmap",
+    description: "A document register, milestone checklist, and filing dates we hold ourselves to, once an engagement begins.",
     Icon: MapTrifold,
   },
 ];
@@ -83,7 +89,7 @@ export default function ContactPage() {
           {/* Left Column: Direct Channels & Operational Context (5 cols) */}
           <div className="lg:col-span-5 flex flex-col gap-10">
             <div>
-              <span className="t-label text-xs uppercase tracking-widest text-ink-400 font-semibold mb-6 block">
+              <span className="t-label text-xs uppercase tracking-widest text-ink-400 font-medium mb-6 block">
                 Direct Channels
               </span>
 
@@ -138,13 +144,15 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
+
+            <p className="t-body-sm m-0 text-ink-500">{site.responseNote}</p>
           </div>
 
           {/* Right Column: Contact Form Card (7 cols) - uncarded below md */}
           <div className="lg:col-span-7 rounded-none border-0 bg-transparent p-0 shadow-none md:rounded-[28px] md:border md:border-rule/90 md:bg-paper-raised md:p-8 lg:p-12 md:shadow-xs">
             <div className="mb-8 flex items-center justify-between border-b border-rule/80 pb-6">
               <div>
-                <span className="t-label text-xs uppercase tracking-widest text-stamp-700 font-semibold">
+                <span className="t-label text-xs uppercase tracking-widest text-stamp-700 font-medium">
                   Technical Enquiry
                 </span>
                 <h2 className="mt-1 font-display text-2xl font-medium text-ink-900 m-0">
@@ -153,7 +161,7 @@ export default function ContactPage() {
               </div>
               <span className="flex items-center gap-1.5 text-xs font-mono text-ink-500 bg-paper-sunk border border-rule px-3 py-1.5 rounded-full">
                 <ShieldCheck size={16} className="text-stamp-600" aria-hidden />
-                <span>NDA Protected</span>
+                <span>NDA on request</span>
               </span>
             </div>
 
@@ -166,7 +174,7 @@ export default function ContactPage() {
       <section className="border-t border-rule bg-paper-sunk/60 py-20 lg:py-24">
         <div className="mx-auto max-w-[1440px] px-6">
           <div className="mb-12 text-center max-w-[600px] mx-auto">
-            <span className="t-label text-xs uppercase tracking-widest text-stamp-700 font-semibold">
+            <span className="t-label text-xs uppercase tracking-widest text-stamp-700 font-medium">
               Engagement Standard
             </span>
             <h2 className="mt-2 font-display text-2xl sm:text-3xl font-medium text-ink-900 m-0">

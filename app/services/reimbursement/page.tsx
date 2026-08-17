@@ -117,8 +117,8 @@ export default function ReimbursementPage() {
                     key={fact.key}
                     className="flex flex-wrap items-baseline gap-6 border-b border-rule/80 py-4 hover:bg-paper-raised/30 transition-colors"
                   >
-                    <dt className="t-label w-[160px] flex-none text-ink-500 uppercase tracking-wider text-[0.6875rem] font-semibold">{fact.key}</dt>
-                    <dd className="t-body-sm m-0 text-ink-900">{fact.value}</dd>
+                    <dt className="t-label w-[160px] flex-none text-ink-500 uppercase tracking-wider text-[0.6875rem] font-medium">{fact.key}</dt>
+                    <dd className="t-data m-0 text-ink-900">{fact.value}</dd>
                   </div>
                 ))}
               </dl>
@@ -266,7 +266,7 @@ export default function ReimbursementPage() {
             </h2>
           </div>
           <p className="t-body max-w-[48ch] text-ink-600 font-light leading-relaxed m-0 pb-1">
-            A structured workflow taking your product from initial feasibility modeling through to formal advisory panel submission and defense.
+            A structured workflow taking your product from initial feasibility modelling through to formal panel submission and the review process that follows.
           </p>
         </Reveal>
 
@@ -288,7 +288,7 @@ export default function ReimbursementPage() {
 
                 <div className="relative z-10 flex flex-1 flex-col justify-between">
                   <div>
-                    <span className="font-mono text-xs uppercase tracking-wider text-stamp-700 font-semibold">{phase.n}</span>
+                    <span className="font-mono text-xs uppercase tracking-wider text-stamp-700 font-medium">{phase.n}</span>
                     <h3 className="font-display text-[1.125rem] font-medium text-ink-900 mt-3 m-0 leading-snug transition-colors group-hover:text-stamp-700">
                       {phase.name}
                     </h3>

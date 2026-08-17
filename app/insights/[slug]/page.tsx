@@ -102,8 +102,8 @@ export default async function InsightPage({ params }: { params: Promise<Params> 
         </div>
       </header>
 
-      {/* Article Body & Sidebar Grid */}
-      <main className="mx-auto max-w-[1440px] px-6 py-12 lg:py-20">
+      {/* Article body and sidebar grid. Not a <main>: layout.tsx already provides the page's landmark. */}
+      <div className="mx-auto max-w-[1440px] px-6 py-12 lg:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
           {/* Main Article Content Column (8 cols) */}
@@ -130,7 +130,7 @@ export default async function InsightPage({ params }: { params: Promise<Params> 
 
             {/* Post-article Guidance Box */}
             <div className="mt-16 max-w-[70ch] rounded-[24px] border border-rule bg-paper-raised p-8 shadow-xs">
-              <span className="t-label text-xs uppercase tracking-wider text-stamp-700 font-semibold">
+              <span className="t-label text-xs uppercase tracking-wider text-stamp-700 font-medium">
                 Strategic Briefing & Practice Advisory
               </span>
               <h3 className="mt-2 font-display text-xl font-medium text-ink-900">
@@ -157,7 +157,7 @@ export default async function InsightPage({ params }: { params: Promise<Params> 
           <aside className="lg:col-span-4 sticky top-28 flex flex-col gap-8">
             {/* Quick Summary Card */}
             <div className="rounded-[22px] border border-rule bg-paper-raised p-6 shadow-xs">
-              <span className="t-label text-xs uppercase tracking-widest text-ink-400 font-semibold">
+              <span className="t-label text-xs uppercase tracking-widest text-ink-400 font-medium">
                 Briefing Metadata
               </span>
               <div className="mt-4 flex flex-col gap-3.5 border-t border-rule/70 pt-4 text-xs font-mono text-ink-700">
@@ -183,7 +183,7 @@ export default async function InsightPage({ params }: { params: Promise<Params> 
             {/* Related Analysis Sidebar Widget */}
             {relatedInsights.length > 0 && (
               <div className="rounded-[22px] border border-rule bg-paper-sunk/50 p-6">
-                <span className="t-label text-xs uppercase tracking-widest text-ink-500 font-semibold mb-4 block">
+                <span className="t-label text-xs uppercase tracking-widest text-ink-500 font-medium mb-4 block">
                   Related Analysis
                 </span>
                 <div className="flex flex-col gap-4">
@@ -209,7 +209,7 @@ export default async function InsightPage({ params }: { params: Promise<Params> 
             )}
           </aside>
         </div>
-      </main>
+      </div>
     </>
   );
 }

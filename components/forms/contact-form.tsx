@@ -205,7 +205,7 @@ export function ContactForm() {
         </button>
 
         <p className="t-index m-0 text-xs text-ink-400 font-light">
-          Encrypted & kept for 12 months.{" "}
+          Kept for 12 months, then deleted.{" "}
           <Link href="/legal/privacy" className="text-ink-500 underline hover:text-ink-900">
             Privacy policy
           </Link>

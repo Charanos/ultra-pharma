@@ -3,6 +3,8 @@
 **Consumer:** Claude Design and Claude Code. Authority on every visual decision.
 **Aesthetic:** the regulatory dossier. Indexed, evidenced, precise, and considerably more elegant than the thing it describes.
 
+**As built, this document is no longer fully current.** The Claude Design canvas superseded parts of it on first implementation, and a later refinement pass moved further still, most significantly replacing the signature mono numeral on `PathwayRail` and `NumberedEntry` with an icon treatment, confirmed with the client. `DESIGN-SOURCE.md` at the repository root is the authoritative log of every such deviation and the reasoning behind each one. Where this document and that log disagree, the log wins.
+
 ---
 
 ## 1. The idea
@@ -130,15 +132,15 @@ The accent appears on: the primary button, the pathway rail's active stage, stag
 
 | Role | Family | Weights | Job |
 |---|---|---|---|
-| Display | **Newsreader** | 300, 400 | Headlines, section titles, pull quotes |
-| Text and UI | **Inter Tight** | 400, 500 | Everything read as information or interacted with |
+| Display | **Source Serif 4** *(built as Newsreader, superseded by the canvas)* | 400, 500 | Headlines, section titles, pull quotes |
+| Text and UI | **Nunito** *(built as Inter Tight, superseded by the canvas)* | 400, 500 | Everything read as information or interacted with |
 | Data | **IBM Plex Mono** | 400, 500 | Index numbers, stage numerals, dates, figures, references, gazette numbers |
 
-All three from Google Fonts. **Weight ceiling 500. No bold, no italics.** `font-synthesis: none` globally.
+All three from Google Fonts. **Weight ceiling 500. No bold, no italics.** `font-synthesis: none` globally. The ceiling held through the refinement pass: a `font-semibold` (600) drift into eyebrow labels was found and corrected rather than accepted, since it is a hard rule rather than a taste call.
 
-**Newsreader** is an editorial serif with optical sizing, drawn for reading at scale. At 300 it gives the elevated, considered feel the brief asks for without tipping into luxury-brand territory, which would be wrong for a firm selling rigour.
+**Source Serif 4** is the display face actually shipped, per the Claude Design canvas, in place of Newsreader. At 500 it reads as a considered editorial serif without tipping into luxury-brand territory, which would be wrong for a firm selling rigour.
 
-**Inter Tight** is Inter with reduced sidebearings: the same legibility, more density, which suits a site with a lot of precise nouns in it.
+**Nunito** is the UI face actually shipped, per the canvas, in place of Inter Tight. Rounder terminals than Inter Tight, paired deliberately with Source Serif 4's warmth rather than a sharper grotesque.
 
 **IBM Plex Mono** carries genuine scientific and industrial association, and it is the right face for a gazette number or a module reference. It is doing semantic work, not decorative work.
 
@@ -169,8 +171,8 @@ Body measure caps at 72 characters. Lede caps at 60, because a lede is scanned r
 
 - Sentence case throughout except `--t-label`.
 - Newsreader for display and lede only. **Never inside a control, never below 1rem.**
-- Plex Mono for anything that is a reference, an identifier, a date or a quantity. *Gazette Notice No. 5044 of 23 April 2025* renders in mono inside an Inter Tight paragraph, and that texture break is deliberate: it marks a checkable fact.
-- Large numerals (`--t-numeral`) are the system's most distinctive typographic move. They appear on the pathway stages and the six "why partners choose us" entries, in `--stamp-700`, and nowhere else.
+- Plex Mono for anything that is a reference, an identifier, a date or a quantity. *Gazette Notice No. 5044 of 23 April 2025* renders in mono inside a UI-face paragraph, and that texture break is deliberate: it marks a checkable fact. This rule held through the refinement pass: a `--t-body-sm` slip on the reimbursement fact list was caught and corrected back to `--t-data`.
+- Large numerals (`--t-numeral`) were specified as the system's most distinctive typographic move, appearing only on the pathway stages and the six "why partners choose us" entries. **As shipped, both of those two placements use a Phosphor duotone icon instead**, confirmed with the client during the refinement pass. `--t-numeral` and `--numeral` remain live tokens, used where a figure genuinely needs the large-mono treatment (a standalone statistic such as the reimbursement band's "3 funds"), just no longer as the anchor of the two signature components. See `DESIGN-SOURCE.md`.
 - No italics. Where convention wants emphasis, use `--ink-900` against `--ink-700`, or the mono switch.
 
 ---
@@ -206,7 +208,9 @@ Elevation:
 --shadow-image:   0 2px 4px rgb(12 20 24 / 0.06), 0 24px 60px rgb(12 20 24 / 0.14);
 ```
 
-Two shadows. `--shadow-overlay` for modals and popovers. `--shadow-image` **only for contained photographs**, because a photograph sitting on a page with no shadow reads as pasted on, and this is the one place elevation genuinely helps. Panels and cards use a 1px `--rule-strong`, never a shadow.
+Two shadows specified. `--shadow-overlay` for modals and popovers. `--shadow-image` **only for contained photographs**, because a photograph sitting on a page with no shadow reads as pasted on, and this is the one place elevation genuinely helps. Panels and cards were specified with a 1px `--rule-strong`, never a shadow.
+
+**As shipped**, this held less strictly than written: team, service, insight and phase cards carry `--shadow-card`/`--shadow-xs` and lift 1px on hover, rather than a flat rule-only edge. See `DESIGN-SOURCE.md`.
 
 ---
 
@@ -223,14 +227,17 @@ Restrained, and it does one job: confirming that a section has arrived.
 | Moment | Motion |
 |---|---|
 | Button press | Scale 0.985, `--dur-fast` |
-| Card or row hover | Border shift, `--dur-fast`, no lift |
-| Section entry | Opacity plus 16px rise, `--dur-slow`, `once: true`, 60ms stagger on children capped at six |
-| Image entry | Opacity plus a 1.04 to 1.0 scale settle, `--dur-slow`. The one place scale is used |
+| Card or row hover | Border shift **and a 1px lift**, `--dur-fast` *(spec said no lift; shipped with one, see `DESIGN-SOURCE.md`)* |
+| Section entry | Opacity, a rise, and **(as shipped) an 8px-to-0 blur**, `--dur-slow`, `once: true`, staggered on children capped at six, the stagger itself eased rather than metronomic |
+| Image entry | Opacity plus a 1.04 to 1.0 scale settle, `--dur-slow`. The one place scale carries a whole element |
+| Icon and rail-marker pop *(added in the refinement pass)* | Scale and a slight rotation in, `back.out` overshoot easing, delayed to land as the surrounding reveal finishes |
+| Split layout entry *(added)* | Image and copy slide in from opposite sides, used on the homepage reimbursement band |
+| Hero call to action *(added)* | A small pointer-magnetic pull toward the cursor, desktop pointer only, purely decorative |
 | Pathway rail | The connecting line draws left to right on entry, `--dur-slow`. Once |
-| Header on scroll | Background and rule fade in after 8px |
+| Header on scroll | **As shipped:** the header is fixed and transparent over the homepage hero, opaque elsewhere and on scroll, and hides on scroll-down / reappears on scroll-up |
 | Theme toggle | Instant. Never animated |
 
-**No parallax. No scroll-jacking. No counting-up figures.** A statistic that animates from zero is briefly wrong, and this firm sells accuracy.
+**No parallax. No scroll-jacking. No counting-up figures.** A statistic that animates from zero is briefly wrong, and this firm sells accuracy. These three held through every later pass; everything added since is additive polish on top of them, not an exception to them.
 
 `prefers-reduced-motion` removes every translate and scale; sections and images appear at their end state immediately.
 
@@ -314,11 +321,13 @@ TypeScript props, no `any`. `forwardRef`. `data-slot` on internal elements. Ever
 
 ## 8. Iconography
 
-**Phosphor Icons**, regular weight, 1.5px equivalent stroke, sizes 16 / 20 / 24 / 32.
+**Phosphor Icons**, sizes 16 / 20 / 24 / 32, and up to 500px as a low-opacity background watermark on a service or phase card.
 
-Chosen over Tabler deliberately: Phosphor's slightly rounder terminals sit better with Newsreader's warmth, and this is a different project from the ones using Tabler.
+Chosen over Tabler deliberately: Phosphor's slightly rounder terminals sit better with the display face's warmth, and this is a different project from the ones using Tabler.
 
-**Icons carry taxonomy, never decoration.** Every icon labels a stage, a service type, a document class, or a status. An icon that sits next to a heading purely to fill space is removed.
+**Weight, as shipped:** the original spec called for regular weight only, no filled variants mixed in. The refinement pass introduced two additional weights in fixed, consistent roles rather than at random, and this stands as the current rule: **duotone** for large decorative badge icons and background watermarks, **bold** for small inline utility icons (arrows, close, check, chevrons), **regular** for everything else. A given icon's weight is determined by its role, not by whim; do not introduce a fourth weight or use duotone somewhere bold is established, or vice versa.
+
+**Icons carry taxonomy, never decoration.** Every icon labels a stage, a service type, a document class, or a status. An icon that sits next to a heading purely to fill space is removed. The large background-watermark icons on service and phase cards are the one deliberate exception: `aria-hidden`, decorative by design, reinforcing a label that is also stated in text beside them, not replacing it.
 
 Fixed assignments so meaning stays stable:
 
@@ -373,7 +382,7 @@ Icon-only controls carry an `aria-label` and a tooltip, and are limited to the t
 | "Global leader in pharmaceutical innovation" | What the firm actually does, verifiably |
 | A chat widget | A contact form that works and a phone number |
 | Dead `#` links in the footer | Real legal pages |
-| Card shadows everywhere | One shadow, for photographs |
+| Card shadows everywhere | Specified as one shadow, for photographs. **As shipped, cards carry a shadow too** (`DESIGN-SOURCE.md`); the row stands as written for anything new rather than as licence to keep adding shadows |
 
 ---
 
@@ -382,6 +391,8 @@ Icon-only controls carry an `aria-label` and a tooltip, and are limited to the t
 ### The numbered entry
 
 The treatment for the six "why partners choose us" items, promoted from the current site's flat list.
+
+**As specified**, the entry led with the numeral:
 
 ```
   01                Outcome-driven submissions
@@ -399,6 +410,8 @@ The treatment for the six "why partners choose us" items, promoted from the curr
 - The body in `--t-body`, `--ink-700`.
 - `WHY IT MATTERS` in `--t-label`, `--ink-500`, followed by the consequence in `--ink-900`. The consequence is the payload and it is the darkest text in the entry.
 - Entries are separated by `--s-8`, not boxed. No cards.
+
+**As shipped**, confirmed with the client during the refinement pass: the numeral column is replaced by an 88px Phosphor duotone icon (`--stamp-600`), alternating sides left/right down the list rather than sitting in a fixed column, with a `back.out` overshoot pop-in timed to land as the entry's reveal finishes. The hairline, the body, and the `WHY IT MATTERS` treatment are unchanged. No card, no shadow, no box, still. See `DESIGN-SOURCE.md`.
 
 ### The reimbursement feature band
 

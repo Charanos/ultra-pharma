@@ -26,9 +26,13 @@ export function PathwayRail() {
           >
             <span
               aria-hidden
+              data-dot-pop
               className="absolute -left-[5px] -top-[5px] h-[9px] w-[9px] rounded-full bg-stamp-500 shadow-[0_0_8px_rgba(20,136,114,0.4)]"
             />
-            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-rule bg-paper-sunk shadow-sm text-stamp-600">
+            <div
+              data-icon-pop
+              className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-rule bg-paper-sunk shadow-sm text-stamp-600"
+            >
               <StageIcon name={stage.icon} size={28} />
             </div>
             

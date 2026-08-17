@@ -60,13 +60,13 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      {/* Main Content Area */}
-      <main className="mx-auto max-w-[1440px] px-6 py-16 lg:py-24">
+      {/* Main content area. Not a <main>: layout.tsx already provides the page's landmark. */}
+      <div className="mx-auto max-w-[1440px] px-6 py-16 lg:py-24">
         {/* Featured Article Card */}
         {featuredPost && (
           <div className="mb-16">
             <div className="mb-6 flex items-center justify-between">
-              <span className="t-label text-xs uppercase tracking-widest text-stamp-700 font-semibold flex items-center gap-1.5">
+              <span className="t-label text-xs uppercase tracking-widest text-stamp-700 font-medium flex items-center gap-1.5">
                 <BookOpen size={16} weight="duotone" aria-hidden />
                 Featured Editorial
               </span>
@@ -124,7 +124,7 @@ export default function InsightsPage() {
 
         {/* Remaining Articles Grid */}
         <div className="mt-16">
-          <h2 className="t-label text-xs uppercase tracking-widest text-ink-400 mb-8 font-semibold">
+          <h2 className="t-label text-xs uppercase tracking-widest text-ink-400 mb-8 font-medium">
             All Recent Analysis
           </h2>
 
@@ -149,7 +149,7 @@ export default function InsightsPage() {
                   </div>
 
                   <div className="mt-5 flex items-center justify-between gap-2">
-                    <span className="t-label text-stamp-700 font-semibold tracking-wider text-xs">
+                    <span className="t-label text-stamp-700 font-medium tracking-wider text-xs">
                       {post.category}
                     </span>
                     <span className="t-index text-ink-400 font-light text-xs flex items-center gap-1">
@@ -183,7 +183,7 @@ export default function InsightsPage() {
             ))}
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }

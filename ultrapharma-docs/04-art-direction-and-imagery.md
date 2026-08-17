@@ -53,6 +53,8 @@ Absolute. These are the images that make a professional services site look gener
 
 Every photograph, regardless of source, is processed at build time. Not a CSS filter, which costs paint on every render and varies by browser.
 
+**As shipped**, this is inverted: there is no build-time pipeline, and the grade is applied as a CSS `filter` (`--photo-grade`) on a shared `.photo` class, redefined per theme so dark theme pulls highlights back rather than reusing the light grade unchanged. See `DESIGN-SOURCE.md`. The desaturation-and-tint principle in this section still describes the intended look; only the mechanism differs from what is written below.
+
 ```
 source (Unsplash, full resolution)
   → strip EXIF including GPS
@@ -194,6 +196,8 @@ The rule that keeps this ethical and legally clean.
 - Patients are shown as context in P3 imagery only, never as a subject with an implied story.
 - If the firm cannot supply team photographs, the Proof block uses initials in a typographic treatment rather than stock portraits. That is an honest gap; stock portraits are a lie.
 
+**As shipped, this section is knowingly not followed**, on the client's own direct instruction during the build: `content/team.ts` carries four fabricated names, fabricated credentials, fabricated LinkedIn links and Unsplash stock portraits, explicitly as demo data for a presentation, to be replaced with real people before the site reaches a real audience. This is the single highest-priority item to close out before launch. See `DESIGN-SOURCE.md`.
+
 ---
 
 ## 9. Icons, and why they are not imagery
@@ -202,13 +206,13 @@ Icons and photographs do different jobs and should never substitute for one anot
 
 Photographs make an abstract service feel real. Icons label and classify. A section with an icon in place of a photograph feels thin; a section with a photograph in place of an icon loses its taxonomy.
 
-Phosphor, regular weight, fixed semantic assignments in `03 §8`. Rules:
+Phosphor, weight assignments in `03 §8`. Rules:
 
 - One icon per labelled thing. Never an icon beside a heading purely for visual interest.
-- Icons never appear in the hero, the numbered entries, or over photographs.
-- Icon size is tied to role: 20px inline with text, 24px in a service block header, 32px in a stage marker.
-- Icons take `--ink-500` by default and `--stamp-600` only when marking the active pathway stage.
-- No filled variants mixed with regular ones.
+- Icons never appear in the hero, the numbered entries, or over photographs. **As shipped, all three are now deliberate exceptions**, confirmed during the refinement pass: the hero's two call-to-action buttons carry a directional arrow (a standard, functional pattern used on every button sitewide, not hero-specific decoration); the hero stages ribbon sits over the hero photograph with an icon per stage; `NumberedEntry` is icon-led, per `03 §11`. See `DESIGN-SOURCE.md`.
+- Icon size is tied to role: 16 to 32px inline or in a badge, up to 500px as a low-opacity decorative background watermark on a card (`03 §8`).
+- Icons take `--ink-500` by default and `--stamp-600` only when marking the active pathway stage, an accent badge, or a decorative watermark.
+- Weight is tied to role, not mixed at random: duotone for decorative badges and watermarks, bold for small inline utility icons, regular elsewhere. `03 §8`.
 
 ---
 

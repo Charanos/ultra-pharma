@@ -30,7 +30,7 @@ export function SiteFooter() {
         <div className="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
           {footerColumns.map((column) => (
             <div key={column.title}>
-              <p className="t-label mb-5 text-ink-900 font-semibold tracking-wider text-xs">{column.title}</p>
+              <p className="t-label mb-5 text-ink-900 font-medium tracking-wider text-xs">{column.title}</p>
               <ul className="flex list-none flex-col gap-3.5 p-0 m-0">
                 {column.links.map((link) => (
                   <li key={link.href + link.label}>

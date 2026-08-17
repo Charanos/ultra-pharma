@@ -27,11 +27,11 @@ const unsplash = (id: string, w: number, q = 85) =>
 export const media = {
   hero: {
     slot: "up-hero",
-    brief: "P1 · FACILITY : wide shot, sterile filling line or QC laboratory, unposed, 16:9",
+    brief: "P1 · FACILITY : wide shot, sterile filling line or QC laboratory, unposed",
     src: "/hero-bg.jpg",
     alt: "Ultra Pharma laboratory and regulatory operations in Kenya.",
-    width: 2400,
-    height: 1600,
+    width: 4252,
+    height: 3145,
     photographer: "Ultra Pharma",
     source: "/hero-bg.jpg",
   },
@@ -84,16 +84,6 @@ export const media = {
     height: 933,
     photographer: "Nappy",
     source: "https://unsplash.com/photos/a-man-using-a-tablet-EjajCMK7CJM",
-  },
-  divider: {
-    slot: "up-divider-1",
-    brief: "P5 · DETAIL : macro, blister foil or glass vials, heavily graded, no text",
-    src: unsplash("1626716493137-b67fe9501e76", 1800),
-    alt: "A macro view along a row of sealed glass vials.",
-    width: 1800,
-    height: 220,
-    photographer: "Mufid Majnun",
-    source: "https://unsplash.com/photos/1626716493137-b67fe9501e76",
   },
   practice: {
     slot: "up-practice",

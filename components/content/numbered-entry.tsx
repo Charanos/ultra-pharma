@@ -52,6 +52,7 @@ export function NumberedEntry({
         <Icon
           size={88}
           weight="duotone"
+          data-icon-pop
           className="text-stamp-600 transition-transform duration-300 hover:scale-110"
           aria-hidden
         />
