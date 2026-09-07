@@ -5,6 +5,9 @@ import { Section, SectionIndex } from "@/components/structure/section";
 import { IndexRail } from "@/components/structure/index-rail";
 import { Reveal } from "@/components/primitives/reveal";
 import { FigureImage } from "@/components/content/figure-image";
+import { FigurePlate } from "@/components/content/figure-plate";
+import { FundsDiagram } from "@/components/content/funds-diagram";
+import { InsightPlate } from "@/components/content/insight-plate";
 import { PathwayRail } from "@/components/content/pathway-rail";
 import { NumberedEntry } from "@/components/content/numbered-entry";
 import { TeamCard } from "@/components/content/team-card";
@@ -22,6 +25,9 @@ const iconMap: Record<StageIcon, ElementType> = {
   Scales,
   ArrowsClockwise,
 };
+
+/* One field per stage, rotated so four plates in a column never repeat a ruling. */
+const plateFields = ["grid", "hatch", "ledger", "graticule"] as const;
 
 const recentInsights = insights.slice(0, 3);
 
@@ -146,13 +152,7 @@ export default function HomePage() {
       <section id="sec-03" data-sec="03" className="bg-paper-deep text-deep-ink">
         <div className="mx-auto grid max-w-[1440px] grid-cols-[repeat(auto-fit,minmax(340px,1fr))] items-center gap-16 px-6 py-20 lg:py-32">
           <div data-slide-in="left" className="order-1">
-            <FigureImage
-              media={media.care}
-              sizes="(max-width: 1024px) 100vw, 45vw"
-              aspect="4/5"
-              className="min-h-[420px] rounded-[24px] ring-1 ring-white/10 shadow-2xl"
-              imgClassName="!filter-none object-cover"
-            />
+            <FundsDiagram />
           </div>
           <div data-slide-in="right" className="order-2">
             <p className="t-label m-0 mb-6 text-deep-stamp">New capability · Stage 03</p>
@@ -172,14 +172,6 @@ export default function HomePage() {
               funded alternative. Closing that gap is a different discipline from
               registration, and it is the one we have built for.
             </p>
-
-            {/* The only figure on the homepage, so it carries weight. */}
-            <div className="mt-10 flex max-w-[58ch] items-start gap-5 border-t border-deep-rule/80 pt-6">
-              <span className="font-mono text-3xl font-light text-deep-stamp leading-none pt-0.5">3</span>
-              <span className="t-body-sm text-deep-ink-soft leading-relaxed">
-                funds through which SHA coverage flows: <strong className="font-medium text-deep-ink">Primary Healthcare</strong>, <strong className="font-medium text-deep-ink">Social Health Insurance</strong>, and <strong className="font-medium text-deep-ink">Emergency, Chronic and Critical Illness</strong>.
-              </span>
-            </div>
 
             <Link href="/services/reimbursement" className="btn btn-deep group mt-10">
               <span>Health product assessment and benefit listing</span>
@@ -222,13 +214,22 @@ export default function HomePage() {
                   index % 2 === 0 ? "lg:col-span-7" : "lg:col-span-5"
                 }`}
               >
-                <div className="overflow-hidden rounded-[20px] border border-rule/70 bg-paper-sunk shadow-xs">
-                  <FigureImage
-                    media={stage.image}
-                    sizes="(max-width: 1024px) 100vw, (max-width: 1440px) 50vw, 700px"
-                    aspect="3/2"
-                    className="rounded-none shadow-none"
-                    imgClassName="transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                {/*
+                  The stage plate. It stands where a stock facility photograph
+                  stood and holds the same 3:2 mass, but it carries the stage's
+                  own question, which the photograph never did.
+                */}
+                <div className="shrink-0 overflow-hidden rounded-[20px] border border-rule/70 shadow-xs">
+                  <FigurePlate
+                    icon={Icon}
+                    index={stage.n}
+                    label={`Stage ${stage.n}`}
+                    title={stage.question}
+                    field={plateFields[index % plateFields.length]}
+                    tone={index % 2 === 0 ? "sunk" : "raised"}
+                    aspect="5/2"
+                    markSize={index % 2 === 0 ? 240 : 190}
+                    className="rounded-none"
                   />
                 </div>
 
@@ -357,14 +358,8 @@ export default function HomePage() {
                 className="group relative flex flex-col justify-between rounded-[22px] border border-rule/80 bg-paper-raised p-5 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-rule-strong hover:shadow-card"
               >
                 <div>
-                  <div className="overflow-hidden rounded-2xl border border-rule/60 bg-paper-sunk">
-                    <FigureImage
-                      media={post.image}
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      aspect="16/9"
-                      className="rounded-none shadow-none"
-                      imgClassName="transition-transform duration-500 ease-out group-hover:scale-[1.04]"
-                    />
+                  <div className="overflow-hidden rounded-2xl border border-rule/60">
+                    <InsightPlate post={post} />
                   </div>
                   <div className="mt-5 flex items-center justify-between gap-2">
                     <span className="t-label text-stamp-700 font-medium tracking-wider">

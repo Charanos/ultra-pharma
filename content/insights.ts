@@ -1,5 +1,3 @@
-import { media, type Media } from "./media";
-
 /**
  * Demo editorial. Every regulatory fact below is drawn from the verified public
  * record in `01 §4`; nothing here asserts a firm outcome, client or credential.
@@ -15,7 +13,6 @@ export type Insight = {
   readonly datePublished: string;
   readonly displayDate: string;
   readonly readingTime: string;
-  readonly image: Media;
 };
 
 export const insights: readonly Insight[] = [
@@ -28,7 +25,6 @@ export const insights: readonly Insight[] = [
     datePublished: "2026-02-10",
     displayDate: "10 February 2026",
     readingTime: "6 min read",
-    image: media.insight1,
   },
   {
     slug: "reading-the-bptap-mandate",
@@ -39,7 +35,6 @@ export const insights: readonly Insight[] = [
     datePublished: "2026-01-22",
     displayDate: "22 January 2026",
     readingTime: "8 min read",
-    image: media.insight2,
   },
   {
     slug: "what-drives-a-ppb-review-timeline",
@@ -50,7 +45,6 @@ export const insights: readonly Insight[] = [
     datePublished: "2025-12-04",
     displayDate: "4 December 2025",
     readingTime: "5 min read",
-    image: media.insight3,
   },
   {
     slug: "eac-harmonisation-and-the-second-market",
@@ -61,7 +55,6 @@ export const insights: readonly Insight[] = [
     datePublished: "2025-11-06",
     displayDate: "6 November 2025",
     readingTime: "7 min read",
-    image: media.insight4,
   },
 ];
 

@@ -1,8 +1,11 @@
 /**
  * Typographic fallback per `04 §8`. No stock portraits: an image of an
  * identifiable person implying they work here is a lie, and an honest gap reads
- * better than one. Add `name`, `credentials` and `linkedin` as the firm
- * supplies them and the cards render them without further change.
+ * better than one. The demo portraits that shipped in the first build were
+ * exactly that lie, and are gone; the monogram treatment stands in until the
+ * firm supplies real photographs, which drop in through `avatar`. Add `name`,
+ * `credentials` and `linkedin` as the firm supplies them and the cards render
+ * them without further change.
  */
 export type TeamMember = {
   readonly initials: string;
@@ -20,7 +23,6 @@ export const team: readonly TeamMember[] = [
     role: "Regulatory affairs lead",
     credentials: "BPharm, MSc Reg Affairs · 14 yrs PPB experience",
     linkedin: "https://linkedin.com",
-    avatar: "https://images.unsplash.com/photo-1530785602389-07594beb8b73?auto=format&fit=crop&w=400&h=400&q=80",
   },
   {
     initials: "EO",
@@ -28,7 +30,6 @@ export const team: readonly TeamMember[] = [
     role: "Quality and compliance",
     credentials: "Lead Auditor ISO 13485 · GMP Specialist",
     linkedin: "https://linkedin.com",
-    avatar: "https://images.unsplash.com/photo-1751374858042-b8b9ff8480aa?auto=format&fit=crop&w=400&h=400&q=80",
   },
   {
     initials: "AH",
@@ -36,7 +37,6 @@ export const team: readonly TeamMember[] = [
     role: "Health economics",
     credentials: "PhD Health Economics · BPTAP Advisory Expert",
     linkedin: "https://linkedin.com",
-    avatar: "https://images.unsplash.com/photo-1586171984069-1dbce3573a10?auto=format&fit=crop&w=400&h=400&q=80",
   },
   {
     initials: "DK",
@@ -44,7 +44,6 @@ export const team: readonly TeamMember[] = [
     role: "Market access lead",
     credentials: "MSc Global Health Policy · SHA Engagement",
     linkedin: "https://linkedin.com",
-    avatar: "https://images.unsplash.com/photo-1688143029511-b37423aa60a2?auto=format&fit=crop&w=400&h=400&q=80",
   },
 ];
 

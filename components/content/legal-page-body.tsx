@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { LegalPage } from "@/content/legal";
-import { allMedia } from "@/content/media";
+import { photoCredits } from "@/content/media";
 
 export function LegalPageBody({ page }: { readonly page: LegalPage }) {
   return (
@@ -29,12 +29,17 @@ export function LegalPageBody({ page }: { readonly page: LegalPage }) {
           ))}
         </div>
 
-      {/* Attribution is not required under the Unsplash Licence and is given anyway. */}
-      {page.slug === "terms" && (
+      {/*
+        Third-party photography is credited even where the licence does not
+        require it. The block does not render while there is none to credit,
+        which is the state the site ships in: no section renders an empty
+        container.
+      */}
+      {page.slug === "terms" && photoCredits.length > 0 && (
         <div className="mt-14 border-t border-rule pt-8">
           <h2 className="t-label m-0 mb-5 text-ink-500">Photography credits</h2>
           <ul className="m-0 list-none border-t border-rule p-0">
-            {allMedia.map((item) => (
+            {photoCredits.map((item) => (
               <li
                 key={item.slot}
                 className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-rule py-3"

@@ -574,6 +574,146 @@ header[data-on-hero] nav a[aria-current="page"] {
     transition: transform 500ms var(--ease-out);
   }
 
+  /**
+   * The plate. What stands where a stock photograph used to.
+   *
+   * A plate is built from the system's own materials rather than from an
+   * asset: a ruled ground, one Phosphor duotone icon at watermark weight, and
+   * mono and display type. It carries the same visual mass as the image it
+   * replaces, so the page keeps its designed proportions, and it costs one
+   * element rather than one network request. Both themes come from a single
+   * definition because every value in it is a token.
+   */
+  .plate {
+    position: relative;
+    isolation: isolate;
+    /* Its height comes from its aspect ratio, so a flex parent must not squeeze it. */
+    flex: none;
+    overflow: hidden;
+    border-radius: 20px;
+    background: var(--plate-bg);
+    color: var(--ink-900);
+
+    --plate-bg: var(--paper-sunk);
+    --plate-rule: var(--rule-strong);
+    --plate-mark: var(--stamp-600);
+    --plate-mark-opacity: 0.13;
+    --plate-label: var(--ink-500);
+    --plate-lede: var(--ink-700);
+    --plate-numeral: var(--numeral);
+  }
+
+  .plate-raised {
+    --plate-bg: var(--paper-raised);
+    --plate-rule: var(--rule);
+  }
+
+  .plate-wash {
+    --plate-bg: var(--stamp-wash);
+    --plate-rule: color-mix(in srgb, var(--stamp-600) 22%, transparent);
+    --plate-mark-opacity: 0.16;
+  }
+
+  /* On the inverted band, where the ground does not follow the theme. */
+  .plate-deep {
+    --plate-bg: var(--paper-deep);
+    --plate-rule: var(--deep-rule);
+    --plate-mark: var(--deep-stamp);
+    --plate-mark-opacity: 0.12;
+    --plate-label: var(--deep-ink-soft);
+    --plate-lede: var(--deep-ink-soft);
+    --plate-numeral: var(--deep-stamp);
+    color: var(--deep-ink);
+  }
+
+  /*
+   * The ruled ground. Four fields, one per job: a drawing grid for anything
+   * structural, ruled paper for anything documentary, a graticule for place,
+   * and a hatch for texture. Masked on the diagonal so the ruling reads as a
+   * surface catching light rather than as wallpaper.
+   */
+  .plate-field {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(155deg, rgb(0 0 0 / 0.95) 0%, rgb(0 0 0 / 0.28) 62%, rgb(0 0 0 / 0.05) 100%);
+    mask-image: linear-gradient(155deg, rgb(0 0 0 / 0.95) 0%, rgb(0 0 0 / 0.28) 62%, rgb(0 0 0 / 0.05) 100%);
+  }
+
+  .plate-field-grid {
+    background-image:
+      linear-gradient(to right, var(--plate-rule) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--plate-rule) 1px, transparent 1px);
+    background-size: 46px 46px;
+    opacity: 0.5;
+  }
+
+  .plate-field-ledger {
+    background-image: linear-gradient(to bottom, var(--plate-rule) 1px, transparent 1px);
+    background-size: 100% 15px;
+    opacity: 0.55;
+  }
+
+  .plate-field-graticule {
+    background-image:
+      linear-gradient(to right, var(--plate-rule) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--plate-rule) 1px, transparent 1px),
+      linear-gradient(to right, var(--plate-rule) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--plate-rule) 1px, transparent 1px);
+    background-size: 96px 96px, 96px 96px, 24px 24px, 24px 24px;
+    opacity: 0.42;
+  }
+
+  .plate-field-hatch {
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--plate-rule) 0 1px,
+      transparent 1px 13px
+    );
+    opacity: 0.45;
+  }
+
+  /* One soft teal cast, so the ground is lit rather than flat. */
+  .plate::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 80% 70% at 22% 12%,
+      color-mix(in srgb, var(--plate-mark) 10%, transparent) 0%,
+      transparent 72%
+    );
+  }
+
+  .plate-mark {
+    position: absolute;
+    right: 2%;
+    bottom: -16%;
+    z-index: 1;
+    color: var(--plate-mark);
+    opacity: var(--plate-mark-opacity);
+    transition: transform 600ms var(--ease-out), opacity 600ms var(--ease-out);
+  }
+
+  .group:hover .plate-mark {
+    transform: scale(1.04) rotate(-3deg);
+    opacity: calc(var(--plate-mark-opacity) + 0.05);
+  }
+
+  .plate-body {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+    padding: clamp(18px, 5%, 30px);
+  }
+
   .skip-link {
     position: absolute;
     left: -9999px;
@@ -606,7 +746,8 @@ header[data-on-hero] nav a[aria-current="page"] {
   opacity: 0;
 }
 
-.motion-ready [data-media-in] img {
+.motion-ready [data-media-in] img,
+.motion-ready [data-slot="figure-plate"][data-media-in] {
   opacity: 0;
 }
 

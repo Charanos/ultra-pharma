@@ -48,7 +48,7 @@ scripts/      check-strings
 Nothing is hardcoded in a page. To change copy, edit the file in `content/`.
 
 - `content/site.ts` navigation, contact channels, footer
-- `content/media.ts` every photograph, with credit and alt text
+- `content/media.ts` every photograph, with credit and alt text. There is one
 - `content/pathway.ts` the four stages
 - `content/entries.ts` the six numbered entries
 - `content/services.ts` the services page
@@ -75,13 +75,26 @@ Nothing is hardcoded in a page. To change copy, edit the file in `content/`.
 Blocking items from `01 §7`, still with the client:
 
 1. Is there a published applicant pathway for submitting to BPTAP?
-2. Team names, credentials, photographs and LinkedIn. The Proof block uses the
-   typographic fallback until these arrive.
+2. Team names, credentials, photographs and LinkedIn. `content/team.ts` still
+   carries fabricated demo names and credentials, to be replaced before launch.
+   The portraits are already gone: the Proof block uses the monogram treatment.
 3. Real case outcomes. The section does not render while there are none.
 4. A street address beyond "Nairobi, Kenya".
 
-Photography is Unsplash placeholder, sourced against the canvas slot briefs.
-Replace `src` in `content/media.ts` to swap in the firm's own.
+## Imagery
+
+The site carries one photograph, the firm's own hero asset. The stock
+photography that filled the other canvas slots was removed at the client's
+request; those slots are now drawn from the system's own materials rather than
+filled with a picture. `FigurePlate` is the primitive, `FundsDiagram` and
+`InsightPlate` the two specialisations. The reasoning, slot by slot, is in
+[DESIGN-SOURCE.md](DESIGN-SOURCE.md).
+
+No image is loaded from a remote host, and `next.config.ts` allows none. To add
+the firm's own photography, add an entry to `content/media.ts` and point a slot
+at it.
+
+Light is the default theme. Dark is a deliberate choice made with the toggle.
 
 ## Environment
 

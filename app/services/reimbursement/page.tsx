@@ -4,8 +4,7 @@ import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Section, SectionIndex } from "@/components/structure/section";
 import { IndexRail } from "@/components/structure/index-rail";
 import { Reveal } from "@/components/primitives/reveal";
-import { FigureImage } from "@/components/content/figure-image";
-import { media } from "@/content/media";
+import { FigurePlate } from "@/components/content/figure-plate";
 import { JsonLd } from "@/components/primitives/json-ld";
 import { EvidenceList } from "@/components/content/evidence-list";
 import {
@@ -24,6 +23,7 @@ import {
   Calculator,
   UsersThree,
   Info,
+  Scales,
 } from "@phosphor-icons/react/dist/ssr";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
 
@@ -42,6 +42,9 @@ export const metadata: Metadata = {
 };
 
 const railSections = ["01", "02", "03", "04", "05", "06"];
+
+/** The four states a product passes through. The page's whole argument. */
+const accessChain = ["Registered", "Assessed", "Listed", "Funded"] as const;
 
 export default function ReimbursementPage() {
   return (
@@ -128,14 +131,39 @@ export default function ReimbursementPage() {
           <div className="order-2 lg:order-2 lg:col-span-6">
             <Reveal>
               <div className="overflow-hidden rounded-[26px] border border-rule/80 bg-paper-raised shadow-xs">
-                <div className="overflow-hidden bg-paper-sunk">
-                  <FigureImage
-                    media={media.stage03}
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    aspect="4/3"
-                    className="rounded-none shadow-none"
-                    imgClassName="transition-transform duration-700 ease-out hover:scale-[1.03]"
-                  />
+                {/*
+                  The whole argument of the page in four words, drawn. A
+                  photograph of a consultation illustrated none of it.
+                */}
+                <div className="overflow-hidden">
+                  <FigurePlate
+                    icon={Scales}
+                    label="The access chain"
+                    field="grid"
+                    tone="sunk"
+                    aspect="5/2"
+                    markSize={210}
+                    className="rounded-none"
+                  >
+                    <ol className="m-0 flex list-none flex-wrap items-center gap-x-3 gap-y-2 p-0">
+                      {accessChain.map((step, index) => (
+                        <li key={step} className="flex items-center gap-3">
+                          <span className="font-display text-[1.375rem] font-medium leading-none text-ink-900">
+                            {step}
+                          </span>
+                          {index < accessChain.length - 1 && (
+                            <span aria-hidden className="text-stamp-600">
+                              &rarr;
+                            </span>
+                          )}
+                        </li>
+                      ))}
+                    </ol>
+                    <p className="t-body-sm m-0 max-w-[40ch] font-light leading-relaxed text-ink-700">
+                      Registration clears the first step. The three that follow
+                      are decided by health technology assessment.
+                    </p>
+                  </FigurePlate>
                 </div>
                 <div className="p-6 border-t border-rule/70 flex items-center justify-between text-xs font-mono text-ink-500">
                   <span>Policy & Health Economics</span>

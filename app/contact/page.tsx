@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactForm } from "@/components/forms/contact-form";
-import { FigureImage } from "@/components/content/figure-image";
+import { FigurePlate } from "@/components/content/figure-plate";
 import { JsonLd } from "@/components/primitives/json-ld";
 import { channels, site } from "@/content/site";
-import { media } from "@/content/media";
 import { contactPageSchema, breadcrumbSchema } from "@/lib/schema";
 import {
   EnvelopeSimple,
@@ -125,12 +124,21 @@ export default function ContactPage() {
 
             {/* Nairobi Headquarters Location Card */}
             <div className="rounded-[24px] border border-rule/80 bg-paper-raised overflow-hidden shadow-xs">
-              <div className="overflow-hidden bg-paper-sunk">
-                <FigureImage
-                  media={media.place}
-                  sizes="(max-width: 1024px) 100vw, 45vw"
+              {/*
+                Place, drawn as a graticule rather than borrowed as a skyline.
+                The coordinate is the city's, which is as precise as the firm's
+                published address currently goes.
+              */}
+              <div className="overflow-hidden">
+                <FigurePlate
+                  icon={MapPin}
+                  label="Nairobi, Kenya"
+                  note="1.2921 S, 36.8219 E"
+                  field="graticule"
+                  tone="sunk"
                   aspect="16/9"
-                  className="rounded-none shadow-none"
+                  markSize={230}
+                  className="rounded-none"
                 />
               </div>
               <div className="p-6">

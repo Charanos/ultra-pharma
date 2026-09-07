@@ -8,6 +8,15 @@ The brief's central ask: use photography and icons comprehensively to break the 
 
 The current site has none, and it reads flat. But the reflexive fix, dropping a stock photograph into every section, produces something worse: a site that looks like every other consultancy site, because everyone shops from the same twelve results for "pharmaceutical".
 
+**As shipped, the client took this one step further and asked for the stock
+photography to come out entirely.** One photograph remains, the firm's own hero
+asset, reused once as the page's full-bleed divider. Every other slot is drawn
+rather than photographed: a ruled ground, one duotone icon at watermark weight,
+and mono and display type, at the same geometry the photograph held. The two
+rules below are why that was the right answer rather than a retreat, and the
+categories in `§2` now describe what the firm's own photography would fill if it
+arrives. See `DESIGN-SOURCE.md`, round three.
+
 Two rules prevent that.
 
 **Rule one: every image earns a job.** Photography here makes an invisible service concrete. Regulatory work has no visible output, so the site shows what it touches: the laboratory the product is tested in, the line it is made on, the clinic it ends up in, the document itself. An image that illustrates nothing specific is removed.
@@ -104,6 +113,14 @@ Where images go on the homepage, per `02 §3`. Total: seven images plus team por
 | 7 · Insight | One per card | P2 document, varied | 16:9 thumbnails |
 | 8 · Contact | One, or a map | P4 place | Contained |
 
+**As shipped**, blocks 1 and the divider are the only photographs. Blocks 3, 4
+and 7 carry drawn plates at the same aspect and weight: the reimbursement band
+is the three SHA funds as a diagram, the four service cards are stage plates
+carrying each stage's question, and the insight cards are one drawn cover per
+category. The rhythm the table sets, immersive against typographic, is
+preserved by tone and ruling rather than by the presence or absence of a
+photograph.
+
 **Blocks 2 and 5 have no imagery on purpose.** A page where every section has a photograph is as monotonous as one where none does. The rhythm in `02 §3` alternates immersive and typographic, and these two are the typographic beats.
 
 ### Full-bleed dividers
@@ -196,7 +213,7 @@ The rule that keeps this ethical and legally clean.
 - Patients are shown as context in P3 imagery only, never as a subject with an implied story.
 - If the firm cannot supply team photographs, the Proof block uses initials in a typographic treatment rather than stock portraits. That is an honest gap; stock portraits are a lie.
 
-**As shipped, this section is knowingly not followed**, on the client's own direct instruction during the build: `content/team.ts` carries four fabricated names, fabricated credentials, fabricated LinkedIn links and Unsplash stock portraits, explicitly as demo data for a presentation, to be replaced with real people before the site reaches a real audience. This is the single highest-priority item to close out before launch. See `DESIGN-SOURCE.md`.
+**As shipped**, the stock portraits are gone and this section is followed: the Proof block uses the monogram treatment. `content/team.ts` still carries four fabricated names, credentials and LinkedIn links as demo data for a presentation, and those must still be replaced with real people before the site reaches a real audience. See `DESIGN-SOURCE.md`.
 
 ---
 
@@ -223,6 +240,13 @@ One exception to "no illustration": **process diagrams**, which are genuinely us
 The evidence-requirements list and the engagement timeline are drawn as diagrams in the design system's own vocabulary: rules, mono numerals, `--stamp-600` markers. Built as inline SVG, themed with CSS variables so they work in both themes, and never as a raster image.
 
 They are diagrams, not illustrations. No characters, no metaphors, no isometric offices.
+
+**As shipped, this exception carries more weight than one page.** With the stock
+photography removed, the drawn plate is the general case rather than the
+exception, and the same discipline governs it: a plate states something specific
+(a stage's question, the three funds, the five CTD modules, the access chain, a
+coordinate) or it does not ship. The article lead image was removed outright
+rather than replaced, because nothing specific was left for it to say.
 
 ---
 
