@@ -1,24 +1,7 @@
-import type { Entry, EntryIcon } from "@/content/entries";
+import type { Entry } from "@/content/entries";
 import { Reveal } from "@/components/primitives/reveal";
-import {
-  Target,
-  Lightning,
-  Compass,
-  ShieldCheck,
-  Handshake,
-  GraduationCap,
-} from "@phosphor-icons/react/dist/ssr";
-import type { ElementType } from "react";
+import { Mark } from "@/components/primitives/mark";
 import { cn } from "@/lib/utils";
-
-const iconMap: Record<EntryIcon, ElementType> = {
-  Target,
-  Lightning,
-  Compass,
-  ShieldCheck,
-  Handshake,
-  GraduationCap,
-};
 
 /**
  * The "why partners choose us" treatment.
@@ -31,8 +14,6 @@ export function NumberedEntry({
   readonly entry: Entry;
   readonly offset?: boolean;
 }) {
-  const Icon = iconMap[entry.icon];
-
   return (
     <Reveal
       className={cn(
@@ -44,17 +25,17 @@ export function NumberedEntry({
     >
       {/* Unboxed Free-standing Icon */}
       <div
+        data-icon-pop
         className={cn(
           "flex pt-1",
           offset ? "lg:order-2 lg:justify-end" : "lg:order-1 lg:justify-start"
         )}
       >
-        <Icon
+        <Mark
+          name={entry.icon}
           size={88}
           weight="duotone"
-          data-icon-pop
           className="text-stamp-600 transition-transform duration-300 hover:scale-110"
-          aria-hidden
         />
       </div>
 

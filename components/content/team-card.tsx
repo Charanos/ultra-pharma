@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Mark } from "@/components/primitives/mark";
 import type { TeamMember } from "@/content/team";
 
 /**
@@ -45,14 +46,31 @@ export function TeamCard({ member }: { readonly member: TeamMember }) {
           </h3>
         )}
 
+        {/*
+          Nothing is asserted that has not been supplied. A card with a name but
+          no credentials simply carries none, rather than announcing a gap the
+          reader cannot act on.
+        */}
         {member.credentials ? (
           <p className="t-index mt-2 text-ink-500 font-light leading-relaxed">
             {member.credentials}
           </p>
         ) : (
-          <p className="t-index mt-2 text-ink-400 font-light">
-            Name and credentials pending
-          </p>
+          !member.name && (
+            <p className="t-index mt-2 text-ink-400 font-light">
+              Name and credentials pending
+            </p>
+          )
+        )}
+
+        {member.email && (
+          <Link
+            href={`mailto:${member.email}`}
+            className="t-data mt-4 inline-flex items-center gap-2 text-[0.8125rem] text-stamp-700 no-underline hover:text-stamp-600 group/link"
+          >
+            <Mark name="email" size={15} />
+            <span>{member.email}</span>
+          </Link>
         )}
 
         {member.linkedin && (
@@ -62,6 +80,7 @@ export function TeamCard({ member }: { readonly member: TeamMember }) {
             rel="noopener noreferrer"
             className="t-body-sm mt-4 inline-flex items-center gap-1.5 text-stamp-700 no-underline font-medium hover:text-stamp-600 group/link"
           >
+            <Mark name="linkedin" size={15} />
             <span>LinkedIn</span>
             <span aria-hidden className="transition-transform duration-200 group-hover/link:translate-x-0.5">&rarr;</span>
           </Link>

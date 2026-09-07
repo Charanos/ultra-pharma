@@ -1,3 +1,5 @@
+import type { IconName } from "@/lib/icons";
+
 /**
  * `/services/reimbursement`. Facts verified against `01 §4`.
  *
@@ -22,26 +24,27 @@ export const facts: readonly Fact[] = [
 ];
 
 export type ReimbursementService = {
-  readonly icon: "Files" | "Calculator" | "UsersThree";
+  /** The same concepts the homepage lists as stage 03 deliverables. */
+  readonly icon: IconName;
   readonly name: string;
   readonly description: string;
 };
 
 export const reimbursementServices: readonly ReimbursementService[] = [
   {
-    icon: "Files",
+    icon: "htaDossier",
     name: "HTA dossier development",
     description:
       "Assembling the evidence a health technology assessment requires: clinical effectiveness against an appropriate local comparator, safety, and the value case in a form assessors can evaluate.",
   },
   {
-    icon: "Calculator",
+    icon: "economicModelling",
     name: "Cost-effectiveness and budget-impact modelling",
     description:
       "Incremental cost-effectiveness analysis using Kenyan cost and epidemiological inputs, and a budget-impact model showing what inclusion would mean for the relevant fund over a defined horizon.",
   },
   {
-    icon: "UsersThree",
+    icon: "stakeholderEngagement",
     name: "Stakeholder engagement and SHA liaison",
     description:
       "Structured engagement with the Ministry of Health, the Social Health Authority and the panel secretariat, sequenced so evidence arrives when it can be considered.",
@@ -58,16 +61,18 @@ export const caveat =
 export type EvidenceItem = {
   readonly n: string;
   readonly requirement: string;
+  /** Seven domains of proof, so seven marks rather than one repeated. */
+  readonly icon: IconName;
 };
 
 export const evidence: readonly EvidenceItem[] = [
-  { n: "01", requirement: "Clinical effectiveness against a comparator in current Kenyan practice" },
-  { n: "02", requirement: "Safety profile and adverse-event data" },
-  { n: "03", requirement: "Incremental cost-effectiveness analysis with local cost inputs" },
-  { n: "04", requirement: "Budget-impact model against the relevant fund" },
-  { n: "05", requirement: "Local epidemiological and disease-burden data" },
-  { n: "06", requirement: "Equity and access considerations" },
-  { n: "07", requirement: "Implementation feasibility within existing service delivery" },
+  { n: "01", requirement: "Clinical effectiveness against a comparator in current Kenyan practice", icon: "clinicalEffectiveness" },
+  { n: "02", requirement: "Safety profile and adverse-event data", icon: "safety" },
+  { n: "03", requirement: "Incremental cost-effectiveness analysis with local cost inputs", icon: "costEffectiveness" },
+  { n: "04", requirement: "Budget-impact model against the relevant fund", icon: "budgetImpact" },
+  { n: "05", requirement: "Local epidemiological and disease-burden data", icon: "epidemiology" },
+  { n: "06", requirement: "Equity and access considerations", icon: "equity" },
+  { n: "07", requirement: "Implementation feasibility within existing service delivery", icon: "implementation" },
 ];
 
 export type Phase = {
@@ -75,12 +80,14 @@ export type Phase = {
   readonly name: string;
   readonly description: string;
   readonly deliverable?: string;
+  readonly icon: IconName;
 };
 
 export const phases: readonly Phase[] = [
   {
     n: "Phase 1",
     name: "Feasibility assessment",
+    icon: "feasibility",
     description:
       "We establish whether the evidence base supports a submission, and what is missing.",
     deliverable: "Deliverable: a feasibility opinion and evidence gap register.",
@@ -88,6 +95,7 @@ export const phases: readonly Phase[] = [
   {
     n: "Phase 2",
     name: "Evidence generation",
+    icon: "evidenceGeneration",
     description:
       "Closing the gaps: comparator selection, model construction, local data sourcing.",
     deliverable: "Deliverable: a completed economic model and dossier draft.",
@@ -95,12 +103,14 @@ export const phases: readonly Phase[] = [
   {
     n: "Phase 3",
     name: "Engagement",
+    icon: "engagement",
     description: "Structured stakeholder engagement and submission support.",
     deliverable: "Deliverable: a final dossier and an engagement record.",
   },
   {
     n: "Phase 4",
     name: "Follow-through",
+    icon: "followThrough",
     description:
       "Responding to questions and supporting the review process to determination.",
   },

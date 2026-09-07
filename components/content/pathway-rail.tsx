@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { stages } from "@/content/pathway";
-import { StageIcon } from "./stage-icon";
+import { Mark } from "@/components/primitives/mark";
 
 /**
  * The four stages. The site's spine, stated once and early. Horizontal at `lg`,
@@ -33,7 +33,7 @@ export function PathwayRail() {
               data-icon-pop
               className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-rule bg-paper-sunk shadow-sm text-stamp-600"
             >
-              <StageIcon name={stage.icon} size={28} />
+              <Mark name={stage.icon} size={28} />
             </div>
             
             <div className="flex items-center justify-between gap-2">
@@ -49,17 +49,23 @@ export function PathwayRail() {
               {stage.question}
             </p>
 
-            <ul className="mt-6 flex flex-1 list-none flex-col gap-2.5 p-0">
+            {/*
+              Each deliverable carries its own mark rather than a repeated
+              rule. The same concept resolves to the same mark on `/services`,
+              so the reader learns it once. `04 §9`.
+            */}
+            <ul className="mt-6 flex flex-1 list-none flex-col gap-3 p-0">
               {stage.deliverables.map((item) => (
                 <li
-                  key={item}
-                  className="t-body-sm flex gap-2.5 text-ink-500"
+                  key={item.label}
+                  className="t-body-sm flex items-center gap-2.5 text-ink-500"
                 >
-                  <span
-                    aria-hidden
-                    className="mt-3 block h-px w-2 flex-none bg-rule-strong"
+                  <Mark
+                    name={item.icon}
+                    size={16}
+                    className="flex-none text-stamp-600/70"
                   />
-                  {item}
+                  {item.label}
                 </li>
               ))}
             </ul>

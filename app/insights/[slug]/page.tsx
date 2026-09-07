@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Clock, Calendar, Tag } from "@phosphor-icons/react/dist/ssr";
+import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
+import { Mark } from "@/components/primitives/mark";
+import { topicMark } from "@/components/content/insight-plate";
 import { JsonLd } from "@/components/primitives/json-ld";
 import { insights, getInsight } from "@/content/insights";
 import { articleSchema, breadcrumbSchema } from "@/lib/schema";
@@ -76,7 +78,7 @@ export default async function InsightPage({ params }: { params: Promise<Params> 
 
             <div className="flex items-center justify-center gap-3">
               <span className="stamp-pill text-xs py-0.5 px-3 font-medium flex items-center gap-1.5">
-                <Tag size={12} aria-hidden />
+                <Mark name={topicMark(post.category)} size={12} />
                 {post.category}
               </span>
               <span className="text-xs font-mono text-ink-400">· Regulatory Intelligence Briefing</span>
@@ -88,11 +90,11 @@ export default async function InsightPage({ params }: { params: Promise<Params> 
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-6 border-t border-rule/80 pt-6 text-xs font-mono text-ink-500 w-full">
               <span className="flex items-center gap-1.5">
-                <Calendar size={14} className="text-stamp-600" aria-hidden />
+                <Mark name="publishedDate" size={14} className="text-stamp-600" />
                 {post.displayDate}
               </span>
               <span className="flex items-center gap-1.5">
-                <Clock size={14} className="text-stamp-600" aria-hidden />
+                <Mark name="readingTime" size={14} className="text-stamp-600" />
                 {post.readingTime}
               </span>
               <span className="text-ink-400">· Ultra Pharma Advisory Practice</span>

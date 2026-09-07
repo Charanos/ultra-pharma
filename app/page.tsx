@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { ArrowDown, ArrowRight, SealCheck, GlobeHemisphereEast, Scales, ArrowsClockwise } from "@phosphor-icons/react/dist/ssr";
-import type { ElementType } from "react";
+import { ArrowDown, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Section, SectionIndex } from "@/components/structure/section";
 import { IndexRail } from "@/components/structure/index-rail";
 import { Reveal } from "@/components/primitives/reveal";
+import { Mark } from "@/components/primitives/mark";
 import { FigureImage } from "@/components/content/figure-image";
 import { FigurePlate } from "@/components/content/figure-plate";
 import { FundsDiagram } from "@/components/content/funds-diagram";
@@ -12,19 +12,12 @@ import { PathwayRail } from "@/components/content/pathway-rail";
 import { NumberedEntry } from "@/components/content/numbered-entry";
 import { TeamCard } from "@/components/content/team-card";
 import { ContactForm } from "@/components/forms/contact-form";
-import { stages, type StageIcon } from "@/content/pathway";
+import { stages } from "@/content/pathway";
 import { entries } from "@/content/entries";
 import { team } from "@/content/team";
 import { channels, site } from "@/content/site";
 import { media } from "@/content/media";
 import { insights } from "@/content/insights";
-
-const iconMap: Record<StageIcon, ElementType> = {
-  SealCheck,
-  GlobeHemisphereEast,
-  Scales,
-  ArrowsClockwise,
-};
 
 /* One field per stage, rotated so four plates in a column never repeat a ruling. */
 const plateFields = ["grid", "hatch", "ledger", "graticule"] as const;
@@ -121,15 +114,17 @@ export default function HomePage() {
               data-hero-stages
               className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] justify-center border-t border-white/20 pt-4"
             >
-              {stages.map((stage) => {
-                const Icon = iconMap[stage.icon];
-                return (
-                  <div key={stage.n} className="flex items-center justify-center gap-2.5">
-                    <Icon size={18} weight="duotone" className="text-stamp-500" aria-hidden />
-                    <span className="t-label text-[#E8EBEA]">{stage.name}</span>
-                  </div>
-                );
-              })}
+              {stages.map((stage) => (
+                <div key={stage.n} className="flex items-center justify-center gap-2.5">
+                  <Mark
+                    name={stage.icon}
+                    size={18}
+                    weight="duotone"
+                    className="text-stamp-500"
+                  />
+                  <span className="t-label text-[#E8EBEA]">{stage.name}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -206,7 +201,6 @@ export default function HomePage() {
 
         <div data-reveal-group className="grid grid-cols-12 gap-8">
           {stages.map((stage, index) => {
-            const Icon = iconMap[stage.icon];
             return (
               <article
                 key={stage.n}
@@ -221,7 +215,7 @@ export default function HomePage() {
                 */}
                 <div className="shrink-0 overflow-hidden rounded-[20px] border border-rule/70 shadow-xs">
                   <FigurePlate
-                    icon={Icon}
+                    icon={stage.icon}
                     index={stage.n}
                     label={`Stage ${stage.n}`}
                     title={stage.question}
@@ -236,7 +230,7 @@ export default function HomePage() {
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2.5">
                     <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-rule/80 bg-paper-sunk text-stamp-600 shadow-xs">
-                      <Icon size={16} weight="duotone" aria-hidden />
+                      <Mark name={stage.icon} size={16} weight="duotone" />
                     </div>
                     <span className="t-label text-ink-900 font-medium">{stage.name}</span>
                   </div>
@@ -251,14 +245,20 @@ export default function HomePage() {
                   {stage.blurb}
                 </p>
 
+                {/* The dash that ended each row said nothing. The deliverable's
+                    own mark says what the row is. */}
                 <ul className="m-0 flex flex-1 list-none flex-col border-t border-rule/70 p-0">
                   {stage.deliverables.map((item) => (
                     <li
-                      key={item}
-                      className="t-body-sm flex items-center justify-between border-b border-rule/70 py-3 text-ink-500 transition-colors group-hover:text-ink-700"
+                      key={item.label}
+                      className="t-body-sm flex items-center gap-3 border-b border-rule/70 py-3 text-ink-500 transition-colors group-hover:text-ink-700"
                     >
-                      <span>{item}</span>
-                      <span className="text-stamp-600/40 text-xs" aria-hidden>-</span>
+                      <Mark
+                        name={item.icon}
+                        size={17}
+                        className="flex-none text-stamp-600/70 transition-colors group-hover:text-stamp-600"
+                      />
+                      <span>{item.label}</span>
                     </li>
                   ))}
                 </ul>

@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "lint:strings": "tsx scripts/check-strings.ts",
+    "lint:icons": "tsx scripts/check-icons.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

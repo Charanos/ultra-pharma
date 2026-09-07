@@ -132,3 +132,67 @@ no fabricated portraits on the site.
 Does not close: `content/team.ts` still carries four fabricated names,
 credentials and LinkedIn links as demo data for a presentation. **That must
 still be replaced with real people before the site reaches a real audience.**
+
+## Round four: the icon system, and a real name
+
+### The monotony was structural, not decorative
+
+The client's read was right: the site looked like five icons repeated. The
+cause was not laziness at the call sites, it was that `04 §9`'s rule, one icon
+per labelled thing, had nowhere to live. Marks were imported ad hoc, page by
+page, and the four pathway marks were the ones everyone reached for. `SealCheck`
+appeared eight times across four meanings; `Scales` nine, including on an
+article cover and on a diagram about money.
+
+The fix is `lib/icons.ts`, a registry of **60 concepts**, each bound to exactly
+one Phosphor icon, plus `components/primitives/mark.tsx` to render one by name.
+
+| Family | Concepts | What changed |
+|---|---|---|
+| Pathway | 4 | Unchanged, but now they label a stage and nothing else, anywhere |
+| Capabilities | 13 | New. Every deliverable and every service has its own mark, shared between the homepage and `/services` where they are the same thing |
+| Editorial covers | 4 | New family, deliberately not the pathway marks |
+| Plates and diagrams | 4 | The funds diagram takes coins, not the reimbursement scales; the access chain takes a flow arrow |
+| Principles and commitments | 7 | New. Replaces three identical ticks and two borrowed pathway marks |
+| Phases | 4 | Moved from a positional array into the content model |
+| Evidence | 7 | New. Seven domains of proof, seven marks |
+| Why-entries | 6 | Unchanged, already distinct |
+| Process, channels, metadata | 11 | `confidentiality` and `namedLead` are each shared by the two surfaces that make the same promise |
+
+**Consistency across surfaces is the opposite of monotony within one.** A
+concept that appears on three pages carries the same mark on all three, which
+is why `htaDossier` is identical on the homepage rail, on `/services` and on
+the reimbursement page. What changed is that a *different* concept no longer
+borrows a mark that already means something else.
+
+### The rule is now enforced rather than remembered
+
+`npm run lint:icons` fails the build when one icon is bound to two concepts,
+and when any page or component imports a Phosphor icon directly instead of
+going through the registry. Controls and state glyphs are exempt by name:
+arrows, the menu and close glyphs, the spinner, the theme toggle, and the check
+and warning marks repeat on purpose, and the uniqueness rule would be actively
+wrong for them.
+
+The guard is what makes this durable. Without it the registry is a convention,
+and conventions decay silently.
+
+### James Kamindo
+
+`content/team.ts` now carries one real person: the firm's own point of contact,
+with the role and the published email from the contact page and **no invented
+credentials**. `TeamMember.verified` marks the entry, and a card with a name but
+no credentials now renders none rather than announcing a gap.
+
+**The other three cards remain fabricated demo data**, kept at the client's
+instruction. They now sit beside a real named person, which raises rather than
+lowers the stakes: a reader has no way to tell which of the four are real. This
+stays the last blocking item before the site meets a real audience.
+
+### Fixed in passing
+
+- The phase card fallback row rendered in italics, against the standing "weight
+  400 and 500 only, no italics" rule. Normalised.
+- The contact form's success state used `SealCheck`, the Approval mark. A sent
+  enquiry is a confirmed state, not a regulatory approval; it now uses the check
+  mark, and the send button uses a send glyph rather than the generic arrow.

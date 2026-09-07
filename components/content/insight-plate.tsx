@@ -1,32 +1,38 @@
-import {
-  GlobeHemisphereEast,
-  Scales,
-  SealCheck,
-  UsersThree,
-} from "@phosphor-icons/react/dist/ssr";
-import type { ElementType } from "react";
 import type { Insight } from "@/content/insights";
+import type { IconName } from "@/lib/icons";
 import { FigurePlate, type PlateField, type PlateTone } from "./figure-plate";
 import { cn } from "@/lib/utils";
 
 /**
  * The cover of an article, drawn rather than photographed.
  *
- * Four categories, four covers. The icon is the same one that labels the
- * matching pathway stage elsewhere on the site, so the mark a reader learns on
- * the homepage still means the same thing on an article card. Field and paper
- * vary with it, which is what keeps a grid of four cards from reading as one
- * repeated tile.
+ * Four categories, four covers, and deliberately **not** the four pathway
+ * marks. An article about reimbursement is a piece of writing about a subject,
+ * not the reimbursement service, and putting the service mark on its cover
+ * would quietly claim that it is. Keeping the families apart also leaves the
+ * pathway marks meaning exactly one thing each, which is the whole point of
+ * `04 §9`.
+ *
+ * Field and paper vary with the category too, which is what keeps a grid of
+ * four cards from reading as one tile repeated.
  */
 const covers: Record<
   Insight["category"],
-  { icon: ElementType; field: PlateField; tone: PlateTone }
+  { icon: IconName; field: PlateField; tone: PlateTone }
 > = {
-  Reimbursement: { icon: Scales, field: "ledger", tone: "wash" },
-  Policy: { icon: UsersThree, field: "grid", tone: "sunk" },
-  Approval: { icon: SealCheck, field: "hatch", tone: "raised" },
-  "Market entry": { icon: GlobeHemisphereEast, field: "graticule", tone: "sunk" },
+  Reimbursement: { icon: "topicReimbursement", field: "ledger", tone: "wash" },
+  Policy: { icon: "topicPolicy", field: "grid", tone: "sunk" },
+  Approval: { icon: "topicApproval", field: "hatch", tone: "raised" },
+  "Market entry": { icon: "topicMarketEntry", field: "graticule", tone: "sunk" },
 };
+
+/**
+ * The mark for a category, so a pill or a byline can carry the same one its
+ * cover does. One subject, one mark, wherever it appears.
+ */
+export function topicMark(category: Insight["category"]): IconName {
+  return covers[category].icon;
+}
 
 export function InsightPlate({
   post,

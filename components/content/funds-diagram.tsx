@@ -1,4 +1,4 @@
-import { Scales } from "@phosphor-icons/react/dist/ssr";
+import { Mark } from "@/components/primitives/mark";
 
 /**
  * The three funds, drawn.
@@ -31,7 +31,9 @@ export function FundsDiagram() {
   return (
     <div className="plate plate-deep min-h-[420px] rounded-[24px] ring-1 ring-white/10 shadow-2xl">
       <span aria-hidden className="plate-field plate-field-ledger" />
-      <Scales aria-hidden weight="duotone" size={240} className="plate-mark" />
+      {/* Coins, not the reimbursement scales: the subject here is the money,
+          and the scales already mean the stage everywhere else. */}
+      <Mark name="funds" weight="duotone" size={240} className="plate-mark" />
 
       <div className="plate-body">
         <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">

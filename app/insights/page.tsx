@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { InsightPlate } from "@/components/content/insight-plate";
+import { InsightPlate, topicMark } from "@/components/content/insight-plate";
 import { JsonLd } from "@/components/primitives/json-ld";
 import { insights } from "@/content/insights";
 import { breadcrumbSchema } from "@/lib/schema";
-import { ArrowRight, BookOpen, Clock, Tag } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { Mark } from "@/components/primitives/mark";
 
 export const metadata: Metadata = {
   title: "Insights & Regulatory Intelligence",
@@ -42,7 +43,7 @@ export default function InsightsPage() {
           {/* Category Quick Filter Strip */}
           <div className="mt-12 flex flex-wrap items-center justify-center gap-2.5 pt-6 border-t border-rule/70">
             <span className="text-xs font-mono text-ink-400 mr-2 uppercase tracking-wider flex items-center gap-1.5">
-              <Tag size={14} className="text-stamp-600" aria-hidden />
+              <Mark name="topics" size={14} className="text-stamp-600" />
               Topics:
             </span>
             <span className="stamp-pill text-xs py-1 px-3 bg-stamp-wash border-stamp-500/30 text-stamp-700 font-medium">
@@ -67,7 +68,7 @@ export default function InsightsPage() {
           <div className="mb-16">
             <div className="mb-6 flex items-center justify-between">
               <span className="t-label text-xs uppercase tracking-widest text-stamp-700 font-medium flex items-center gap-1.5">
-                <BookOpen size={16} weight="duotone" aria-hidden />
+                <Mark name="featured" size={16} weight="duotone" />
                 Featured Editorial
               </span>
             </div>
@@ -83,11 +84,12 @@ export default function InsightsPage() {
               <div className="lg:col-span-8 flex flex-col py-2">
                 <div>
                   <div className="flex items-center gap-3">
-                    <span className="stamp-pill text-[0.6875rem] py-0.5 px-2.5 font-medium leading-none">
+                    <span className="stamp-pill inline-flex items-center gap-1.5 text-[0.6875rem] py-0.5 px-2.5 font-medium leading-none">
+                      <Mark name={topicMark(featuredPost.category)} size={12} />
                       {featuredPost.category}
                     </span>
                     <span className="t-index text-xs text-ink-400 flex items-center gap-1">
-                      <Clock size={13} aria-hidden />
+                      <Mark name="readingTime" size={13} />
                       {featuredPost.readingTime}
                     </span>
                   </div>
@@ -143,7 +145,7 @@ export default function InsightsPage() {
                       {post.category}
                     </span>
                     <span className="t-index text-ink-400 font-light text-xs flex items-center gap-1">
-                      <Clock size={12} aria-hidden />
+                      <Mark name="readingTime" size={12} />
                       {post.readingTime}
                     </span>
                   </div>

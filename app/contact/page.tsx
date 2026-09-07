@@ -5,17 +5,9 @@ import { FigurePlate } from "@/components/content/figure-plate";
 import { JsonLd } from "@/components/primitives/json-ld";
 import { channels, site } from "@/content/site";
 import { contactPageSchema, breadcrumbSchema } from "@/lib/schema";
-import {
-  EnvelopeSimple,
-  PhoneCall,
-  LinkedinLogo,
-  MapPin,
-  Clock,
-  ShieldCheck,
-  UserCheck,
-  MapTrifold,
-  ArrowUpRight,
-} from "@phosphor-icons/react/dist/ssr";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { Mark } from "@/components/primitives/mark";
+import type { IconName } from "@/lib/icons";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -25,11 +17,11 @@ export const metadata: Metadata = {
 };
 
 const channelIcons = {
-  Email: EnvelopeSimple,
-  Phone: PhoneCall,
-  LinkedIn: LinkedinLogo,
-  Location: MapPin,
-};
+  Email: "email",
+  Phone: "phone",
+  LinkedIn: "linkedin",
+  Location: "place",
+} satisfies Record<string, IconName>;
 
 /**
  * Process commitments the firm makes to every new enquiry, phrased as what
@@ -37,21 +29,27 @@ const channelIcons = {
  * that cannot be checked, and a promise about how an enquiry will be handled
  * is checkable in a way that an assertion of existing bench strength is not.
  */
-const advisorySteps = [
+const advisorySteps: readonly {
+  title: string;
+  description: string;
+  icon: IconName;
+}[] = [
   {
     title: "Confidential intake",
     description: "Initial gap analysis, with a confidentiality agreement available before any proprietary dossier data or product detail is shared.",
-    Icon: ShieldCheck,
+    /* The same mark as the NDA pill on the form. One promise, one mark. */
+    icon: "confidentiality",
   },
   {
     title: "Named lead",
     description: "Direct alignment with a named in-country regulatory lead for your enquiry, not a general inbox.",
-    Icon: UserCheck,
+    /* Shared with the operating principle of the same name on `/practice`. */
+    icon: "namedLead",
   },
   {
     title: "Filing roadmap",
     description: "A document register, milestone checklist, and filing dates we hold ourselves to, once an engagement begins.",
-    Icon: MapTrifold,
+    icon: "filingRoadmap",
   },
 ];
 
@@ -94,7 +92,7 @@ export default function ContactPage() {
 
               <div className="border-t border-rule/80">
                 {channels.map((channel) => {
-                  const Icon = channelIcons[channel.label as keyof typeof channelIcons] || MapPin;
+                  const icon = channelIcons[channel.label as keyof typeof channelIcons] ?? "place";
                   return (
                     <Link
                       key={channel.label}
@@ -105,7 +103,7 @@ export default function ContactPage() {
                         : {})}
                     >
                       <div className="flex items-center gap-3">
-                        <Icon size={18} className="text-stamp-600 shrink-0" aria-hidden />
+                        <Mark name={icon} size={18} className="text-stamp-600 shrink-0" />
                         <span className="t-label text-ink-500 font-medium tracking-wider text-xs">
                           {channel.label}
                         </span>
@@ -131,7 +129,7 @@ export default function ContactPage() {
               */}
               <div className="overflow-hidden">
                 <FigurePlate
-                  icon={MapPin}
+                  icon="place"
                   label="Nairobi, Kenya"
                   note="1.2921 S, 36.8219 E"
                   field="graticule"
@@ -143,11 +141,11 @@ export default function ContactPage() {
               </div>
               <div className="p-6">
                 <div className="flex items-center gap-2 text-xs font-mono text-stamp-700 uppercase tracking-wider font-medium">
-                  <MapPin size={14} className="text-stamp-600" aria-hidden />
+                  <Mark name="place" size={14} className="text-stamp-600" />
                   <span>Nairobi Headquarters</span>
                 </div>
                 <div className="mt-4 flex items-center gap-2 text-xs font-mono text-ink-400 border-t border-rule/60 pt-3">
-                  <Clock size={13} aria-hidden />
+                  <Mark name="openingHours" size={13} />
                   <span>Mon – Fri: 08:30 – 17:30 EAT (GMT+3)</span>
                 </div>
               </div>
@@ -168,7 +166,7 @@ export default function ContactPage() {
                 </h2>
               </div>
               <span className="flex items-center gap-1.5 text-xs font-mono text-ink-500 bg-paper-sunk border border-rule px-3 py-1.5 rounded-full">
-                <ShieldCheck size={16} className="text-stamp-600" aria-hidden />
+                <Mark name="confidentiality" size={16} className="text-stamp-600" />
                 <span>NDA on request</span>
               </span>
             </div>
@@ -201,7 +199,7 @@ export default function ContactPage() {
                   className="pointer-events-none absolute -bottom-6 -right-6 text-ink-900/[0.04] dark:text-stamp-400/[0.07] transition-all duration-500 ease-out group-hover:text-stamp-700/[0.12] dark:group-hover:text-stamp-400/[0.16] group-hover:scale-105 group-hover:-rotate-3"
                   aria-hidden
                 >
-                  <step.Icon size={160} weight="duotone" />
+                  <Mark name={step.icon} size={160} weight="duotone" />
                 </div>
 
                 <div className="relative z-10">

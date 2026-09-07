@@ -14,25 +14,9 @@ import {
   phases,
   reimbursementServices,
 } from "@/content/reimbursement";
-import {
-  Lightbulb,
-  ChartBar,
-  Users,
-  CheckCircle,
-  Files,
-  Calculator,
-  UsersThree,
-  Info,
-  Scales,
-} from "@phosphor-icons/react/dist/ssr";
+import { CheckCircle } from "@phosphor-icons/react/dist/ssr";
+import { Mark } from "@/components/primitives/mark";
 import { breadcrumbSchema, serviceSchema } from "@/lib/schema";
-
-const phaseIcons = [Lightbulb, ChartBar, Users, CheckCircle];
-const serviceIconMap: Record<string, React.ElementType> = {
-  Files,
-  Calculator,
-  UsersThree,
-};
 
 export const metadata: Metadata = {
   title: "Health product assessment and benefit listing",
@@ -137,7 +121,7 @@ export default function ReimbursementPage() {
                 */}
                 <div className="overflow-hidden">
                   <FigurePlate
-                    icon={Scales}
+                    icon="accessChain"
                     label="The access chain"
                     field="grid"
                     tone="sunk"
@@ -216,7 +200,6 @@ export default function ReimbursementPage() {
         </Reveal>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
           {reimbursementServices.map((service) => {
-            const ServiceIcon = serviceIconMap[service.icon] || Files;
             return (
               <Reveal
                 key={service.name}
@@ -227,7 +210,7 @@ export default function ReimbursementPage() {
                   className="pointer-events-none absolute -bottom-6 -right-6 text-ink-900/[0.035] dark:text-stamp-400/[0.06] transition-all duration-500 ease-out group-hover:text-stamp-700/[0.08] dark:group-hover:text-stamp-400/[0.12] group-hover:scale-105 group-hover:-rotate-3"
                   aria-hidden
                 >
-                  <ServiceIcon size={150} weight="duotone" />
+                  <Mark name={service.icon} size={150} weight="duotone" />
                 </div>
 
                 <div className="relative z-10 flex flex-col">
@@ -249,7 +232,7 @@ export default function ReimbursementPage() {
         {/* Required verbatim per 01 D-04. */}
         <div className="mt-12 flex items-start gap-4 max-w-[64ch] border-t border-rule/70 pt-6">
           <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-paper-sunk border border-rule/80 text-stamp-600">
-            <Info size={14} weight="bold" aria-hidden />
+            <Mark name="advisoryNote" size={14} weight="bold" />
           </div>
           <p className="t-body-sm m-0 text-ink-600 font-light leading-relaxed">
             <strong className="font-medium text-ink-900">Regulatory Advisory: </strong>
@@ -299,8 +282,7 @@ export default function ReimbursementPage() {
         </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {phases.map((phase, index) => {
-            const PhaseIcon = phaseIcons[index % phaseIcons.length];
+          {phases.map((phase) => {
             return (
               <Reveal 
                 key={phase.n} 
@@ -311,7 +293,7 @@ export default function ReimbursementPage() {
                   className="pointer-events-none absolute -bottom-6 -right-6 text-ink-900/[0.035] dark:text-stamp-400/[0.06] transition-all duration-500 ease-out group-hover:text-stamp-700/[0.08] dark:group-hover:text-stamp-400/[0.12] group-hover:scale-105 group-hover:-rotate-3"
                   aria-hidden
                 >
-                  <PhaseIcon size={145} weight="duotone" />
+                  <Mark name={phase.icon} size={145} weight="duotone" />
                 </div>
 
                 <div className="relative z-10 flex flex-1 flex-col justify-between">
@@ -332,7 +314,7 @@ export default function ReimbursementPage() {
                         <span>{phase.deliverable}</span>
                       </p>
                     ) : (
-                      <p className="inline-flex items-center gap-2 text-[0.8125rem] font-light text-ink-400 leading-snug m-0 italic">
+                      <p className="inline-flex items-center gap-2 text-[0.8125rem] font-light text-ink-400 leading-snug m-0">
                         <span className="h-1.5 w-1.5 rounded-full bg-stamp-500/50" aria-hidden />
                         <span>End-to-end review determination</span>
                       </p>

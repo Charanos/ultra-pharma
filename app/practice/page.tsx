@@ -8,15 +8,9 @@ import { TeamCard } from "@/components/content/team-card";
 import { JsonLd } from "@/components/primitives/json-ld";
 import { team } from "@/content/team";
 import { breadcrumbSchema } from "@/lib/schema";
-import {
-  ArrowRight,
-  ShieldCheck,
-  FileText,
-  Files,
-  Users,
-  GlobeHemisphereEast,
-  CheckCircle,
-} from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { Mark } from "@/components/primitives/mark";
+import type { IconName } from "@/lib/icons";
 
 const railSections = ["01", "02", "03", "04"];
 
@@ -39,30 +33,63 @@ export const metadata: Metadata = {
   alternates: { canonical: "/practice" },
 };
 
-const principles = [
+const principles: readonly {
+  title: string;
+  description: string;
+  icon: IconName;
+}[] = [
   {
     title: "No Blind Forwarding",
     description:
       "Every regulatory query from the Pharmacy and Poisons Board is thoroughly analyzed with recommended solutions and draft responses before reaching your desk.",
-    Icon: FileText,
+    icon: "analysedQueries",
   },
   {
     title: "Accountable Named Leads",
     description:
       "Engagements are led by qualified regulatory pharmacists with deep therapeutic category experience, not passed down to junior account handlers.",
-    Icon: Users,
+    icon: "namedLead",
   },
   {
     title: "Financing & HTA Synergy",
     description:
       "We connect market authorization directly to Social Health Authority (SHA) and BPTAP reimbursement pathways so products become commercially funded.",
-    Icon: ShieldCheck,
+    icon: "financingSynergy",
   },
   {
     title: "EAC Regional Harmonisation",
     description:
       "Submissions are architected to leverage Kenyan approvals for mutual recognition and joint assessments across Uganda, Tanzania, and Rwanda.",
-    Icon: GlobeHemisphereEast,
+    icon: "regionalHarmonisation",
+  },
+];
+
+/**
+ * The three method commitments. Each is a different promise, so each carries a
+ * different mark rather than three identical ticks.
+ */
+const commitments: readonly {
+  title: string;
+  description: string;
+  icon: IconName;
+}[] = [
+  {
+    title: "Pre-Submission CTD Audits",
+    description:
+      "Complete module-by-module compliance audit before submission fees are incurred.",
+    icon: "preSubmissionAudit",
+  },
+  {
+    title: "Live Document Register",
+    description:
+      "Transparent status tracking covering every query, document iteration, and milestone date.",
+    icon: "documentRegister",
+  },
+  {
+    title: "Active Regulatory Representation",
+    description:
+      "Direct technical liaison with committee evaluators during formal board sittings.",
+    icon: "boardRepresentation",
   },
 ];
 
@@ -107,24 +134,22 @@ export default function PracticePage() {
             </Reveal>
 
             <div className="mt-8 flex flex-col gap-4 border-t border-rule/80 pt-6">
-              <div className="flex items-start gap-3">
-                <CheckCircle size={20} weight="duotone" className="text-stamp-600 shrink-0 mt-0.5" aria-hidden />
-                <p className="t-body-sm m-0 text-ink-700 font-light">
-                  <strong className="font-medium text-ink-900">Pre-Submission CTD Audits:</strong> Complete module-by-module compliance audit before submission fees are incurred.
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <CheckCircle size={20} weight="duotone" className="text-stamp-600 shrink-0 mt-0.5" aria-hidden />
-                <p className="t-body-sm m-0 text-ink-700 font-light">
-                  <strong className="font-medium text-ink-900">Live Document Register:</strong> Transparent status tracking covering every query, document iteration, and milestone date.
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <CheckCircle size={20} weight="duotone" className="text-stamp-600 shrink-0 mt-0.5" aria-hidden />
-                <p className="t-body-sm m-0 text-ink-700 font-light">
-                  <strong className="font-medium text-ink-900">Active Regulatory Representation:</strong> Direct technical liaison with committee evaluators during formal board sittings.
-                </p>
-              </div>
+              {commitments.map((commitment) => (
+                <div key={commitment.title} className="flex items-start gap-3">
+                  <Mark
+                    name={commitment.icon}
+                    size={20}
+                    weight="duotone"
+                    className="text-stamp-600 shrink-0 mt-0.5"
+                  />
+                  <p className="t-body-sm m-0 text-ink-700 font-light">
+                    <strong className="font-medium text-ink-900">
+                      {commitment.title}:
+                    </strong>{" "}
+                    {commitment.description}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -138,7 +163,7 @@ export default function PracticePage() {
                 */}
                 <div className="overflow-hidden">
                   <FigurePlate
-                    icon={Files}
+                    icon="ctdDossier"
                     label="CTD dossier"
                     title="Five modules, audited before a fee is paid"
                     markSize={220}
@@ -199,7 +224,7 @@ export default function PracticePage() {
                 className="pointer-events-none absolute -bottom-5 -right-5 text-ink-900/[0.04] dark:text-stamp-400/[0.07] transition-all duration-500 ease-out group-hover:text-stamp-700/[0.12] dark:group-hover:text-stamp-400/[0.16] group-hover:scale-105 group-hover:-rotate-3"
                 aria-hidden
               >
-                <principle.Icon size={145} weight="duotone" />
+                <Mark name={principle.icon} size={145} weight="duotone" />
               </div>
 
               <div className="relative z-10">

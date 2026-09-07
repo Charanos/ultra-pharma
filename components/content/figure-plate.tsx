@@ -1,4 +1,6 @@
-import type { ElementType, ReactNode } from "react";
+import type { ReactNode } from "react";
+import { Mark } from "@/components/primitives/mark";
+import type { IconName } from "@/lib/icons";
 import { cn } from "@/lib/utils";
 
 /**
@@ -29,8 +31,11 @@ const aspects = {
 export type PlateAspect = keyof typeof aspects;
 
 export type FigurePlateProps = {
-  /** A Phosphor icon, rendered duotone at watermark weight. `04 §9`. */
-  readonly icon: ElementType;
+  /**
+   * The concept this plate stands for, resolved through the registry and drawn
+   * duotone at watermark weight. `04 §9`.
+   */
+  readonly icon: IconName;
   /** Mono eyebrow. The category this plate stands for. */
   readonly label?: string;
   /** Mono index, set at figure size. Only where the thing is numbered. */
@@ -59,7 +64,7 @@ export type FigurePlateProps = {
  * labels the category, the index numbers the stage, the note carries a fact.
  */
 export function FigurePlate({
-  icon: Icon,
+  icon,
   label,
   index,
   title,
@@ -78,12 +83,7 @@ export function FigurePlate({
       className={cn("plate", `plate-${tone}`, aspect && aspects[aspect], className)}
     >
       <span aria-hidden className={cn("plate-field", `plate-field-${field}`)} />
-      <Icon
-        aria-hidden
-        weight="duotone"
-        size={markSize}
-        className="plate-mark"
-      />
+      <Mark name={icon} weight="duotone" size={markSize} className="plate-mark" />
 
       <div className="plate-body">
         <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">

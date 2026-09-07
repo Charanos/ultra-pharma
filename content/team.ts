@@ -1,3 +1,5 @@
+import { site } from "./site";
+
 /**
  * Typographic fallback per `04 §8`. No stock portraits: an image of an
  * identifiable person implying they work here is a lie, and an honest gap reads
@@ -6,6 +8,16 @@
  * firm supplies real photographs, which drop in through `avatar`. Add `name`,
  * `credentials` and `linkedin` as the firm supplies them and the cards render
  * them without further change.
+ *
+ * `verified` separates the one real entry from the rest. James Kamindo is the
+ * firm's own point of contact and his card carries only what the contact page
+ * already publishes: a name, a role and the published email. No credentials are
+ * asserted for him, because none have been supplied and inventing them for a
+ * real person is the failure this file exists to avoid.
+ *
+ * **The other three entries are demo data.** Fabricated names and credentials,
+ * kept at the client's instruction for presentation, to be replaced with real
+ * people before the site reaches a real audience.
  */
 export type TeamMember = {
   readonly initials: string;
@@ -14,15 +26,19 @@ export type TeamMember = {
   readonly credentials?: string;
   readonly linkedin?: string;
   readonly avatar?: string;
+  /** A published address for this person. Rendered as a direct contact link. */
+  readonly email?: string;
+  /** True only where the person, role and contact detail are confirmed. */
+  readonly verified?: boolean;
 };
 
 export const team: readonly TeamMember[] = [
   {
-    initials: "JM",
-    name: "Dr. Joyce Mwangi",
-    role: "Regulatory affairs lead",
-    credentials: "BPharm, MSc Reg Affairs · 14 yrs PPB experience",
-    linkedin: "https://linkedin.com",
+    initials: "JK",
+    name: "James Kamindo",
+    role: "Principal contact",
+    email: site.email,
+    verified: true,
   },
   {
     initials: "EO",

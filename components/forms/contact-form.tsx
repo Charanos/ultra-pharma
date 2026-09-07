@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
-import { CircleNotch, SealCheck, Warning, ArrowRight } from "@phosphor-icons/react";
+import { CheckCircle, CircleNotch, PaperPlaneTilt, WarningCircle } from "@phosphor-icons/react";
 import { site } from "@/content/site";
 
 type Status = "idle" | "submitting" | "error" | "sent";
@@ -62,7 +62,7 @@ export function ContactForm() {
         className="flex min-h-[420px] flex-col items-center justify-center gap-4 text-center p-6"
       >
         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-stamp-wash text-stamp-600 border border-stamp-500/20">
-          <SealCheck size={32} weight="duotone" aria-hidden />
+          <CheckCircle size={32} weight="duotone" aria-hidden />
         </div>
         <h3 className="m-0 font-display text-2xl font-medium text-ink-900">
           Message received
@@ -96,7 +96,7 @@ export function ContactForm() {
           role="alert"
           className="flex items-start gap-3 rounded-xl border border-signal-blocked/40 bg-signal-blocked/10 p-4 text-ink-900"
         >
-          <Warning size={20} weight="duotone" className="mt-0.5 shrink-0 text-signal-blocked" aria-hidden />
+          <WarningCircle size={20} weight="duotone" className="mt-0.5 shrink-0 text-signal-blocked" aria-hidden />
           <p className="t-body-sm m-0 text-xs leading-relaxed">
             Message could not be sent. All entered details are preserved.{" "}
             {attempts >= 2 ? (
@@ -194,7 +194,9 @@ export function ContactForm() {
           ) : (
             <>
               <span>Send enquiry</span>
-              <ArrowRight
+              {/* The one send button on the site, so it gets the send glyph
+                  rather than the arrow every other control carries. */}
+              <PaperPlaneTilt
                 size={16}
                 weight="bold"
                 className="transition-transform duration-200 group-hover:translate-x-1"

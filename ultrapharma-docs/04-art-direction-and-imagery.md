@@ -225,7 +225,7 @@ Photographs make an abstract service feel real. Icons label and classify. A sect
 
 Phosphor, weight assignments in `03 §8`. Rules:
 
-- One icon per labelled thing. Never an icon beside a heading purely for visual interest.
+- One icon per labelled thing. Never an icon beside a heading purely for visual interest. **As shipped, this is enforced rather than trusted**: `lib/icons.ts` binds each concept to exactly one icon, and `npm run lint:icons` fails the build on a duplicate binding or on a Phosphor icon imported outside the registry. Controls and state glyphs are exempt by name. See `DESIGN-SOURCE.md`, round four.
 - Icons never appear in the hero, the numbered entries, or over photographs. **As shipped, all three are now deliberate exceptions**, confirmed during the refinement pass: the hero's two call-to-action buttons carry a directional arrow (a standard, functional pattern used on every button sitewide, not hero-specific decoration); the hero stages ribbon sits over the hero photograph with an icon per stage; `NumberedEntry` is icon-led, per `03 §11`. See `DESIGN-SOURCE.md`.
 - Icon size is tied to role: 16 to 32px inline or in a badge, up to 500px as a low-opacity decorative background watermark on a card (`03 §8`).
 - Icons take `--ink-500` by default and `--stamp-600` only when marking the active pathway stage, an accent badge, or a decorative watermark.
