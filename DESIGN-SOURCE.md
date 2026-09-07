@@ -70,3 +70,65 @@ Objective defects, corrected rather than logged as taste:
 - The hero image's declared dimensions (2400×1600) didn't match the asset's real dimensions (4252×3145); corrected so `sizes`-based responsive selection works from accurate metadata.
 - An unused `media.divider` entry (superseded when the homepage divider was changed to reuse the hero photograph) still surfaced on the `/legal/terms` photo-credits list, crediting an image no longer shown anywhere. Removed.
 - The reimbursement "how we work" lede described the process ending in formal panel "submission and defense," implying a specific confirmed procedural step beyond what `01 §4` verifies. Softened to "submission and the review process that follows."
+
+## Round three: the imagery pass
+
+The client asked for the stock photography to come out. `04 §1` already
+anticipated the failure mode ("the reflexive fix, dropping a stock photograph
+into every section, produces something worse") and `04 §8` already prescribed
+the typographic fallback for portraits, so this is the documented position
+rather than a reversal of it.
+
+Ten of the eleven photographs are gone. What replaced them is not an absence:
+each slot is now **drawn** in the design system's own vocabulary, at the same
+geometry and visual weight the photograph held, so the page proportions the
+canvas set are unchanged.
+
+| Slot | Was | Is |
+|---|---|---|
+| Homepage hero | `public/hero-bg.jpg`, the firm's own asset | Unchanged. The one photograph on the site |
+| Homepage full-bleed divider | The hero asset, reused | Unchanged. The single photographic breath in a long page |
+| Homepage reimbursement band | P3 care, capsules | `FundsDiagram`: the three SHA funds as a ruled diagram, per the `04 §10` exception |
+| Homepage services, four stage cards | P1/P4/P3/P5 thumbnails, 3:2 | `FigurePlate` at 5:2, carrying the stage index and the stage's own question |
+| Homepage and `/insights` article cards | P2 document thumbnails | `InsightPlate`: one drawn cover per category, icon and ruling fixed per category |
+| `/insights/[slug]` lead image | P2 document, 16:9 | Removed. It illustrated nothing specific, which `04 §1` says is grounds for removal |
+| `/practice` office | P4 place, stock office interior | `FigurePlate`: the five CTD modules as a dossier index |
+| `/contact` location | P4 place, Nairobi skyline | `FigurePlate`: a graticule field, the pin, and the city coordinate |
+| `/services/reimbursement` | P3 care, consultation | `FigurePlate`: the access chain, Registered to Assessed to Listed to Funded |
+| Proof block portraits | Unsplash portraits of strangers | The monogram treatment `04 §8` asked for in the first place |
+
+### The plate
+
+`components/content/figure-plate.tsx`. A plate is a ruled ground, one Phosphor
+duotone icon at watermark weight, and mono and display type. Four fields, one
+per job, so no page repeats a ruling twice in a row: `grid` for anything
+structural, `ledger` for anything documentary, `graticule` for place, `hatch`
+for texture. Every value in it is a token, so both themes come from one
+definition and there is no second asset to grade.
+
+Two consequences worth recording:
+
+- **The aspect is a class, not an inline style.** The motion layer clears
+  inline styles on `[data-media-in]` for a visitor with reduced motion set, and
+  a plate has no intrinsic size to fall back on the way an image does.
+- **No image on the site is remote any more.** The Unsplash entry in
+  `next.config.ts` `images.remotePatterns` is gone, so a stock URL cannot
+  quietly return. The photography credits block on `/legal/terms` renders from
+  `photoCredits` and does not render at all while there is no third-party
+  photograph to credit, which is the state the site ships in.
+
+### Default theme
+
+`defaultTheme="light"`, `enableSystem={false}` in `app/layout.tsx`. The palette
+and the plates are authored light-first, so a first visit lands on light
+whatever the operating system is set to. Dark remains a deliberate choice made
+with the toggle, and is remembered from then on.
+
+### What this closes, and what it does not
+
+Closes: the highest-priority pre-launch item in the round-two table. There are
+no fabricated portraits on the site.
+
+Does not close: `content/team.ts` still carries four fabricated names,
+credentials and LinkedIn links as demo data for a presentation. **That must
+still be replaced with real people before the site reaches a real audience.**

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Clock, Calendar, Tag } from "@phosphor-icons/react/dist/ssr";
-import { FigureImage } from "@/components/content/figure-image";
 import { JsonLd } from "@/components/primitives/json-ld";
 import { insights, getInsight } from "@/content/insights";
 import { articleSchema, breadcrumbSchema } from "@/lib/schema";
@@ -108,16 +107,6 @@ export default async function InsightPage({ params }: { params: Promise<Params> 
           
           {/* Main Article Content Column (8 cols) */}
           <div className="lg:col-span-8 flex flex-col">
-            <div className="overflow-hidden rounded-[24px] border border-rule/70 bg-paper-sunk shadow-xs mb-10">
-              <FigureImage
-                media={post.image}
-                sizes="(max-width: 1024px) 100vw, 900px"
-                aspect="16/9"
-                className="rounded-none shadow-none"
-                priority
-              />
-            </div>
-
             <p className="t-lede font-normal text-ink-900 leading-relaxed border-l-2 border-stamp-600 pl-6 py-1 my-6 text-[1.1875rem] max-w-[70ch]">
               {post.description}
             </p>

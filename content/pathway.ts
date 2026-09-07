@@ -1,5 +1,3 @@
-import { media, type Media } from "./media";
-
 /** Phosphor icon names, fixed per `03 §8` so meaning stays stable. */
 export type StageIcon =
   | "SealCheck"
@@ -16,7 +14,6 @@ export type Stage = {
   readonly href: string;
   readonly blurb: string;
   readonly deliverables: readonly string[];
-  readonly image: Media;
   /** Homepage services grid: 7 and 5 alternating at lg. */
   readonly span: 7 | 5;
 };
@@ -36,7 +33,6 @@ export const stages: readonly Stage[] = [
       "Submissions and eCTD",
       "Compliance and quality systems",
     ],
-    image: media.stage01,
     span: 7,
   },
   {
@@ -49,7 +45,6 @@ export const stages: readonly Stage[] = [
     blurb:
       "Taking a registered product into additional markets without rebuilding the dossier each time.",
     deliverables: ["Multi-market dossiers", "Local adaptation", "Expedited pathways"],
-    image: media.stage02,
     span: 5,
   },
   {
@@ -62,7 +57,6 @@ export const stages: readonly Stage[] = [
     blurb:
       "Building the evidence that supports inclusion in the national benefits package, so an approved product becomes a funded one.",
     deliverables: ["HTA dossiers", "Economic modelling", "SHA and BPTAP engagement"],
-    image: media.stage03,
     span: 5,
   },
   {
@@ -75,7 +69,6 @@ export const stages: readonly Stage[] = [
     blurb:
       "Sustaining a product's value after approval, from variations and renewals to broadening an approved indication.",
     deliverables: ["Post-approval monitoring", "Label expansion", "Portfolio strategy"],
-    image: media.stage04,
     span: 7,
   },
 ];

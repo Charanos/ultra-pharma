@@ -72,10 +72,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <MotionProvider />
+        {/*
+          Light is the default. The palette, the paper grounds and the graded
+          plates are all authored light-first, so a first visit lands there
+          regardless of the operating system setting. Dark stays a deliberate
+          choice, made with the toggle and remembered from then on.
+        */}
         <ThemeProvider
           attribute="data-theme"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
           <a href="#main" className="skip-link">

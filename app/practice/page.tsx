@@ -3,22 +3,34 @@ import Link from "next/link";
 import { Section, SectionIndex } from "@/components/structure/section";
 import { IndexRail } from "@/components/structure/index-rail";
 import { Reveal } from "@/components/primitives/reveal";
-import { FigureImage } from "@/components/content/figure-image";
+import { FigurePlate } from "@/components/content/figure-plate";
 import { TeamCard } from "@/components/content/team-card";
 import { JsonLd } from "@/components/primitives/json-ld";
 import { team } from "@/content/team";
-import { media } from "@/content/media";
 import { breadcrumbSchema } from "@/lib/schema";
 import {
   ArrowRight,
   ShieldCheck,
   FileText,
+  Files,
   Users,
   GlobeHemisphereEast,
   CheckCircle,
 } from "@phosphor-icons/react/dist/ssr";
 
 const railSections = ["01", "02", "03", "04"];
+
+/**
+ * The Common Technical Document, the structure every submission is built
+ * against. Public standard, so it is safe to state and useful to show.
+ */
+const ctdModules = [
+  { n: "M1", name: "Regional" },
+  { n: "M2", name: "Summaries" },
+  { n: "M3", name: "Quality" },
+  { n: "M4", name: "Nonclinical" },
+  { n: "M5", name: "Clinical" },
+] as const;
 
 export const metadata: Metadata = {
   title: "Practice & Operating Standard",
@@ -119,17 +131,42 @@ export default function PracticePage() {
           <div className="order-2 lg:order-1 lg:col-span-6">
             <Reveal>
               <div className="overflow-hidden rounded-[26px] border border-rule/80 bg-paper-raised shadow-xs">
-                <div className="overflow-hidden bg-paper-sunk">
-                  <FigureImage
-                    media={media.practice}
-                    sizes="(max-width: 1024px) 100vw, 50vw"
+                {/*
+                  A stock office interior said nothing about how the work is
+                  done. The dossier does: five CTD modules, the structure every
+                  submission is built and audited against.
+                */}
+                <div className="overflow-hidden">
+                  <FigurePlate
+                    icon={Files}
+                    label="CTD dossier"
+                    title="Five modules, audited before a fee is paid"
+                    markSize={220}
+                    field="ledger"
+                    tone="sunk"
                     aspect="3/2"
-                    className="rounded-none shadow-none"
-                  />
+                    className="rounded-none"
+                  >
+                    <ul className="m-0 flex list-none flex-col p-0">
+                      {ctdModules.map((module) => (
+                        <li
+                          key={module.n}
+                          className="flex items-baseline justify-between gap-4 border-t border-rule/70 py-2 first:border-t-0"
+                        >
+                          <span className="t-body-sm font-light text-ink-700">
+                            {module.name}
+                          </span>
+                          <span className="font-mono text-[0.75rem] text-stamp-700">
+                            {module.n}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </FigurePlate>
                 </div>
                 <div className="p-6 border-t border-rule/70 flex items-center justify-between text-xs font-mono text-ink-500">
-                  <span>Nairobi Regulatory Office</span>
-                  <span className="text-stamp-700 font-medium">Direct PPB & SHA Liaison Hub</span>
+                  <span>Gap analysis to filing plan</span>
+                  <span className="text-stamp-700 font-medium">Against active PPB CTD guidelines</span>
                 </div>
               </div>
             </Reveal>

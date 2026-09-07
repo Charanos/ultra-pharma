@@ -3,7 +3,10 @@ import Image from "next/image";
 import type { TeamMember } from "@/content/team";
 
 /**
- * Team card with demo portrait avatar, role, and credentials.
+ * Team card. The monogram is the standard treatment, not a placeholder: a
+ * stock portrait of a stranger standing in for a named colleague is a lie,
+ * `04 §8`. A real supplied photograph renders through `avatar` when the firm
+ * has one.
  */
 export function TeamCard({ member }: { readonly member: TeamMember }) {
   return (
@@ -23,7 +26,7 @@ export function TeamCard({ member }: { readonly member: TeamMember }) {
           />
         </div>
       ) : (
-        <div className="flex h-16 w-16 items-center justify-center rounded-full border border-rule bg-paper-sunk font-mono text-[0.875rem] font-medium tracking-wider text-stamp-700 transition-all duration-300 group-hover:border-stamp-600/30 group-hover:bg-stamp-wash/40">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full border border-stamp-600/25 bg-stamp-wash/70 font-mono text-[0.9375rem] font-medium tracking-[0.08em] text-stamp-700 shadow-xs transition-all duration-300 group-hover:border-stamp-600/50 group-hover:bg-stamp-wash">
           {member.initials}
         </div>
       )}

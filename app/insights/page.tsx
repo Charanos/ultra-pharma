@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FigureImage } from "@/components/content/figure-image";
+import { InsightPlate } from "@/components/content/insight-plate";
 import { JsonLd } from "@/components/primitives/json-ld";
 import { insights } from "@/content/insights";
 import { breadcrumbSchema } from "@/lib/schema";
@@ -73,18 +73,14 @@ export default function InsightsPage() {
             </div>
 
             <article className="group relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center rounded-[28px] border border-rule/90 bg-paper-raised p-6 lg:p-10 shadow-xs transition-all duration-300 hover:border-rule-strong hover:shadow-card">
-              <div className="lg:col-span-7 overflow-hidden rounded-[20px] border border-rule/60 bg-paper-sunk">
-                <FigureImage
-                  media={featuredPost.image}
-                  sizes="(max-width: 1024px) 100vw, 55vw"
-                  aspect="16/9"
-                  className="rounded-none shadow-none"
-                  imgClassName="transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                  priority
-                />
+              <div className="lg:col-span-4 overflow-hidden rounded-[20px] border border-rule/60">
+                <InsightPlate post={featuredPost} size="feature" />
               </div>
 
-              <div className="lg:col-span-5 flex flex-col justify-between h-full py-2">
+              {/* Centred against the cover rather than stretched to it, so the
+                  block reads as a caption to the cover, not as a column with a
+                  hole in the middle. */}
+              <div className="lg:col-span-8 flex flex-col py-2">
                 <div>
                   <div className="flex items-center gap-3">
                     <span className="stamp-pill text-[0.6875rem] py-0.5 px-2.5 font-medium leading-none">
@@ -138,14 +134,8 @@ export default function InsightsPage() {
                 className="group relative flex flex-col justify-between rounded-[24px] border border-rule/80 bg-paper-raised p-6 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-rule-strong hover:shadow-card"
               >
                 <div>
-                  <div className="overflow-hidden rounded-[18px] border border-rule/60 bg-paper-sunk">
-                    <FigureImage
-                      media={post.image}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      aspect="16/9"
-                      className="rounded-none shadow-none"
-                      imgClassName="transition-transform duration-500 ease-out group-hover:scale-[1.04]"
-                    />
+                  <div className="overflow-hidden rounded-[18px] border border-rule/60">
+                    <InsightPlate post={post} />
                   </div>
 
                   <div className="mt-5 flex items-center justify-between gap-2">
